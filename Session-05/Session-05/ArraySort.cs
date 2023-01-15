@@ -19,7 +19,6 @@ namespace Session_05
                 {
                     if (arrayToSort[j] > arrayToSort[j + 1])
                     {
-                        // swap temp and arr[i]
                         temp = arrayToSort[j];
                         arrayToSort[j] = arrayToSort[j + 1];
                         arrayToSort[j + 1] = temp;
