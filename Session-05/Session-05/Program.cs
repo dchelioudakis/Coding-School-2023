@@ -6,12 +6,12 @@ using Session_05;
 
 Console.WriteLine("Exercise #1");
 NameReverse myName = new NameReverse();
-Console.WriteLine(myName.Reverse());
+Console.WriteLine(String.Format("My name reversed is: {0}", myName.Reverse()));
 
 
 // Exercise #2
 
-Console.WriteLine("Exercise #2");
+Console.WriteLine(Environment.NewLine + "Exercise #2");
 string userNumber;
 do
 {
@@ -42,7 +42,7 @@ else
 
 // Exercise #3
 
-Console.WriteLine("Exercise #3");
+Console.WriteLine(Environment.NewLine + "Exercise #3");
 
 do
 {
@@ -52,6 +52,20 @@ do
 
 PrimeNumbers userPrimeNumbers = new PrimeNumbers();
 userPrimeNumbers.number = Convert.ToInt32(userNumber);
-Console.WriteLine(userPrimeNumbers.Calculate());
+Console.WriteLine(String.Format("Prime Numbers from 1 to {0} are: {1}", userNumber, userPrimeNumbers.Calculate()));
+
+
+// Exercise #4
+
+Console.WriteLine(Environment.NewLine + "Exercise #4");
+ArrayMultiplication myArrays = new ArrayMultiplication();
+Console.WriteLine(String.Format("New Array is: {0}", myArrays.Get()));
+
+// Exercise #5
+
+Console.WriteLine(Environment.NewLine + "Exercise #5");
+Console.WriteLine("Sorted Array is:");
+ArraySort mySort = new ArraySort();
+Console.WriteLine(mySort.Sort());
 
 Console.ReadLine();
