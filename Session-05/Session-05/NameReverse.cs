@@ -12,7 +12,7 @@ namespace Session_05
         public string Reverse()
         {
             string name = "Dimitris";
-            string reversedName = "";
+            string reversedName;
             StringBuilder mySb = new StringBuilder();
 
             for (int i = name.Length-1; i >= 0; i--)
