@@ -26,7 +26,7 @@ namespace Session_06 {
         public void Teach(Course course, DateTime datetime) {
 
         }
-        public void SetGrade(Guid studentId, Guid courseId, int grade) {
+        public void SetGrade(int studentId, int courseId, int grade) {
 
         }
         public void GetName() {

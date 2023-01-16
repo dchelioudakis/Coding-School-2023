@@ -42,7 +42,7 @@ namespace Session_06 {
         public void GetGrades() {
 
         }
-        public void SetSchedule(Guid courseId, Guid professorId, DateTime datetime) {
+        public void SetSchedule(int courseId, int professorId, DateTime datetime) {
 
         }
     }
