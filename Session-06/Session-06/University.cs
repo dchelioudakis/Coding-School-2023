@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Session_06 {
     public class University : Institute {
-        public Student[] Students { get; set; }
-        public Course[] Courses { get; set; }
-        public Grade[] Grades { get; set; }
-        public Schedule[] Schedules { get; set; }
+        public Student[]? Students { get; set; }
+        public Course[]? Courses { get; set; }
+        public Grade[]? Grades { get; set; }
+        public Schedule[]? ScheduledCourse { get; set; }
 
         public University() {
 
@@ -30,13 +30,13 @@ namespace Session_06 {
             Students = students;
             Courses = courses;
             Grades = grades;
-            Schedules = schedules;
+            ScheduledCourse = schedules;
         }
         public University(Guid id, string name, Student[] students, Course[] courses, Grade[] grades, Schedule[] schedules) : base(id, name) {
             Students = students;
             Courses = courses;
             Grades = grades;
-            Schedules = schedules;
+            ScheduledCourse = schedules;
         }
 
 

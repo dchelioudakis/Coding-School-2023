@@ -10,7 +10,7 @@ namespace Session_06 {
         public Guid ID { get; set; }
         public Guid StudentID { get; set; }
         public Guid CourseID { get; set; }
-        public int GradeVal { get; set; }
+        public int? GradeVal { get; set; }
 
         public Grade() {
 

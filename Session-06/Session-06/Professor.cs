@@ -8,15 +8,13 @@ namespace Session_06 {
     public class Professor : Person{
 
         public string? Rank { get; set; }
-        public Course[] Courses { get; set; }
+        public Course[]? Courses { get; set; }
 
-        public Professor() {
-
-        }
+        public Professor() {}
         public Professor(string rank) {
-            Rank= rank;
+            Rank = rank;
         }
-        public Professor(string rank, Course[] courses) {
+        public Professor(string? rank, Course[] courses) {
             Rank = rank;
             Courses = courses;
         }

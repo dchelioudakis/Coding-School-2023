@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 namespace Session_06 {
     public class Course {
         public Guid ID { get; set; }
-        public string Code { get; set; }
-        public string Subject { get; set; }
+        public string? Code { get; set; }
+        public string? Subject { get; set; }
 
-        public Course() {
-
-        }
+        public Course() {}
         public Course(Guid id) {
             ID = id;
         }
