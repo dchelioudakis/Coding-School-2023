@@ -32,7 +32,14 @@ namespace Session_06 {
             Grades = grades;
             Schedules = schedules;
         }
-    
+        public University(Guid id, string name, Student[] students, Course[] courses, Grade[] grades, Schedule[] schedules) : base(id, name) {
+            Students = students;
+            Courses = courses;
+            Grades = grades;
+            Schedules = schedules;
+        }
+
+
         public void getStudents() {
 
         }

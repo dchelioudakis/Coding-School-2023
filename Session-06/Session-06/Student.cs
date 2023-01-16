@@ -19,6 +19,10 @@ namespace Session_06 {
             RegistrationNumber = registrationNumber;
             Courses = courses;
         }
+        public Student(Guid id, string name, int age, int registrationNumber, Course[] courses) : base(id, name, age){
+            RegistrationNumber = registrationNumber;
+            Courses = courses;
+        }
 
         public void Attend(Course course, DateTime datetime) {
         }
