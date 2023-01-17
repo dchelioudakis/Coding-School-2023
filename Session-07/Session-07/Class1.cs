@@ -26,7 +26,7 @@ namespace Session_07 {
     }
 
     public class MessageLogger {
-        public Message[] Messages { get; set; }
+        public Message[]? Messages { get; set; }
 
         //CTOR
         public MessageLogger() {
@@ -39,12 +39,18 @@ namespace Session_07 {
             }
         }
         public void Clear() {
-            foreach (var message in Messages) {
-                Console.WriteLine(message.Msg);
+            for (int i = 0; i < Messages.Length; i++) {
+                if (Messages[i] != null) {
+                    Messages[i] = null;
+                }
             }
         }
         public void Write(Message message) {
-            
+            for (int i = 0; i < Messages.Length; i++) {
+                if (Messages[i] != null) {
+                    Messages[i] = message;
+                }
+            }
         }
     }
 
@@ -79,8 +85,8 @@ namespace Session_07 {
         public MessageLogger Logger { get; set; }
 
         // CTOR
-        public ActionResolver() {
-
+        public ActionResolver(MessageLogger messageLogger) {
+            Logger = messageLogger;
         }
 
         // METHODS

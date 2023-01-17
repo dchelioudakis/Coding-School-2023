@@ -7,13 +7,18 @@ ActionEnum actionEnum = ActionEnum.Convert;
 
 ActionRequest request = new ActionRequest(requestId, input, actionEnum);
 ActionResponse response = new ActionResponse(requestId);
+
 MessageLogger messageLogger = new MessageLogger();
 
-var a = 5;
-
-
-
-//ActionResolver resolver = new ActionResolver();
+ActionResolver resolver = new ActionResolver(messageLogger);
 
 //response = resolver.Execute(request);
+
+
+
+Console.ReadLine();
+
+
+
+
 
