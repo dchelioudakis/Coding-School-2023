@@ -34,6 +34,8 @@ namespace Session_07 {
             ActionResponse actionResponse = new ActionResponse();
             actionResponse.RequestID = requestId;
 
+            Message msgToLog = new Message();
+
 
             switch (actionEnum) {
                 case ActionEnum.Convert: {

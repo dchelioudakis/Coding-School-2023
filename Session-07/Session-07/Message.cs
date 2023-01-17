@@ -10,10 +10,9 @@ namespace Session_07 {
         public DateTime TimeStamp { get; set; }
         public string Msg { get; set; }
 
-        public Message(string msg) {
+        public Message() {
             ID = Guid.NewGuid();
             TimeStamp = DateTime.Now;
-            Msg = msg;
         }
     }
 }
