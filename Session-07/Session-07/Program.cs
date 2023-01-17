@@ -1,10 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Session_07;
 
-ActionRequest request = new ActionRequest();
-ActionResponse response = new ActionResponse();
+Guid requestId = Guid.NewGuid();
+string? input = "Dimitris";
+ActionEnum actionEnum = ActionEnum.Convert;
 
-ActionResolver resolver = new ActionResolver();
+ActionRequest request = new ActionRequest(requestId, input, actionEnum);
+ActionResponse response = new ActionResponse(requestId);
+MessageLogger messageLogger = new MessageLogger();
 
-response = resolver.Execute(request);
+var a = 5;
+
+
+
+//ActionResolver resolver = new ActionResolver();
+
+//response = resolver.Execute(request);
 
