@@ -34,8 +34,8 @@ namespace Session_07 {
             ActionResponse actionResponse = new ActionResponse();
             actionResponse.RequestID = requestId;
 
-            Message msgToLog = new Message();
-
+            StringBuilder sbForLog = new StringBuilder();
+            sbForLog.AppendLine(actionEnum.ToString());
 
             switch (actionEnum) {
                 case ActionEnum.Convert: {
@@ -98,8 +98,14 @@ namespace Session_07 {
                         break;
                 }
             }
+            sbForLog.AppendLine(actionResponse.Output);
+
+            Message msgToLog = new Message();
+            msgToLog.Msg = sbForLog.ToString();
 
 
+            this.Logger.Write(msgToLog);
+            
 
             return actionResponse;
         }
