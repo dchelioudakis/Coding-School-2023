@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Session_07 {
     public class MessageLogger {
         public Message[]? Messages { get; set; }
-
+        private int _MessageCounter = 0;
         //CTOR
         public MessageLogger() {
             Messages = new Message[1000];
@@ -19,18 +19,12 @@ namespace Session_07 {
             }
         }
         public void Clear() {
-            for (int i = 0; i < Messages.Length; i++) {
-                if (Messages[i] != null) {
-                    Messages[i] = null;
-                }
-            }
+            Messages = new Message[1000];
+            _MessageCounter = 0;
         }
         public void Write(Message message) {
-            for (int i = 0; i < Messages.Length; i++) {
-                if (Messages[i] != null) {
-                    Messages[i] = message;
-                }
-            }
+            Messages[_MessageCounter] = message;
+            _MessageCounter++;
         }
     }
 }

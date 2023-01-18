@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace Session_07 {
     public class ManipulatorDecToBinConverter : StringManipulator {
         //CTOR
-        public ManipulatorDecToBinConverter() {
-
+        public ManipulatorDecToBinConverter(string inputStr) {
+            InputStr = inputStr;
         }
         //METHODS
-        public override ManipulatorResponse Manipulate(string inputStr) {
+        public override ManipulatorResponse Manipulate() {
 
             bool success = false;
             string outputStr = string.Empty;
 
             decimal decimalNum = 0;
-            if (Decimal.TryParse(inputStr, out decimalNum)) {
+            if (Decimal.TryParse(InputStr, out decimalNum)) {
 
                 DecToBinConverter myConverter = new DecToBinConverter(decimalNum);
                 

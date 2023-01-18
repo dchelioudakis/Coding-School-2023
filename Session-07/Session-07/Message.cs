@@ -11,9 +11,10 @@ namespace Session_07 {
         //Cannot be named Message because is the same with class name
         public string Msg { get; set; }
 
-        public Message() {
+        public Message(string msg) {
             ID = Guid.NewGuid();
             TimeStamp = DateTime.Now;
+            Msg = msg;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Session_07;
 
-Console.WriteLine("Give a String");
+Console.WriteLine("Give a String:");
 string? input = Console.ReadLine();
 ActionEnum actionEnum = ActionEnum.Uppercase;
 

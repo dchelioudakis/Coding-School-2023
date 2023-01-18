@@ -27,24 +27,67 @@ namespace Session_07 {
             ActionResponse actionResponse = new ActionResponse();
             actionResponse.RequestID = requestId;
 
-            switch (actionEnum) {
-                case ActionEnum.Uppercase: {
+            Logger.Write(new Message("Resolver Start"));
+            Logger.Write(new Message(actionEnum.ToString()));
+
+            try {
+                switch (actionEnum) {
+                    case ActionEnum.Uppercase: {
+                        ManipulatorToUppercaseConverter converter = new ManipulatorToUppercaseConverter(inputStr);
+                        ManipulatorResponse manipulatorResponse = converter.Manipulate();
+
+                        if (manipulatorResponse.Success) {
+                            actionResponse.Output = manipulatorResponse.OutputStr;
+                        }
+                        else {
+                            actionResponse.Output = "Invalid String Input";
+                        }
+                        break;
+                    }
+                    case ActionEnum.Reverse: {
+                        ManipulatorReverser manipulatorReverser = new ManipulatorReverser(inputStr);
+                        ManipulatorResponse manipulatorResponse = manipulatorReverser.Manipulate();
+
+                        if (manipulatorResponse.Success) {
+                            actionResponse.Output = manipulatorResponse.OutputStr;
+                        }
+                        else {
+                            actionResponse.Output = "Invalid String Input";
+                        }
 
                         break;
                     }
-                case ActionEnum.Reverse: {
+                    case ActionEnum.Convert: {
+                        ManipulatorDecToBinConverter manipulatorDecToBinConverter = new ManipulatorDecToBinConverter(inputStr);
+                        ManipulatorResponse manipulatorResponse = manipulatorDecToBinConverter.Manipulate();
 
+                        if (manipulatorResponse.Success) {
+                            actionResponse.Output = manipulatorResponse.OutputStr;
+                        }
+                        else {
+                            actionResponse.Output = "Invalid String Input";
+                        }
 
                         break;
                     }
 
-                default: {
-
-
+                    default: {
+                        actionResponse.Output = "Not Specified Action";
 
                         break;
                     }
+                }
+                Logger.Write(new Message(actionResponse.Output));
             }
+            catch (Exception exception) {
+                Logger.Write(new Message(exception.Message));
+                throw;
+            }
+            finally {
+
+            }
+
+            
 
             return actionResponse;
         }

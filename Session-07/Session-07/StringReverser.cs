@@ -8,7 +8,7 @@ namespace Session_07 {
     public class StringReverser {
 
         //PROPERTIES
-        public string? ToBeReversed;
+        public string ToBeReversed;
 
         //CTOR
         public StringReverser(string toBeReversed) {
