@@ -19,15 +19,11 @@ namespace Session_07 {
 
             decimal decimalNum = 0;
             if (Decimal.TryParse(inputStr, out decimalNum)) {
-                StringBuilder sb = new StringBuilder();
 
-                for (int i = 0; decimalNum > 0; i++) {
-                    sb.Clear();
-                    sb.Insert(0, decimalNum % 2);
-                }
+                DecToBinConverter myConverter = new DecToBinConverter(decimalNum);
                 
                 success = true;
-                outputStr = sb.ToString();
+                outputStr = myConverter.Convert();
             }
 
             return new ManipulatorResponse(success, outputStr);
