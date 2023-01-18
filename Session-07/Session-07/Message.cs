@@ -8,6 +8,7 @@ namespace Session_07 {
     public class Message {
         public Guid ID { get; set; }
         public DateTime TimeStamp { get; set; }
+        //Cannot be named Message because is the same with class name
         public string Msg { get; set; }
 
         public Message() {
