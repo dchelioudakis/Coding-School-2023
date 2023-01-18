@@ -27,6 +27,25 @@ namespace Session_07 {
             ActionResponse actionResponse = new ActionResponse();
             actionResponse.RequestID = requestId;
 
+            switch (actionEnum) {
+                case ActionEnum.Uppercase: {
+
+                        break;
+                    }
+                case ActionEnum.Reverse: {
+
+
+                        break;
+                    }
+
+                default: {
+
+
+
+                        break;
+                    }
+            }
+
             return actionResponse;
         }
     }

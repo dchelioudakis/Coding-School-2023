@@ -12,25 +12,6 @@ MessageLogger messageLogger = new MessageLogger();
 
 ActionResolver resolver = new ActionResolver(messageLogger);
 
-switch (actionEnum) {
-    case ActionEnum.Uppercase: {
-
-            break;
-        }
-    case ActionEnum.Reverse: {
-
-
-            break;
-        }
-
-    default: {
-
-            
-
-            break;
-        }
-}
-
 response = resolver.Execute(request);
 
 Console.WriteLine(response.Output);

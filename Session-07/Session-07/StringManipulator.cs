@@ -13,6 +13,4 @@ namespace Session_07 {
             return new ManipulatorResponse(success, inputStr);
         }
     }
-
-    
 }

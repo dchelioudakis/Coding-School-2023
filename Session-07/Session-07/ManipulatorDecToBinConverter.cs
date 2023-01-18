@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Session_07 {
-    public class ManipulatorReverser : StringManipulator {
+    public class ManipulatorDecToBinConverter : StringManipulator {
         //CTOR
-        public ManipulatorReverser() {
+        public ManipulatorDecToBinConverter() {
 
         }
         //METHODS
@@ -17,12 +17,17 @@ namespace Session_07 {
             bool success = false;
             string outputStr = string.Empty;
 
-            if (Regex.IsMatch(inputStr, "^[a-zA-Z]+$")) {
+            decimal decimalNum = 0;
+            if (Decimal.TryParse(inputStr, out decimalNum)) {
+                StringBuilder sb = new StringBuilder();
 
-                StringReverser myReverse = new StringReverser(inputStr);
-
-                outputStr = myReverse.Reverse();
+                for (int i = 0; decimalNum > 0; i++) {
+                    sb.Clear();
+                    sb.Insert(0, decimalNum % 2);
+                }
+                
                 success = true;
+                outputStr = sb.ToString();
             }
 
             return new ManipulatorResponse(success, outputStr);
