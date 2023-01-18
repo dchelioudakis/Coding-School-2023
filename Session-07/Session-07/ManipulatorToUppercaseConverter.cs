@@ -19,11 +19,12 @@ namespace Session_07 {
 
             if (Regex.IsMatch(inputStr, "^[a-zA-Z ]+$")) {
                 
-                actionResponse.Output = longestWord.ToUpper();
+                string longestWord = new PhraseLongestWord(inputStr).Get();
+
+                success = true;
+                outputStr = longestWord.ToUpper();
             }
-            else {
-                actionResponse.Output = "Not valid string";
-            }
+            
 
             return new ManipulatorResponse(success, outputStr);
         }
