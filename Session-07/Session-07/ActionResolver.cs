@@ -27,8 +27,8 @@ namespace Session_07 {
             ActionResponse actionResponse = new ActionResponse();
             actionResponse.RequestID = requestId;
 
-            Logger.Write(new Message("Resolver Start"));
-            Logger.Write(new Message(action.ToString()));
+            Log("Resolver Start");
+            Log(action.ToString());
 
             try {
                 switch (action) {
@@ -77,19 +77,25 @@ namespace Session_07 {
                         break;
                     }
                 }
-                Logger.Write(new Message(actionResponse.Output));
+                Log(actionResponse.Output);
             }
             catch (Exception exception) {
-                Logger.Write(new Message(exception.Message));
+                Log(exception.Message);
                 throw;
             }
             finally {
-                Logger.Write(new Message("End of Process"));
+                Log("End of Process");
             }
 
             
 
             return actionResponse;
+        }
+        private void Log(string text) {
+            Logger.Write(new Message("------------"));
+
+            Message message = new Message(text);
+            Logger.Write(message);
         }
     }
 }
