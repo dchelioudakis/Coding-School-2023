@@ -2,31 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Session_07 {
-    public class StringReverser : StringManipulator {
+    public class StringReverser {
 
-        public StringReverser() {
+        //PROPERTIES
+        public string? ToBeReversed;
 
+        //CTOR
+        public StringReverser(string toBeReversed) {
+            ToBeReversed = toBeReversed;
         }
-        public override ManipulatorResponse Manipulate(string inputStr) {
+        //METHODS
+        public string Reverse() {
+            //Take a string and return it reversed.
+            StringBuilder mySb = new StringBuilder();
 
-            bool success = false;
-            string outputStr = string.Empty;
-
-            if (Regex.IsMatch(inputStr, "^[a-zA-Z]+$")) {
-
-                StringReverse myReverse = new StringReverse();
-                myReverse.Str = inputStr;
-
-                outputStr = myReverse.Reverse();
-                success = true;
+            for (int i = ToBeReversed.Length - 1; i >= 0; i--) {
+                mySb.Append(ToBeReversed[i]);
             }
-            
 
-            return new ManipulatorResponse(success, outputStr);
+            return mySb.ToString();
         }
     }
 }
