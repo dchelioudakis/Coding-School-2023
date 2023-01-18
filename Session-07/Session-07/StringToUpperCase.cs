@@ -22,22 +22,7 @@ namespace Session_07 {
             StringBuilder sbForLog = new StringBuilder();
             sbForLog.AppendLine(actionEnum.ToString());
 
-            if (Regex.IsMatch(inputStr, "^[a-zA-Z ]+$")) {
-                string[] words = inputStr.Split(' ');
-                int maxLength = 0;
-                string longestWord = "";
-
-                for (int i = 0; i < words.Length; i++) {
-                    if (words[i].Length > maxLength) {
-                        longestWord = words[i];
-                        maxLength = words[i].Length;
-                    }
-                }
-                actionResponse.Output = longestWord.ToUpper();
-            }
-            else {
-                actionResponse.Output = "Not valid string";
-            }
+            
 
             sbForLog.AppendLine(actionResponse.Output);
 

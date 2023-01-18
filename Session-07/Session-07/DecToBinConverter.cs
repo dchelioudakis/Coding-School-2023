@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Session_07 {
     public class DecToBinConverter {
         //PROPERTIES
-        public decimal? ToBeConverted;
+        public decimal? ToBeConverted { get; set; }
 
-        //CTOR
-        public DecToBinConverter(decimal toBeConverted) {
+    //CTOR
+    public DecToBinConverter(decimal toBeConverted) {
             ToBeConverted = toBeConverted;
         }
         //METHODS
