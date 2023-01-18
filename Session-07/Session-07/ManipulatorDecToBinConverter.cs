@@ -19,14 +19,23 @@ namespace Session_07 {
 
             decimal decimalNum = 0;
             if (Decimal.TryParse(InputStr, out decimalNum)) {
-
-                DecToBinConverter myConverter = new DecToBinConverter(decimalNum);
-                
                 success = true;
-                outputStr = myConverter.Convert();
+                outputStr = ConvertToBinary(decimalNum);
             }
 
             return new ManipulatorResponse(success, outputStr);
+        }
+
+        public string ConvertToBinary(decimal toBeConverted) {
+            //Take a decimal and return it converted to binary.
+            StringBuilder mySb = new StringBuilder();
+
+            for (int i = 0; toBeConverted > 0; i++) {
+                mySb.Clear();
+                mySb.Insert(0, toBeConverted % 2);
+            }
+
+            return mySb.ToString();
         }
     }
 }

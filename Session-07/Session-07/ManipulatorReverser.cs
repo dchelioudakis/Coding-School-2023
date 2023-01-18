@@ -18,14 +18,22 @@ namespace Session_07 {
             string outputStr = string.Empty;
 
             if (Regex.IsMatch(InputStr, "^[a-zA-Z]+$")) {
-
-                StringReverser myReverse = new StringReverser(InputStr);
-
-                outputStr = myReverse.Reverse();
+                outputStr = Reverse(InputStr);
                 success = true;
             }
 
             return new ManipulatorResponse(success, outputStr);
+        }
+
+        public string Reverse(string toBeReversed) {
+            //Take a string and return it reversed.
+            StringBuilder mySb = new StringBuilder();
+
+            for (int i = toBeReversed.Length - 1; i >= 0; i--) {
+                mySb.Append(toBeReversed[i]);
+            }
+
+            return mySb.ToString();
         }
     }
 }
