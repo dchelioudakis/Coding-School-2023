@@ -14,7 +14,7 @@ ActionResolver resolver = new ActionResolver(messageLogger);
 
 response = resolver.Execute(request);
 
-Console.WriteLine(response.Output);
+messageLogger.ReadAll();
 
 Console.ReadLine();
 

@@ -15,7 +15,9 @@ namespace Session_07 {
         //METHODS
         public void ReadAll() {
             foreach (var message in Messages) {
-                Console.WriteLine(message.Msg);
+                if(message != null) {
+                    Console.WriteLine(message.Msg);
+                }
             }
         }
         public void Clear() {
