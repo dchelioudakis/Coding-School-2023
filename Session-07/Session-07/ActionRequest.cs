@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Session_07 {
     public class ActionRequest : Action {
         public string Input { get; set; }
-        public ActionEnum ActionEnum { get; set; }
+        public ActionEnum Action { get; set; }
 
         public ActionRequest(string input, ActionEnum actionEnum) {
             RequestID = Guid.NewGuid();
             Input = input;
-            ActionEnum = actionEnum;
+            Action = actionEnum;
         }
     }
 }

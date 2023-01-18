@@ -20,7 +20,7 @@ namespace Session_07 {
         // METHODS
         public virtual ActionResponse Execute(ActionRequest request) {
 
-            ActionEnum actionEnum = request.ActionEnum;
+            ActionEnum action = request.Action;
             string inputStr = request.Input;
             Guid requestId = request.RequestID;
 
@@ -28,10 +28,10 @@ namespace Session_07 {
             actionResponse.RequestID = requestId;
 
             Logger.Write(new Message("Resolver Start"));
-            Logger.Write(new Message(actionEnum.ToString()));
+            Logger.Write(new Message(action.ToString()));
 
             try {
-                switch (actionEnum) {
+                switch (action) {
                     case ActionEnum.Uppercase: {
                         ManipulatorToUppercaseConverter converter = new ManipulatorToUppercaseConverter(inputStr);
                         ManipulatorResponse manipulatorResponse = converter.Manipulate();
@@ -84,7 +84,7 @@ namespace Session_07 {
                 throw;
             }
             finally {
-
+                Logger.Write(new Message("End of Process"));
             }
 
             
