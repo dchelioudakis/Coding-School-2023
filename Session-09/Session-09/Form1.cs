@@ -1,4 +1,5 @@
 ﻿using CalculatorLib;
+using System.Linq.Expressions;
 using System.Security.AccessControl;
 
 namespace Session_09 {
@@ -65,8 +66,13 @@ namespace Session_09 {
         private void btnResult_Click(object sender, EventArgs e) {
             MathExpression expression = new MathExpression(ctrlDisplay.Text);
             string[] expressionArray = expression.Analyze();
+
+
+            
             _valueA = Convert.ToDecimal(expressionArray[0]);
             _valueB = Convert.ToDecimal(expressionArray[1]);
+           
+            
             //calcOperationFromDelimiter(string delimiter)
 
             ctrlDisplay.Text += " = ";
@@ -149,8 +155,10 @@ namespace Session_09 {
 
         private void btnRoot_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
+            _valueA = Convert.ToDecimal(ctrlDisplay.Text);
+
             _result = Convert.ToDecimal(Math.Sqrt((double)_valueA));
-            ctrlDisplay.Text = "√ " + _valueA + " = " + _result;
+            ctrlDisplay.Text = "√" + _valueA + " = " + _result;
             _calcOperation = CalcOperation.Root;
         }
 

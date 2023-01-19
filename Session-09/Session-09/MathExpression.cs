@@ -12,7 +12,7 @@ namespace Session_09 {
         }
         public string[] Analyze() {
             string[] expressionAnalysis = new string[3];
-            char[]? delimiters = ("-+x÷^").ToCharArray();
+            char[]? delimiters = ("-+x÷^√").ToCharArray();
             expressionAnalysis = Expression.Split(delimiters);
 
             return expressionAnalysis ;
