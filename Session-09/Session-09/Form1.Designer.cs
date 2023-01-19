@@ -162,6 +162,7 @@
             this.btnAddition.TabIndex = 11;
             this.btnAddition.Text = "+";
             this.btnAddition.UseVisualStyleBackColor = true;
+            this.btnAddition.Click += new System.EventHandler(this.btnAddition_Click);
             // 
             // btnResult
             // 
@@ -171,6 +172,7 @@
             this.btnResult.TabIndex = 12;
             this.btnResult.Text = "=";
             this.btnResult.UseVisualStyleBackColor = true;
+            this.btnResult.Click += new System.EventHandler(this.btnResult_Click);
             // 
             // btnSubstraction
             // 
@@ -180,6 +182,7 @@
             this.btnSubstraction.TabIndex = 13;
             this.btnSubstraction.Text = "-";
             this.btnSubstraction.UseVisualStyleBackColor = true;
+            this.btnSubstraction.Click += new System.EventHandler(this.btnSubstraction_Click);
             // 
             // btnMultiplication
             // 
@@ -189,6 +192,7 @@
             this.btnMultiplication.TabIndex = 14;
             this.btnMultiplication.Text = "x";
             this.btnMultiplication.UseVisualStyleBackColor = true;
+            this.btnMultiplication.Click += new System.EventHandler(this.btnMultiplication_Click);
             // 
             // btnDivision
             // 
@@ -198,6 +202,7 @@
             this.btnDivision.TabIndex = 15;
             this.btnDivision.Text = "÷";
             this.btnDivision.UseVisualStyleBackColor = true;
+            this.btnDivision.Click += new System.EventHandler(this.btnDivision_Click);
             // 
             // btnExponential
             // 
@@ -207,6 +212,7 @@
             this.btnExponential.TabIndex = 16;
             this.btnExponential.Text = "Exp";
             this.btnExponential.UseVisualStyleBackColor = true;
+            this.btnExponential.Click += new System.EventHandler(this.btnExponential_Click);
             // 
             // btnRoot
             // 
@@ -216,6 +222,7 @@
             this.btnRoot.TabIndex = 17;
             this.btnRoot.Text = "√";
             this.btnRoot.UseVisualStyleBackColor = true;
+            this.btnRoot.Click += new System.EventHandler(this.btnRoot_Click);
             // 
             // btnBackspace
             // 

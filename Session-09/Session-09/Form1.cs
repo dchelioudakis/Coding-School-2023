@@ -1,8 +1,17 @@
-namespace Session_09 {
+﻿namespace Session_09 {
     public partial class Calculator : Form {
         private decimal? _value1 = null;
         private decimal? _value2 = null;
         private decimal? _result = null;
+        private CalcOperation _calcOperation;
+        enum CalcOperation {
+            Addition,
+            Substraction,
+            Multiplication,
+            Division,
+            Exponential,
+            Root,
+        }
 
         public Calculator() {
             InitializeComponent();
@@ -178,6 +187,91 @@ namespace Session_09 {
             else {
                 _value2 = 9;
             }
+        }
+
+
+
+        private void btnResult_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " = ";
+
+            switch (_calcOperation) {
+                case CalcOperation.Addition:
+
+                    _result = _value1 + _value2;
+
+                    break;
+
+                case CalcOperation.Substraction:
+
+                    _result = _value1 - _value2;
+
+                    break;
+
+                case CalcOperation.Multiplication:
+
+                    _result = _value1 * _value2;
+
+                    break;
+
+                case CalcOperation.Division:
+                    if(_value2 != 0) {
+                        _result = _value1 / _value2;
+                    }
+                    else {
+                        ctrlDisplay.Text = "Cannot Divide By Zero";
+                    }
+
+                    break;
+
+                case CalcOperation.Exponential:
+                    double result = 0;
+
+                    result = Math.Pow((double)_value1, (double)_value2);
+                    _result = Convert.ToDecimal(result);
+
+                    break;
+
+                case CalcOperation.Root:
+                    result = 0;
+
+                    result = Math.Pow((double)_value1, (1/ (double)_value2));
+                    _result = Convert.ToDecimal(result);
+
+                    break;
+
+            }
+
+            ctrlDisplay.Text += _result;
+        }
+
+        private void btnAddition_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " + ";
+            _calcOperation = CalcOperation.Addition;
+        }
+
+        private void btnSubstraction_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " - ";
+            _calcOperation = CalcOperation.Substraction;
+        }
+
+        private void btnMultiplication_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " x ";
+            _calcOperation = CalcOperation.Multiplication;
+        }
+
+        private void btnDivision_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " ÷ ";
+            _calcOperation = CalcOperation.Division;
+        }
+
+        private void btnExponential_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " exp ";
+            _calcOperation = CalcOperation.Exponential;
+        }
+
+        private void btnRoot_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " √ ";
+            _calcOperation = CalcOperation.Root;
         }
     }
     
