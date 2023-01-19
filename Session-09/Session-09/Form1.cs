@@ -1,7 +1,10 @@
-﻿namespace Session_09 {
+﻿using CalculatorLib;
+using System.Security.AccessControl;
+
+namespace Session_09 {
     public partial class Calculator : Form {
-        private decimal? _value1 = null;
-        private decimal? _value2 = null;
+        private decimal? _valueA = null;
+        private decimal? _valueB = null;
         private decimal? _result = null;
         private CalcOperation _calcOperation;
         enum CalcOperation {
@@ -15,6 +18,10 @@
 
         public Calculator() {
             InitializeComponent();
+        }
+
+        private void btnZero_Click(object sender, EventArgs e) {
+            InitializeNumericalBtn(0);
         }
 
         private void btnOne_Click(object sender, EventArgs e) {
@@ -57,100 +64,129 @@
 
         private void btnResult_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " = ";
+            CalculatorActions calc = new CalculatorActions();
+            try {
+                switch (_calcOperation) {
+                    case CalcOperation.Addition:
 
-            switch (_calcOperation) {
-                case CalcOperation.Addition:
+                        _result = calc.Add(_valueA, _valueB);
+                        break;
+                    case CalcOperation.Substraction:
 
-                    _result = _value1 + _value2;
-                    break;
+                        _result = calc.Substract(_valueA, _valueB);
+                        break;
 
-                case CalcOperation.Substraction:
+                    case CalcOperation.Multiplication:
 
-                    _result = _value1 - _value2;
-                    break;
+                        _result = calc.Multiply(_valueA, _valueB);
+                        break;
 
-                case CalcOperation.Multiplication:
+                    case CalcOperation.Division:
+                        if (_valueB != 0) {
+                            _result = calc.Divide(_valueA, _valueB);
+                        }
+                        else {
+                            ClearCalculator();
+                            ctrlDisplay.Text = "Cannot Divide By Zero";
+                        }
 
-                    _result = _value1 * _value2;
-                    break;
+                        break;
 
-                case CalcOperation.Division:
-                    if(_value2 != 0) {
-                        _result = _value1 / _value2;
-                    }
-                    else {
-                        ctrlDisplay.Text = "Cannot Divide By Zero";
-                    }
+                    case CalcOperation.Exponential:
+                        _result = calc.CalcExponential(_valueA, _valueB);
+                        break;
 
-                    break;
+                    case CalcOperation.Root:
+                        
+                        break;
+                }
 
-                case CalcOperation.Exponential:
-                    double result = 0;
-
-                    result = Math.Pow((double)_value1, (double)_value2);
-                    _result = Convert.ToDecimal(result);
-                    break;
-
-                case CalcOperation.Root:
-                    result = 0;
-
-                    result = Math.Pow((double)_value1, (1/ (double)_value2));
-                    _result = Convert.ToDecimal(result);
-                    break;
+                ctrlDisplay.Text += _result;
             }
-
-            ctrlDisplay.Text += _result;
+            catch (Exception) {
+                ClearCalculator();
+                ctrlDisplay.Text = "Error";
+                throw;
+            }
+            
         }
 
         private void btnAddition_Click(object sender, EventArgs e) {
+            InitializeCalculationBtn();
             ctrlDisplay.Text += " + ";
             _calcOperation = CalcOperation.Addition;
         }
 
         private void btnSubstraction_Click(object sender, EventArgs e) {
+            InitializeCalculationBtn();
             ctrlDisplay.Text += " - ";
             _calcOperation = CalcOperation.Substraction;
         }
 
         private void btnMultiplication_Click(object sender, EventArgs e) {
+            InitializeCalculationBtn();
             ctrlDisplay.Text += " x ";
             _calcOperation = CalcOperation.Multiplication;
         }
 
         private void btnDivision_Click(object sender, EventArgs e) {
+            InitializeCalculationBtn();
             ctrlDisplay.Text += " ÷ ";
             _calcOperation = CalcOperation.Division;
         }
 
         private void btnExponential_Click(object sender, EventArgs e) {
+            InitializeCalculationBtn();
             ctrlDisplay.Text += " exp ";
             _calcOperation = CalcOperation.Exponential;
         }
 
         private void btnRoot_Click(object sender, EventArgs e) {
-            ctrlDisplay.Text += " √ ";
+            InitializeCalculationBtn();
+            _result = Convert.ToDecimal(Math.Sqrt((double)_valueA));
+            ctrlDisplay.Text = "√ " + _valueA + " = " + _result;
             _calcOperation = CalcOperation.Root;
         }
 
         private void InitializeNumericalBtn(int value) {
-            if (_result != null) {
+            if (_result == null) {
 
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += value.ToString();
-
-            if (_value1 == null) {
-                _value1 = value;
+                ctrlDisplay.Text += value.ToString();
             }
             else {
-                _value2 = value;
+                ctrlDisplay.Text += string.Empty;
+            }
+
+            if (_valueA == null) {
+                _valueA = value;
+            }
+            else {
+                _valueB = value;
             }
 
         }
+
+        private void InitializeCalculationBtn() {
+            if (_result != null) {
+                _valueA = _result;
+                _result = null;
+                _valueB = null;
+                ctrlDisplay.Text = _valueA.ToString();
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e) {
+            ClearCalculator();
+        }
+
+        private void ClearCalculator() {
+            ctrlDisplay.Text = string.Empty;
+            _valueA = null;
+            _valueB = null;
+            _result = null;
+        }
+
+        
     }
     
 }

@@ -41,7 +41,6 @@
             this.btnDivision = new System.Windows.Forms.Button();
             this.btnExponential = new System.Windows.Forms.Button();
             this.btnRoot = new System.Windows.Forms.Button();
-            this.btnBackspace = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.ctrlDisplay = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -138,12 +137,13 @@
             // 
             // btnZero
             // 
-            this.btnZero.Location = new System.Drawing.Point(68, 376);
+            this.btnZero.Location = new System.Drawing.Point(12, 376);
             this.btnZero.Name = "btnZero";
-            this.btnZero.Size = new System.Drawing.Size(50, 50);
+            this.btnZero.Size = new System.Drawing.Size(106, 50);
             this.btnZero.TabIndex = 9;
             this.btnZero.Text = "0";
             this.btnZero.UseVisualStyleBackColor = true;
+            this.btnZero.Click += new System.EventHandler(this.btnZero_Click);
             // 
             // btnDelimiter
             // 
@@ -224,15 +224,6 @@
             this.btnRoot.UseVisualStyleBackColor = true;
             this.btnRoot.Click += new System.EventHandler(this.btnRoot_Click);
             // 
-            // btnBackspace
-            // 
-            this.btnBackspace.Location = new System.Drawing.Point(12, 376);
-            this.btnBackspace.Name = "btnBackspace";
-            this.btnBackspace.Size = new System.Drawing.Size(50, 50);
-            this.btnBackspace.TabIndex = 18;
-            this.btnBackspace.Text = "⌫";
-            this.btnBackspace.UseVisualStyleBackColor = true;
-            // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(12, 152);
@@ -241,6 +232,7 @@
             this.btnClear.TabIndex = 19;
             this.btnClear.Text = "C";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // ctrlDisplay
             // 
@@ -257,7 +249,6 @@
             this.ClientSize = new System.Drawing.Size(244, 434);
             this.Controls.Add(this.ctrlDisplay);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnBackspace);
             this.Controls.Add(this.btnRoot);
             this.Controls.Add(this.btnExponential);
             this.Controls.Add(this.btnDivision);
@@ -305,7 +296,6 @@
         private Button btnDivision;
         private Button btnExponential;
         private Button btnRoot;
-        private Button btnBackspace;
         private Button btnClear;
         private TextBox ctrlDisplay;
     }
