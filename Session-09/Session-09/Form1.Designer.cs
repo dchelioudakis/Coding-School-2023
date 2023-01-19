@@ -43,7 +43,7 @@
             this.btnRoot = new System.Windows.Forms.Button();
             this.btnBackspace = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ctrlDisplay = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnOne
@@ -64,6 +64,7 @@
             this.btnTwo.TabIndex = 1;
             this.btnTwo.Text = "2";
             this.btnTwo.UseVisualStyleBackColor = true;
+            this.btnTwo.Click += new System.EventHandler(this.btnTwo_Click);
             // 
             // btnThree
             // 
@@ -73,6 +74,7 @@
             this.btnThree.TabIndex = 2;
             this.btnThree.Text = "3";
             this.btnThree.UseVisualStyleBackColor = true;
+            this.btnThree.Click += new System.EventHandler(this.btnThree_Click);
             // 
             // btnFour
             // 
@@ -82,6 +84,7 @@
             this.btnFour.TabIndex = 3;
             this.btnFour.Text = "4";
             this.btnFour.UseVisualStyleBackColor = true;
+            this.btnFour.Click += new System.EventHandler(this.btnFour_Click);
             // 
             // btnFive
             // 
@@ -91,6 +94,7 @@
             this.btnFive.TabIndex = 4;
             this.btnFive.Text = "5";
             this.btnFive.UseVisualStyleBackColor = true;
+            this.btnFive.Click += new System.EventHandler(this.btnFive_Click);
             // 
             // btnSix
             // 
@@ -100,6 +104,7 @@
             this.btnSix.TabIndex = 5;
             this.btnSix.Text = "6";
             this.btnSix.UseVisualStyleBackColor = true;
+            this.btnSix.Click += new System.EventHandler(this.btnSix_Click);
             // 
             // btnSeven
             // 
@@ -109,6 +114,7 @@
             this.btnSeven.TabIndex = 6;
             this.btnSeven.Text = "7";
             this.btnSeven.UseVisualStyleBackColor = true;
+            this.btnSeven.Click += new System.EventHandler(this.btnSeven_Click);
             // 
             // btnEight
             // 
@@ -118,6 +124,7 @@
             this.btnEight.TabIndex = 7;
             this.btnEight.Text = "8";
             this.btnEight.UseVisualStyleBackColor = true;
+            this.btnEight.Click += new System.EventHandler(this.btnEight_Click);
             // 
             // btnNine
             // 
@@ -127,6 +134,7 @@
             this.btnNine.TabIndex = 8;
             this.btnNine.Text = "9";
             this.btnNine.UseVisualStyleBackColor = true;
+            this.btnNine.Click += new System.EventHandler(this.btnNine_Click);
             // 
             // btnZero
             // 
@@ -227,20 +235,20 @@
             this.btnClear.Text = "C";
             this.btnClear.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // ctrlDisplay
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 40);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 106);
-            this.textBox1.TabIndex = 20;
+            this.ctrlDisplay.Location = new System.Drawing.Point(12, 40);
+            this.ctrlDisplay.Multiline = true;
+            this.ctrlDisplay.Name = "ctrlDisplay";
+            this.ctrlDisplay.Size = new System.Drawing.Size(220, 106);
+            this.ctrlDisplay.TabIndex = 20;
             // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(244, 434);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ctrlDisplay);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnBackspace);
             this.Controls.Add(this.btnRoot);
@@ -263,7 +271,7 @@
             this.Controls.Add(this.btnOne);
             this.Name = "Calculator";
             this.RightToLeftLayout = true;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Calculator";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -292,6 +300,6 @@
         private Button btnRoot;
         private Button btnBackspace;
         private Button btnClear;
-        private TextBox textBox1;
+        private TextBox ctrlDisplay;
     }
 }
