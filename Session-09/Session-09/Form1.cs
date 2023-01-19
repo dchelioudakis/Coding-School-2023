@@ -63,6 +63,12 @@ namespace Session_09 {
 
 
         private void btnResult_Click(object sender, EventArgs e) {
+            MathExpression expression = new MathExpression(ctrlDisplay.Text);
+            string[] expressionArray = expression.Analyze();
+            _valueA = Convert.ToDecimal(expressionArray[0]);
+            _valueB = Convert.ToDecimal(expressionArray[1]);
+            //calcOperationFromDelimiter(string delimiter)
+
             ctrlDisplay.Text += " = ";
             CalculatorActions calc = new CalculatorActions();
             try {
@@ -113,31 +119,31 @@ namespace Session_09 {
 
         private void btnAddition_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
-            ctrlDisplay.Text += " + ";
+            ctrlDisplay.Text += "+";
             _calcOperation = CalcOperation.Addition;
         }
 
         private void btnSubstraction_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
-            ctrlDisplay.Text += " - ";
+            ctrlDisplay.Text += "-";
             _calcOperation = CalcOperation.Substraction;
         }
 
         private void btnMultiplication_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
-            ctrlDisplay.Text += " x ";
+            ctrlDisplay.Text += "x";
             _calcOperation = CalcOperation.Multiplication;
         }
 
         private void btnDivision_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
-            ctrlDisplay.Text += " ÷ ";
+            ctrlDisplay.Text += "÷";
             _calcOperation = CalcOperation.Division;
         }
 
         private void btnExponential_Click(object sender, EventArgs e) {
             InitializeCalculationBtn();
-            ctrlDisplay.Text += " exp ";
+            ctrlDisplay.Text += "^";
             _calcOperation = CalcOperation.Exponential;
         }
 
@@ -186,7 +192,32 @@ namespace Session_09 {
             _result = null;
         }
 
-        
+        private void calcOperationFromDelimiter(string delimiter) {
+            switch (delimiter) {
+                case "+": {
+                    _calcOperation = CalcOperation.Addition;
+                    break;
+                }
+                case "-": {
+                    _calcOperation = CalcOperation.Substraction;
+                    break;
+                }
+                case "*": {
+                    _calcOperation = CalcOperation.Multiplication;
+                    break;
+                }
+                case "/": {
+                    _calcOperation = CalcOperation.Multiplication;
+                    break;
+                }
+                //case "/": {
+                //    _calcOperation = CalcOperation.Multiplication;
+                //    break;
+                //}
+                default:
+                    break;
+            }
+        }
     }
     
 }
