@@ -226,6 +226,10 @@ namespace Session_09 {
                     break;
             }
         }
+
+        private void btnDelimiter_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += ".";
+        }
     }
     
 }

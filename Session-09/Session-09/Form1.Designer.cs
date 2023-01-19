@@ -153,6 +153,7 @@
             this.btnDelimiter.TabIndex = 10;
             this.btnDelimiter.Text = ".";
             this.btnDelimiter.UseVisualStyleBackColor = true;
+            this.btnDelimiter.Click += new System.EventHandler(this.btnDelimiter_Click);
             // 
             // btnAddition
             // 
