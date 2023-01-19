@@ -18,175 +18,39 @@
         }
 
         private void btnOne_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "1";
-
-            if (_value1 == null) {
-                _value1 = 1;
-            }
-            else {
-                _value2 = 1;
-            }
-
+            InitializeNumericalBtn(1);
         }
 
         private void btnTwo_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "2";
-
-            if (_value1 == null) {
-                _value1 = 2;
-            }
-            else {
-                _value2 = 2;
-            }
+            InitializeNumericalBtn(2);
         }
 
         private void btnThree_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "3";
-
-            if (_value1 == null) {
-                _value1 = 3;
-            }
-            else {
-                _value2 = 3;
-            }
+            InitializeNumericalBtn(3);
         }
 
         private void btnFour_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "4";
-
-            if (_value1 == null) {
-                _value1 = 4;
-            }
-            else {
-                _value2 = 4;
-            }
+            InitializeNumericalBtn(4);
         }
 
         private void btnFive_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "5";
-
-            if (_value1 == null) {
-                _value1 = 5;
-            }
-            else {
-                _value2 = 5;
-            }
+            InitializeNumericalBtn(5);
         }
 
         private void btnSix_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "6";
-
-            if (_value1 == null) {
-                _value1 = 6;
-            }
-            else {
-                _value2 = 6;
-            }
+            InitializeNumericalBtn(6);
         }
 
         private void btnSeven_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "7";
-
-            if (_value1 == null) {
-                _value1 = 7;
-            }
-            else {
-                _value2 = 7;
-            }
+            InitializeNumericalBtn(7);
         }
 
         private void btnEight_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "8";
-
-            if (_value1 == null) {
-                _value1 = 8;
-            }
-            else {
-                _value2 = 8;
-            }
+            InitializeNumericalBtn(8);
         }
 
         private void btnNine_Click(object sender, EventArgs e) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-            ctrlDisplay.Text += "9";
-
-            if (_value1 == null) {
-                _value1 = 9;
-            }
-            else {
-                _value2 = 9;
-            }
+            InitializeNumericalBtn(9);
         }
 
 
@@ -198,19 +62,16 @@
                 case CalcOperation.Addition:
 
                     _result = _value1 + _value2;
-
                     break;
 
                 case CalcOperation.Substraction:
 
                     _result = _value1 - _value2;
-
                     break;
 
                 case CalcOperation.Multiplication:
 
                     _result = _value1 * _value2;
-
                     break;
 
                 case CalcOperation.Division:
@@ -228,7 +89,6 @@
 
                     result = Math.Pow((double)_value1, (double)_value2);
                     _result = Convert.ToDecimal(result);
-
                     break;
 
                 case CalcOperation.Root:
@@ -236,9 +96,7 @@
 
                     result = Math.Pow((double)_value1, (1/ (double)_value2));
                     _result = Convert.ToDecimal(result);
-
                     break;
-
             }
 
             ctrlDisplay.Text += _result;
@@ -272,6 +130,26 @@
         private void btnRoot_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " √ ";
             _calcOperation = CalcOperation.Root;
+        }
+
+        private void InitializeNumericalBtn(int value) {
+            if (_result != null) {
+
+                ctrlDisplay.Text = string.Empty;
+                _value1 = null;
+                _value2 = null;
+                _result = null;
+            }
+
+            ctrlDisplay.Text += value.ToString();
+
+            if (_value1 == null) {
+                _value1 = value;
+            }
+            else {
+                _value2 = value;
+            }
+
         }
     }
     
