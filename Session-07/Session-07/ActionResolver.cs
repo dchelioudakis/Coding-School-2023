@@ -36,24 +36,15 @@ namespace Session_07 {
                         ManipulatorToUppercaseConverter converter = new ManipulatorToUppercaseConverter(inputStr);
                         ManipulatorResponse manipulatorResponse = converter.Manipulate();
 
-                        if (manipulatorResponse.Success) {
-                            actionResponse.Output = manipulatorResponse.OutputStr;
-                        }
-                        else {
-                            actionResponse.Output = "Invalid String Input";
-                        }
+                        actionResponse.Output = GetOutput(manipulatorResponse);
+                        
                         break;
                     }
                     case ActionEnum.Reverse: {
                         ManipulatorReverser manipulatorReverser = new ManipulatorReverser(inputStr);
                         ManipulatorResponse manipulatorResponse = manipulatorReverser.Manipulate();
 
-                        if (manipulatorResponse.Success) {
-                            actionResponse.Output = manipulatorResponse.OutputStr;
-                        }
-                        else {
-                            actionResponse.Output = "Invalid String Input";
-                        }
+                        actionResponse.Output = GetOutput(manipulatorResponse);
 
                         break;
                     }
@@ -61,12 +52,7 @@ namespace Session_07 {
                         ManipulatorDecToBinConverter manipulatorDecToBinConverter = new ManipulatorDecToBinConverter(inputStr);
                         ManipulatorResponse manipulatorResponse = manipulatorDecToBinConverter.Manipulate();
 
-                        if (manipulatorResponse.Success) {
-                            actionResponse.Output = manipulatorResponse.OutputStr;
-                        }
-                        else {
-                            actionResponse.Output = "Invalid String Input";
-                        }
+                        actionResponse.Output = GetOutput(manipulatorResponse);
 
                         break;
                     }
@@ -96,6 +82,19 @@ namespace Session_07 {
 
             Message message = new Message(text);
             Logger.Write(message);
+        }
+
+        private string GetOutput(ManipulatorResponse manipulatorResponse) {
+            string output;
+
+            if (manipulatorResponse.Success) {
+                output = manipulatorResponse.OutputStr;
+            }
+            else {
+                output = "Invalid String Input";
+            }
+
+            return output;
         }
     }
 }
