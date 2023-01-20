@@ -11,7 +11,7 @@ namespace Session_10 {
             InitializeComponent();
         }
 
-        private List<Course> GetCourses() {
+        private void PopulateCourses() {
 
             List<Course> courses = new List<Course>();
 
@@ -30,11 +30,10 @@ namespace Session_10 {
 
             BsCourses.DataSource = courses;
 
-            return courses;
         }
         private void PopulateStudents() {
 
-            List<Course> courses = GetCourses();
+            List<Course> courses = (List<Course>)BsCourses.DataSource;
 
             List<Student> students = new List<Student>();
 
@@ -58,7 +57,29 @@ namespace Session_10 {
             BsStudents.DataSource = students;
         }
 
-        
+        private void PopulateGrades() {
+
+            List<Grade> grades = new List<Grade>();
+            //List<Course> courses = (List<Course>)BsCourses.DataSource;
+            List<Student> students = (List<Student>)BsStudents.DataSource;
+
+            Grade GradeOne = new Grade() {
+                StudentID = students[0].ID,
+                CourseID = students[0].Courses[0].ID,
+                GradeVal = 9
+            };
+            grades.Add(GradeOne);
+
+            Grade GradeTwo = new Grade() {
+                StudentID = students[1].ID,
+                CourseID = students[1].Courses[1].ID,
+                GradeVal = 8
+            };
+            grades.Add(GradeTwo);
+
+
+            BsGrades.DataSource = grades;
+        }
 
 
     }
