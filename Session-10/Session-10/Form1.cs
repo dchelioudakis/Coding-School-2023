@@ -6,7 +6,8 @@ namespace Session_10 {
         private BindingSource BsCourses = new BindingSource();
         private BindingSource BsStudents = new BindingSource();
         private BindingSource BsGrades = new BindingSource();
-        private BindingSource BsSheduledCourses = new BindingSource();
+        private BindingSource BsShedules = new BindingSource();
+        private BindingSource BsProfessors = new BindingSource();
         public Form1() {
             InitializeComponent();
         }
@@ -80,6 +81,58 @@ namespace Session_10 {
 
             BsGrades.DataSource = grades;
         }
+
+
+        private void PopulateProfessors() {
+
+            List<Professor> professors = new List<Professor>();
+            List<Course> courses = (List<Course>)BsCourses.DataSource;
+
+            Professor professorOne = new Professor() {
+                Name = "Helen",
+                Age = 35,
+                Rank = "Professor",
+                Courses = { courses[0] },
+            };
+            professors.Add(professorOne);
+
+            Professor professorTwo = new Professor() {
+                Name = "Michael",
+                Age = 32,
+                Rank = "Professor",
+                Courses = { courses[1] },
+            };
+            professors.Add(professorTwo);
+
+            BsProfessors.DataSource = professors;
+        }
+
+
+        private void PopulateSchedules() {
+
+            List<Schedule> schedules = new List<Schedule>();
+            List<Course> courses = (List<Course>)BsCourses.DataSource;
+            List<Professor> proffesors = (List<Professor>)BsProfessors.DataSource;
+
+            Schedule ScheduleOne = new Schedule() {
+                CourseID = courses[0].ID,
+                ProfessorID = proffesors[0].ID,
+                Callendar = new DateTime(2023,05,08)
+            };
+            schedules.Add(ScheduleOne);
+
+            Schedule ScheduleTwo = new Schedule() {
+                CourseID = courses[1].ID,
+                ProfessorID = proffesors[1].ID,
+                Callendar = new DateTime(2023, 06, 08)
+            };
+            schedules.Add(ScheduleTwo);
+
+
+            BsShedules.DataSource = schedules;
+        }
+
+
 
 
     }
