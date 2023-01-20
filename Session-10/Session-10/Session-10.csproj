@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SerializeLib\SerializeLib.csproj" />
     <ProjectReference Include="..\UniLib\UniLib.csproj" />
   </ItemGroup>
 

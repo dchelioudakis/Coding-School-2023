@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Session-10", "Session-10\Session-10.csproj", "{11A9B785-18D8-435F-A808-96574B141219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniLib", "UniLib\UniLib.csproj", "{B61BDB9C-BDF9-4021-891F-F7AE721542F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniLib", "UniLib\UniLib.csproj", "{B61BDB9C-BDF9-4021-891F-F7AE721542F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializeLib", "SerializeLib\SerializeLib.csproj", "{5DAD2F42-6F02-4B5C-9E48-A6DDD3E75284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B61BDB9C-BDF9-4021-891F-F7AE721542F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B61BDB9C-BDF9-4021-891F-F7AE721542F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B61BDB9C-BDF9-4021-891F-F7AE721542F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DAD2F42-6F02-4B5C-9E48-A6DDD3E75284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DAD2F42-6F02-4B5C-9E48-A6DDD3E75284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DAD2F42-6F02-4B5C-9E48-A6DDD3E75284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DAD2F42-6F02-4B5C-9E48-A6DDD3E75284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

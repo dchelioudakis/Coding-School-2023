@@ -1,5 +1,5 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
+
+using SerializeLib;
 using UniLib;
 
 namespace Session_10 {
@@ -47,6 +47,9 @@ namespace Session_10 {
             Courses = courses;
             grvCourses.DataSource = courses;
 
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(courses, "courses.json");
+
         }
         private void PopulateStudents() {
 
@@ -72,6 +75,9 @@ namespace Session_10 {
 
             Students = students;
             grvStudents.DataSource = students;
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(students, "students.json");
         }
 
         private void PopulateGrades() {
@@ -95,6 +101,9 @@ namespace Session_10 {
 
             Grades= grades;
             grvGrades.DataSource = grades;
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(grades, "grades.json");
         }
 
 
@@ -120,7 +129,9 @@ namespace Session_10 {
             professors.Add(professorTwo);
 
             Professors = professors;
-            
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(professors, "professors.json");
         }
 
 
@@ -146,6 +157,9 @@ namespace Session_10 {
 
             Schedules = schedules;
             grvSchedules.DataSource = schedules;
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(schedules, "schedules.json");
         }
 
 
