@@ -27,7 +27,7 @@ namespace UniLib {
             ID = Guid.NewGuid();
         }
 
-        public void getStudents() {
+        public void GetStudents() {
 
         }
         public void GetCourses() {
@@ -44,7 +44,7 @@ namespace UniLib {
         public Guid ID { get; set; }
         public Guid CourseID { get; set; }
         public Guid ProfessorID { get; set; }
-        public DateTime Callendar { get; set; }
+        public DateTime Calendar { get; set; }
 
         public Schedule() {
             ID = new Guid();
