@@ -27,6 +27,7 @@
             this.grvGrades = new System.Windows.Forms.DataGridView();
             this.grvSchedules = new System.Windows.Forms.DataGridView();
             this.grvCourses = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvGrades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvSchedules)).BeginInit();
@@ -73,11 +74,22 @@
             this.grvCourses.Size = new System.Drawing.Size(500, 157);
             this.grvCourses.TabIndex = 3;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(202, 408);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(94, 29);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1318, 703);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.grvCourses);
             this.Controls.Add(this.grvSchedules);
             this.Controls.Add(this.grvGrades);
@@ -98,5 +110,6 @@
         private DataGridView grvGrades;
         private DataGridView grvSchedules;
         private DataGridView grvCourses;
+        private Button btnSave;
     }
 }

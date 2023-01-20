@@ -47,8 +47,7 @@ namespace Session_10 {
             Courses = courses;
             grvCourses.DataSource = courses;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(courses, "courses.json");
+            SaveObject(courses, "courses.json");
 
         }
         private void PopulateStudents() {
@@ -76,8 +75,7 @@ namespace Session_10 {
             Students = students;
             grvStudents.DataSource = students;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(students, "students.json");
+            SaveObject(students, "students.json");
         }
 
         private void PopulateGrades() {
@@ -102,8 +100,7 @@ namespace Session_10 {
             Grades= grades;
             grvGrades.DataSource = grades;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(grades, "grades.json");
+            SaveObject(grades, "grades.json");
         }
 
 
@@ -130,8 +127,7 @@ namespace Session_10 {
 
             Professors = professors;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(professors, "professors.json");
+            SaveObject(professors, "professors.json");
         }
 
 
@@ -158,10 +154,49 @@ namespace Session_10 {
             Schedules = schedules;
             grvSchedules.DataSource = schedules;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(schedules, "schedules.json");
+            SaveObject(schedules, "schedules.json");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e) {
+            SaveAll();
         }
 
 
+        private void SaveObject(object input, string fileName) {
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(input, fileName);
+        }
+
+        private void SaveAll() {
+
+            SaveObject(Courses, "courses.json");
+            SaveObject(Students, "students.json");
+            SaveObject(Professors, "professors.json");
+            SaveObject(Grades, "grades.json");
+            SaveObject(Schedules, "schedules.json");
+        }
+
+        //private void LoadAll() {
+        //    Serializer serializer = new Serializer();
+
+        //    Courses = serializer.Deserialize<Course>("courses.json");
+        //    grvCourses.DataSource = Courses;
+
+        //    Students = serializer.Deserialize<Student>("students.json");
+        //    grvCourses.DataSource = Students;
+
+        //    Professors = serializer.Deserialize<Professor>("professors.json");
+
+        //    Grades = serializer.Deserialize<Grade>("grades.json");
+        //    grvCourses.DataSource = Grades;
+
+
+
+        //    //SaveObject(Courses, "courses.json");
+        //    //SaveObject(Students, "students.json");
+        //    //SaveObject(Professors, "professors.json");
+        //    //SaveObject(Grades, "grades.json");
+        //    //SaveObject(Schedules, "schedules.json");
+        //}
     }
 }
