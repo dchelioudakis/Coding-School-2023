@@ -7,7 +7,6 @@ namespace UniLib {
         public int? YearsInService { get; set; }
 
         public Institute() { 
-            ID = Guid.NewGuid();
         }
 
         public void GetName() {
@@ -24,7 +23,6 @@ namespace UniLib {
         public List<Schedule> ScheduledCourse { get; set; }
 
         public University() {
-            ID = Guid.NewGuid();
         }
 
         public void GetStudents() {
@@ -47,7 +45,6 @@ namespace UniLib {
         public DateTime Calendar { get; set; }
 
         public Schedule() {
-            ID = new Guid();
         }
     }
     public class Course {
@@ -56,7 +53,6 @@ namespace UniLib {
         public string? Subject { get; set; }
 
         public Course() { 
-            ID = new Guid();
         }
     }
     public class Person {
@@ -67,7 +63,6 @@ namespace UniLib {
 
 
         public Person() {
-            ID = new Guid();
         }
 
         public void Getname() {
@@ -104,7 +99,6 @@ namespace UniLib {
         public int? GradeVal { get; set; }
 
         public Grade() {
-            ID = new Guid();
         }
     }
     public class Student : Person {

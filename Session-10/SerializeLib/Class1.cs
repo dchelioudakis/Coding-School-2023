@@ -1,21 +1,22 @@
-﻿using System.Text.Json;
+﻿//using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace SerializeLib {
     public class Serializer {
 
         public void Serialize(object obj) {
-            string jsonString = JsonSerializer.Serialize(obj);
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(obj);
         }
 
 
         public void SerializeToFile(object obj, string fileName) {
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(obj, options);
-
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(obj, options);
+            
             File.WriteAllText(fileName, jsonString);
         }
-
+        
 
         public T Deserialize<T>(string fileName) {
 
@@ -24,7 +25,7 @@ namespace SerializeLib {
 
             return obj;
         }
-
+        
 
     }
 }

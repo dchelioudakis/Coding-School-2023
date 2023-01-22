@@ -20,12 +20,6 @@ namespace Session_10 {
             PopulateProfessors();
             PopulateGrades();
             PopulateSchedules();
-
-            
-            //SerializeInitialData(Students, "students.json");
-            //SerializeInitialData(Professors, "professors.json");
-            //SerializeInitialData(Grades, "grades.json");
-            //SerializeInitialData(Schedules, "schedules.json");
         }
 
         private void PopulateCourses() {
@@ -33,12 +27,14 @@ namespace Session_10 {
             List<Course> courses = new List<Course>();
 
             Course courseOne = new Course() {
+                ID = Guid.NewGuid(),
                 Code = "CRS1",
                 Subject = "Algebra",
             };
             courses.Add(courseOne);
 
             Course courseTwo = new Course() {
+                ID = Guid.NewGuid(),
                 Code = "CRS2",
                 Subject = "Physics",
             };
@@ -46,9 +42,6 @@ namespace Session_10 {
 
             Courses = courses;
             grvCourses.DataSource = courses;
-
-            SaveObject(courses, "courses.json");
-
         }
         private void PopulateStudents() {
 
@@ -57,6 +50,7 @@ namespace Session_10 {
             List<Student> students = new List<Student>();
 
             Student studentOne = new Student() {
+                ID = Guid.NewGuid(),
                 Name = "Dimitris",
                 Age = 28,
                 RegistrationNumber = 1563,
@@ -65,6 +59,7 @@ namespace Session_10 {
             students.Add(studentOne);
 
             Student studentTwo = new Student() {
+                ID = Guid.NewGuid(),
                 Name = "Stelios",
                 Age = 27,
                 RegistrationNumber = 1897,
@@ -74,8 +69,6 @@ namespace Session_10 {
 
             Students = students;
             grvStudents.DataSource = students;
-
-            SaveObject(students, "students.json");
         }
 
         private void PopulateGrades() {
@@ -84,6 +77,7 @@ namespace Session_10 {
             List<Student> students = Students;
 
             Grade GradeOne = new Grade() {
+                ID = Guid.NewGuid(),
                 StudentID = students[0].ID,
                 CourseID = students[0].Courses[0].ID,
                 GradeVal = 9
@@ -91,6 +85,7 @@ namespace Session_10 {
             grades.Add(GradeOne);
 
             Grade GradeTwo = new Grade() {
+                ID = Guid.NewGuid(),
                 StudentID = students[1].ID,
                 CourseID = students[1].Courses[1].ID,
                 GradeVal = 8
@@ -99,8 +94,6 @@ namespace Session_10 {
 
             Grades= grades;
             grvGrades.DataSource = grades;
-
-            SaveObject(grades, "grades.json");
         }
 
 
@@ -110,6 +103,7 @@ namespace Session_10 {
             List<Course> courses = Courses;
 
             Professor professorOne = new Professor() {
+                ID = Guid.NewGuid(),
                 Name = "Helen",
                 Age = 35,
                 Rank = "Professor",
@@ -118,6 +112,7 @@ namespace Session_10 {
             professors.Add(professorOne);
 
             Professor professorTwo = new Professor() {
+                ID = Guid.NewGuid(),
                 Name = "Michael",
                 Age = 32,
                 Rank = "Professor",
@@ -126,8 +121,6 @@ namespace Session_10 {
             professors.Add(professorTwo);
 
             Professors = professors;
-
-            SaveObject(professors, "professors.json");
         }
 
 
@@ -138,6 +131,7 @@ namespace Session_10 {
             List<Professor> proffesors = Professors;
 
             Schedule ScheduleOne = new Schedule() {
+                ID = Guid.NewGuid(),
                 CourseID = courses[0].ID,
                 ProfessorID = proffesors[0].ID,
                 Calendar = new DateTime(2023,05,08)
@@ -145,6 +139,7 @@ namespace Session_10 {
             schedules.Add(ScheduleOne);
 
             Schedule ScheduleTwo = new Schedule() {
+                ID = Guid.NewGuid(),
                 CourseID = courses[1].ID,
                 ProfessorID = proffesors[1].ID,
                 Calendar = new DateTime(2023, 06, 08)
@@ -154,21 +149,23 @@ namespace Session_10 {
             Schedules = schedules;
             grvSchedules.DataSource = schedules;
 
-            SaveObject(schedules, "schedules.json");
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
             SaveAll();
         }
 
+        private void btnLoad_Click(object sender, EventArgs e) {
+            LoadFromJsonFiles();
+            UpdateDataGrids();
+        }
 
         private void SaveObject(object input, string fileName) {
             Serializer serializer = new Serializer();
-            serializer.SerializeToFile(input, fileName);
+            serializer.SerializeToFile(input, fileName);   
         }
 
         private void SaveAll() {
-
             SaveObject(Courses, "courses.json");
             SaveObject(Students, "students.json");
             SaveObject(Professors, "professors.json");
@@ -176,27 +173,22 @@ namespace Session_10 {
             SaveObject(Schedules, "schedules.json");
         }
 
-        //private void LoadAll() {
-        //    Serializer serializer = new Serializer();
+        private void LoadFromJsonFiles() {
+            Serializer serializer = new Serializer();
+            
+            Courses = serializer.Deserialize<List<Course>>("courses.json");
+            Students = serializer.Deserialize<List<Student>>("students.json");
+            Professors = serializer.Deserialize<List<Professor>>("professors.json");
+            Grades = serializer.Deserialize<List<Grade>>("grades.json");
+            Schedules = serializer.Deserialize<List<Schedule>>("schedules.json");
+        }
 
-        //    Courses = serializer.Deserialize<Course>("courses.json");
-        //    grvCourses.DataSource = Courses;
+        private void UpdateDataGrids() {
+            grvCourses.DataSource = Courses;
+            grvStudents.DataSource = Students;
+            grvGrades.DataSource = Grades;
+            grvSchedules.DataSource = Schedules;
+        }
 
-        //    Students = serializer.Deserialize<Student>("students.json");
-        //    grvCourses.DataSource = Students;
-
-        //    Professors = serializer.Deserialize<Professor>("professors.json");
-
-        //    Grades = serializer.Deserialize<Grade>("grades.json");
-        //    grvCourses.DataSource = Grades;
-
-
-
-        //    //SaveObject(Courses, "courses.json");
-        //    //SaveObject(Students, "students.json");
-        //    //SaveObject(Professors, "professors.json");
-        //    //SaveObject(Grades, "grades.json");
-        //    //SaveObject(Schedules, "schedules.json");
-        //}
     }
 }
