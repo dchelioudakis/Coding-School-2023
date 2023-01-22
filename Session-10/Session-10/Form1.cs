@@ -156,7 +156,13 @@ namespace Session_10 {
         }
 
         private void btnLoad_Click(object sender, EventArgs e) {
-            LoadFromJsonFiles();
+            try {
+                LoadFromJsonFiles();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+            
             UpdateDataGrids();
         }
 
@@ -175,7 +181,7 @@ namespace Session_10 {
 
         private void LoadFromJsonFiles() {
             Serializer serializer = new Serializer();
-            
+
             Courses = serializer.Deserialize<List<Course>>("courses.json");
             Students = serializer.Deserialize<List<Student>>("students.json");
             Professors = serializer.Deserialize<List<Professor>>("professors.json");
