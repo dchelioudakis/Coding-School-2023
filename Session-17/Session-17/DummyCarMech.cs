@@ -119,23 +119,23 @@ namespace Session_17 {
         //Guid transactionID, Guid engineerID, Guid serviceTaskID, decimal hours
         public void TransactionLine() {
             TransactionLine transactionLine1 = new TransactionLine();
-            transactionLine1.TransactionID = Transactions[0].Id;
+            //transactionLine1.TransactionID = Transactions[0].Id;
             transactionLine1.Hours = ServiceTasks[0].Hours;
             transactionLine1.PricePerHour = 45.5M;
-            transactionLine1.EngineerID = Engineers[0].Id;
-            transactionLine1.ServiceTaskID = ServiceTasks[0].Id;
+            //transactionLine1.EngineerID = Engineers[0].Id;
+            //transactionLine1.ServiceTaskID = ServiceTasks[0].Id;
             TransactionLines.Add(transactionLine1);
 
             TransactionLine transactionLine2 = new TransactionLine();
-            transactionLine2.TransactionID = Transactions[0].Id;
+            //transactionLine2.TransactionID = Transactions[0].Id;
             transactionLine2.Hours = ServiceTasks[1].Hours;
             transactionLine2.PricePerHour = 45.5M;
-            transactionLine2.EngineerID = Engineers[0].Id;
-            transactionLine2.ServiceTaskID = ServiceTasks[1].Id;
+            //transactionLine2.EngineerID = Engineers[0].Id;
+            //transactionLine2.ServiceTaskID = ServiceTasks[1].Id;
             TransactionLines.Add(transactionLine2);
 
-            Transactions[0].Lines.Add(transactionLine1);
-            Transactions[0].Lines.Add(transactionLine2);
+            //Transactions[0].Lines.Add(transactionLine1);
+            //Transactions[0].Lines.Add(transactionLine2);
             //Transactions[0].Lines = new List<TransactionLine>();
             //Transactions[0].Lines.
             //Transactions[0].Lines.Add(transactionLine1);

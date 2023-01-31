@@ -141,7 +141,7 @@ namespace Session_17 {
             Transaction curremtTransaction = carServiceCenter.Transactions.Find(c => c.Id == currentTranstactionID);
             
 
-            BindingList<TransactionLine> transactionLines = new BindingList<TransactionLine>(curremtTransaction.Lines);
+            BindingList<TransactionLine> transactionLines = new BindingList<TransactionLine>(curremtTransaction.TransactionLines);
             grdTransactionLines.DataSource = new BindingSource() { DataSource = transactionLines };
 
 

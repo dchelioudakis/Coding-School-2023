@@ -18,8 +18,10 @@ namespace LibCarService
         public Manager Manager { get; set; } = null!;
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
-        public Engineer() : base()
-        {
+        public List<TransactionLine> TransactionLines { get; set; }
+
+
+        public Engineer() {
             Id = Guid.NewGuid();
         }
     }

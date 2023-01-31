@@ -50,7 +50,7 @@ namespace Session_17 {
             // Engineer count check
             int tasksToday = 0;
             foreach(Transaction transaction in transactionsToday) {
-                tasksToday += transaction.Lines.Count;
+                tasksToday += transaction.TransactionLines.Count;
             } 
 
             // Maximum Daily Workload check
@@ -58,7 +58,7 @@ namespace Session_17 {
             int maxDailyWorkload = Engineers.Count * 8;
             decimal todaysWorkload = 0;
             foreach(Transaction transaction in transactionsToday) {
-                foreach(TransactionLine line in transaction.Lines) {
+                foreach(TransactionLine line in transaction.TransactionLines) {
                     todaysWorkload += line.Hours;
                 }
             }
@@ -83,7 +83,7 @@ namespace Session_17 {
             // Engineer count check
             int tasksToday = 0;
             foreach (Transaction transaction in transactionsToday) {
-                tasksToday += transaction.Lines.Count;
+                tasksToday += transaction.TransactionLines.Count;
             }
 
             bool checkBool = tasksToday < engineersSum;
@@ -97,7 +97,7 @@ namespace Session_17 {
             int maxDailyWorkload = Engineers.Count * 8;
             decimal todaysWorkload = 0;
             foreach (Transaction transaction in transactionsToday) {
-                foreach (TransactionLine line in transaction.Lines) {
+                foreach (TransactionLine line in transaction.TransactionLines) {
                     todaysWorkload += line.Hours;
                 }
             }

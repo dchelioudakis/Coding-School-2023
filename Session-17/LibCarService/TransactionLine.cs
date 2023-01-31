@@ -8,9 +8,12 @@ namespace LibCarService
 {
     public class TransactionLine : EntityBase
     {
-        public Guid TransactionID { get; set; }
-        public Guid ServiceTaskID { get; set; }
-        public Guid EngineerID { get; set; }
+        public Transaction Transaction { get; set; }
+        public Guid TransactionId { get; set; }
+        public ServiceTask ServiceTask { get; set; }
+        public Guid ServiceTaskId { get; set; }
+        public Engineer Engineer { get; set; }
+        public Guid EngineerId { get; set; }
         public decimal Hours { get; set; }
         public decimal PricePerHour { get; set; }
         public decimal Price { get; set; }
