@@ -24,7 +24,8 @@ namespace CarSercviceCenter.Orm.Configurations
 
             builder.HasOne(manager => manager.User)
                  .WithMany(user => user.Managers)
-                 .HasForeignKey(manager => manager.UserId);
+                 .HasForeignKey(manager => manager.UserId)
+                 .OnDelete(DeleteBehavior.Restrict);
         }
 
 

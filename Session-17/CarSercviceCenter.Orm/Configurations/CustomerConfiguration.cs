@@ -22,8 +22,9 @@ namespace CarSercviceCenter.Orm.Configurations {
             builder.Property(customer => customer.TIN).HasMaxLength(9).IsRequired(true);
 
             builder.HasOne(customer => customer.User)
-                 .WithMany(user => user.Customers)
-                 .HasForeignKey(customer => customer.UserId);
+                .WithMany(user => user.Customers)
+                .HasForeignKey(customer => customer.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
 

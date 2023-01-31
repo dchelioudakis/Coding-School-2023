@@ -22,7 +22,8 @@ namespace CarSercviceCenter.Orm.Configurations {
 
             builder.HasOne(engineer => engineer.User)
                  .WithMany(user => user.Engineers)
-                 .HasForeignKey(engineer => engineer.UserId);
+                 .HasForeignKey(engineer => engineer.UserId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(engineer => engineer.Manager)
                  .WithMany(manager => manager.Engineers)
