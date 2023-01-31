@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibCarService {
-    internal interface IEntityBase {
+    public interface IEntityBase {
 
         public Guid Id { get; set; }
     }
