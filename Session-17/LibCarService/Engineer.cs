@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace LibCarService 
 {
-    public class Engineer : User {
-        public Guid ManagerID { get; set; }
-        // Since the Expenses and the Total in the Monthly Ledger are decimal... It`s better to have decimal SalaryPerMonth
+    public class Engineer : EntityBase {
+
+
+        public string Name { get; set; }
+        public string Surname { get; set; }
+
         public decimal SalaryPerMonth { get; set; }
+
+        public Guid ManagerId { get; set; }
+        public Manager Manager { get; set; } = null!;
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
         public Engineer() : base()
         {
-            
+            Id = Guid.NewGuid();
         }
     }
 }

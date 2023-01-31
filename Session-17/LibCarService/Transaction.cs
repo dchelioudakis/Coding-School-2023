@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibCarService
 {
-    public class Transaction
+    public class Transaction : EntityBase
     {
-        public Guid ID { get; set; }
         public DateTime Date { get; set; }
         public Guid CustomerID { get; set; }
         public Guid CarID { get; set; }
@@ -19,15 +18,15 @@ namespace LibCarService
 
         public Transaction()
         {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
 
         public void AddTransactionLine(ServiceTask serviceTask, Engineer engineer, decimal pricePerHr) {
             TransactionLine newLine = new TransactionLine();
-            newLine.TransactionID = ID;
-            newLine.ServiceTaskID = serviceTask.ID;
-            newLine.EngineerID = engineer.ID;
+            newLine.TransactionID = Id;
+            newLine.ServiceTaskID = serviceTask.Id;
+            newLine.EngineerID = engineer.Id;
             newLine.Hours = serviceTask.Hours;
             newLine.PricePerHour = pricePerHr;
             newLine.Price = newLine.Hours * newLine.PricePerHour;

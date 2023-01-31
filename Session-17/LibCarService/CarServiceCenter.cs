@@ -36,9 +36,9 @@ namespace Session_17 {
             // basic info
             Transaction transaction = new Transaction();
             transaction.Date = DateTime.Now.Date;
-            transaction.CustomerID = customer.ID;
-            transaction.CarID = car.ID;
-            transaction.ManagerID = manager.ID;
+            transaction.CustomerID = customer.Id;
+            transaction.CarID = car.Id;
+            //transaction.ManagerID = manager.Id;
 
             Transactions.Add(transaction);
         }

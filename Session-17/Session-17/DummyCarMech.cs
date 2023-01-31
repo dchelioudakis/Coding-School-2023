@@ -81,14 +81,14 @@ namespace Session_17 {
             Engineer engineer1 = new Engineer();
             engineer1.Surname = "Nikou";
             engineer1.Name = "Nikos";
-            engineer1.ManagerID = Managers[0].ID;
+            //engineer1.ManagerID = Managers[0].Id;
             engineer1.SalaryPerMonth = 1000;
             Engineers.Add(engineer1);
 
             Engineer engineer2 = new Engineer();
             engineer2.Surname = "Xariton";
             engineer2.Name = "Giotis";
-            engineer2.ManagerID = Managers[0].ID;
+            //engineer2.ManagerID = Managers[0].Id;
             engineer2.SalaryPerMonth = 1100;
             Engineers.Add(engineer2);
 
@@ -98,18 +98,18 @@ namespace Session_17 {
         public void Transaction() {
             Transaction transaction1 = new Transaction();
             transaction1.Date = DateTime.Now;
-            transaction1.CustomerID = Customers[0].ID;
-            transaction1.ManagerID = Managers[0].ID;
-            transaction1.CarID = Cars[0].ID;
+            transaction1.CustomerID = Customers[0].Id;
+            //transaction1.ManagerID = Managers[0].Id;
+            transaction1.CarID = Cars[0].Id;
             transaction1.TotalPrice = 91;
 
             Transactions.Add(transaction1);
 
             Transaction transaction2 = new Transaction();
             transaction2.Date = DateTime.Now;
-            transaction2.CustomerID = Customers[1].ID;
-            transaction2.ManagerID = Managers[1].ID;
-            transaction2.CarID = Cars[1].ID;
+            transaction2.CustomerID = Customers[1].Id;
+            //transaction2.ManagerID = Managers[1].Id;
+            transaction2.CarID = Cars[1].Id;
             transaction2.TotalPrice = 0;
 
             Transactions.Add(transaction2);
@@ -119,19 +119,19 @@ namespace Session_17 {
         //Guid transactionID, Guid engineerID, Guid serviceTaskID, decimal hours
         public void TransactionLine() {
             TransactionLine transactionLine1 = new TransactionLine();
-            transactionLine1.TransactionID = Transactions[0].ID;
+            transactionLine1.TransactionID = Transactions[0].Id;
             transactionLine1.Hours = ServiceTasks[0].Hours;
             transactionLine1.PricePerHour = 45.5M;
-            transactionLine1.EngineerID = Engineers[0].ID;
-            transactionLine1.ServiceTaskID = ServiceTasks[0].ID;
+            transactionLine1.EngineerID = Engineers[0].Id;
+            transactionLine1.ServiceTaskID = ServiceTasks[0].Id;
             TransactionLines.Add(transactionLine1);
 
             TransactionLine transactionLine2 = new TransactionLine();
-            transactionLine2.TransactionID = Transactions[0].ID;
+            transactionLine2.TransactionID = Transactions[0].Id;
             transactionLine2.Hours = ServiceTasks[1].Hours;
             transactionLine2.PricePerHour = 45.5M;
-            transactionLine2.EngineerID = Engineers[0].ID;
-            transactionLine2.ServiceTaskID = ServiceTasks[1].ID;
+            transactionLine2.EngineerID = Engineers[0].Id;
+            transactionLine2.ServiceTaskID = ServiceTasks[1].Id;
             TransactionLines.Add(transactionLine2);
 
             Transactions[0].Lines.Add(transactionLine1);

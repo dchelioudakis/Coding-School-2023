@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibCarService
 {
-    public class TransactionLine
+    public class TransactionLine : EntityBase
     {
-        public Guid ID { get; set; }
         public Guid TransactionID { get; set; }
         public Guid ServiceTaskID { get; set; }
         public Guid EngineerID { get; set; }
@@ -19,7 +18,7 @@ namespace LibCarService
 
         public TransactionLine()
         {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
     }
 }

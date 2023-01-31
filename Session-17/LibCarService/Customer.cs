@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibCarService 
+namespace LibCarService
 {
-    public class Customer : User {
+    public class Customer : EntityBase{
+        public string Name { get; set; }
+        public string Surname { get; set; }
+
         public string Phone { get; set; }
         public string TIN { get; set; }
-
-        public Customer() : base()
+        //Relations
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
+        public Customer()
         {
-
+            Id = Guid.NewGuid();
         }
     }
 }

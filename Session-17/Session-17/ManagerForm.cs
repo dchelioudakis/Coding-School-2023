@@ -138,7 +138,7 @@ namespace Session_17 {
             Guid currentTranstactionID = (Guid)grvTransactions.GetRowCellValue(row, "ID");
             List<TransactionLine> currentTransactionLines = new List<TransactionLine>();
             //currentTransactionLines = allTransactionLines.FindAll(c =>c.TransactionID == currentTranstactionID).ToList();
-            Transaction curremtTransaction = carServiceCenter.Transactions.Find(c => c.ID == currentTranstactionID);
+            Transaction curremtTransaction = carServiceCenter.Transactions.Find(c => c.Id == currentTranstactionID);
             
 
             BindingList<TransactionLine> transactionLines = new BindingList<TransactionLine>(curremtTransaction.Lines);

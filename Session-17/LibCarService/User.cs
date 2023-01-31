@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace LibCarService 
 {
-    public class User
+    public class User : EntityBase
     {
-        public Guid ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public List<Manager> Managers { get; set; }
+        public List<Engineer> Engineers { get; set; }
+        public List<Customer> Customers { get; set; }
+
+        //public string Username { get; set; }
+        //public string Password { get; set; }
 
         public User()
         {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibCarService 
 {
-    public class ServiceTask
+    public class ServiceTask : EntityBase
     {
         public enum CodeEnum {
             OilChange,
@@ -16,7 +16,6 @@ namespace LibCarService
             MirrorReplacement
 
         }
-        public Guid ID { get; set; }
 
         public string Description { get; set; }
 
@@ -25,12 +24,12 @@ namespace LibCarService
 
 
         public ServiceTask() {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         public ServiceTask(CodeEnum code)
         {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
             UpdateInfo(code);
         }
 
