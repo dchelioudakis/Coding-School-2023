@@ -17,10 +17,10 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public void Delete(Guid id) {
             using var context = new AppDbContext();
-            var dbTodo = context.Users.Where(user => user.Id == id).SingleOrDefault();
-            if (dbTodo is null)
+            var dbUser = context.Users.Where(user => user.Id == id).SingleOrDefault();
+            if (dbUser is null)
                 return;
-            context.Remove(dbTodo);
+            context.Remove(dbUser);
             context.SaveChanges();
         }
 
@@ -60,9 +60,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbUser.Customers = entity.Customers;
             context.SaveChanges();
         }
-
-        public void Update(int id, User entity) {
-            throw new NotImplementedException();
-        }
+        
     }
 }
