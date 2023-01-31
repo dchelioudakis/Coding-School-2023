@@ -1,4 +1,4 @@
-﻿namespace Session_11 {
+﻿namespace Session_17 {
     partial class CustomerForm {
         /// <summary>
         /// Required designer variable.

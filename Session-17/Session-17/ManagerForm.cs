@@ -26,7 +26,7 @@ using static LibCarService.ServiceTask;
 using GridView = DevExpress.XtraGrid.Views.Grid.GridView;
 using Transaction = LibCarService.Transaction;
 
-namespace Session_11 {
+namespace Session_17 {
     public partial class ManagerForm : Form {
 
         CarServiceCenter carServiceCenter;
