@@ -16,6 +16,7 @@ namespace LibCarService
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
         public List<Engineer> Engineers { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         public Manager() : base()
         {

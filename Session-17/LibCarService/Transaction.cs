@@ -9,9 +9,13 @@ namespace LibCarService
     public class Transaction : EntityBase
     {
         public DateTime Date { get; set; }
-        public Guid CustomerID { get; set; }
-        public Guid CarID { get; set; }
-        public Guid ManagerID { get; set; }
+
+        public Customer Customer { get; set; }
+        public Guid CustomerId { get; set; }
+        public Car Car { get; set; }
+        public Guid CarId { get; set; }
+        public Manager Manager { get; set; }
+        public Guid ManagerId { get; set; }
         public decimal TotalPrice { get; set; }
         public List<TransactionLine> Lines { get; set; } = new List<TransactionLine>();
 

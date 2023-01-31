@@ -98,18 +98,18 @@ namespace Session_17 {
         public void Transaction() {
             Transaction transaction1 = new Transaction();
             transaction1.Date = DateTime.Now;
-            transaction1.CustomerID = Customers[0].Id;
+            //transaction1.CustomerID = Customers[0].Id;
             //transaction1.ManagerID = Managers[0].Id;
-            transaction1.CarID = Cars[0].Id;
+            //transaction1.CarID = Cars[0].Id;
             transaction1.TotalPrice = 91;
 
             Transactions.Add(transaction1);
 
             Transaction transaction2 = new Transaction();
             transaction2.Date = DateTime.Now;
-            transaction2.CustomerID = Customers[1].Id;
+            //transaction2.CustomerID = Customers[1].Id;
             //transaction2.ManagerID = Managers[1].Id;
-            transaction2.CarID = Cars[1].Id;
+            //transaction2.CarID = Cars[1].Id;
             transaction2.TotalPrice = 0;
 
             Transactions.Add(transaction2);

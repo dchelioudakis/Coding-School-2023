@@ -15,6 +15,9 @@ namespace LibCarService
         //Relations
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
+
+        public List<Transaction> Transactions { get; set; }
+
         public Customer()
         {
             Id = Guid.NewGuid();
