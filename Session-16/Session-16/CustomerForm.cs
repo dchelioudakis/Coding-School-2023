@@ -1,5 +1,6 @@
 ﻿using CarSercviceCenter.Orm.Repositories;
 using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.CodeParser;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using LibCarService;
@@ -20,7 +21,10 @@ namespace Session_16
 {
     public partial class CustomerForm : Form
     {
-        private CustomerRepo? _customerRepo = new CustomerRepo();
+        private UserRepo _userRepo = new UserRepo();
+        private CustomerRepo _customerRepo = new CustomerRepo();
+        
+        
 
         CarServiceCenter carServiceCenter;
         public CustomerForm(LoginForm mainForm)
@@ -232,17 +236,43 @@ namespace Session_16
             if (grvCustomers.IsNewItemRow(e.RowHandle)) {
                 int rowHandle = grvCustomers.DataRowCount-1;
 
-
-                var newCustomer = new Customer() {
-                    Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
-                    Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
-                    Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
-                    TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
-
-                };
-
-                _customerRepo.Add(newCustomer);
+                AddUserTypeEntityToDB(UserTypeEnum.Customer, rowHandle);
             }
+        }
+
+        private void AddUserTypeEntityToDB(UserTypeEnum enumVal, int rowHandle) {
+
+            Guid newUserId = Guid.NewGuid();
+            _userRepo.Add(new User() {
+                Id = newUserId,
+            });
+
+            switch (enumVal) {
+                case UserTypeEnum.Manager:
+                    break;
+                case UserTypeEnum.Engineer:
+                    break;
+                case UserTypeEnum.Customer:
+                    var newCustomer = new Customer() {
+                        Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
+                        Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
+                        Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
+                        TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
+                        UserId = newUserId
+
+                    };
+
+                    _customerRepo.Add(newCustomer);
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        private void btnLoadFromDB_Click(object sender, EventArgs e) {
+            carServiceCenter.Customers.AddRange(_customerRepo.GetAll());
+            PrintDataToGrid();
         }
     }
 }

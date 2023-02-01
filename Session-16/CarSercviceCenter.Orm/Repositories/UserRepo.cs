@@ -24,9 +24,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             context.SaveChanges();
         }
 
-        public void Delete(int id) {
-            throw new NotImplementedException();
-        }
 
         public IList<User> GetAll() {
             using var context = new AppDbContext();
@@ -44,17 +41,14 @@ namespace CarSercviceCenter.Orm.Repositories {
                 .Include(user => user.Managers).SingleOrDefault();
         }
 
-        public User? GetById(int id) {
-            throw new NotImplementedException();
-        }
 
         public void Update(Guid id, User entity) {
             using var context = new AppDbContext();
             var dbUser = context.Users.Where(user => user.Id == id).SingleOrDefault();
             if (dbUser is null)
                 return;
-            dbUser.Name = entity.Name;
-            dbUser.Surname = entity.Surname;
+            //dbUser.Name = entity.Name;
+            //dbUser.Surname = entity.Surname;
             dbUser.Managers = entity.Managers;
             dbUser.Engineers = entity.Engineers;
             dbUser.Customers = entity.Customers;

@@ -12,8 +12,7 @@ namespace CarSercviceCenter.Orm.Configurations
             builder.HasKey(user => user.Id);
 
             builder.Property(user => user.Id).ValueGeneratedOnAdd();
-            builder.Property(user => user.Name).HasMaxLength(50).IsRequired(true);
-            builder.Property(user => user.Surname).HasMaxLength(50).IsRequired(true);
+            
         }
 
         
