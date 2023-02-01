@@ -17,7 +17,7 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public void Delete(Guid id) {
             using var context = new AppDbContext();
-            var dbEngineer = context.Managers.Where(engineer => engineer.Id == id).SingleOrDefault();
+            var dbEngineer = context.Engineers.Where(engineer => engineer.Id == id).SingleOrDefault();
             if (dbEngineer is null)
                 return;
             context.Remove(dbEngineer);
