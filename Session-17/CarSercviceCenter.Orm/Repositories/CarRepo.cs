@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarSercviceCenter.Orm.Repositories {
-    public class CqrRepo : IEntityRepo<Car> {
+    public class CarRepo : IEntityRepo<Car> {
         public void Add(Car entity) {
             using var context = new AppDbContext();
             context.Add(entity);
