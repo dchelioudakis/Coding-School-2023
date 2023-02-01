@@ -24,10 +24,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             context.SaveChanges();
         }
 
-        public void Delete(int id) {
-            throw new NotImplementedException();
-        }
-
         public IList<Manager> GetAll() {
             using var context = new AppDbContext();
             return context.Managers
@@ -42,13 +38,9 @@ namespace CarSercviceCenter.Orm.Repositories {
                 .Include(manager => manager.Transactions).SingleOrDefault();
         }
 
-        public Manager? GetById(int id) {
-            throw new NotImplementedException();
-        }
-
         public void Update(Guid id, Manager entity) {
             using var context = new AppDbContext();
-            var dbManager = context.Managers.Where(user => user.Id == id).SingleOrDefault();
+            var dbManager = context.Managers.Where(manager => manager.Id == id).SingleOrDefault();
             if (dbManager is null)
                 return;
             dbManager.Name = entity.Name;
@@ -56,6 +48,8 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbManager.Transactions = entity.Transactions;
             dbManager.Engineers = entity.Engineers;
             dbManager.SalaryPerMonth = entity.SalaryPerMonth;
+            dbManager.UserId = entity.UserId;
+            dbManager.User = entity.User;
             context.SaveChanges();
         }
 

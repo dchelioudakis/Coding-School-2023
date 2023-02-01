@@ -16,8 +16,10 @@ namespace LibCarService
 
         public Guid ManagerId { get; set; }
         public Manager Manager { get; set; } = null!;
+
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
+
         public List<TransactionLine> TransactionLines { get; set; }
 
 
