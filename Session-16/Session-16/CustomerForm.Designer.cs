@@ -1,4 +1,4 @@
-﻿namespace Session_17 {
+﻿namespace Session_16 {
     partial class CustomerForm {
         /// <summary>
         /// Required designer variable.
@@ -63,14 +63,17 @@
             // grdCustomers
             // 
             this.grdCustomers.DataSource = this.bsCustomerOrder;
-            this.grdCustomers.Location = new System.Drawing.Point(21, 42);
+            this.grdCustomers.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdCustomers.Location = new System.Drawing.Point(18, 32);
             this.grdCustomers.MainView = this.grvCustomers;
+            this.grdCustomers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdCustomers.Name = "grdCustomers";
-            this.grdCustomers.Size = new System.Drawing.Size(748, 173);
+            this.grdCustomers.Size = new System.Drawing.Size(654, 130);
             this.grdCustomers.TabIndex = 0;
             this.grdCustomers.UseEmbeddedNavigator = true;
             this.grdCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvCustomers});
+            this.grdCustomers.Click += new System.EventHandler(this.grdCustomers_Click);
             // 
             // bsCustomerOrder
             // 
@@ -83,58 +86,61 @@
             this.colCustomerSurname,
             this.colCustomerPhone,
             this.colCustomerTIN});
+            this.grvCustomers.DetailHeight = 262;
             this.grvCustomers.GridControl = this.grdCustomers;
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
             this.grvCustomers.OptionsView.ShowGroupPanel = false;
             this.grvCustomers.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.grvCustomers_ValidateRow);
+            this.grvCustomers.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.grvCustomers_RowUpdated);
             // 
             // colCustomerName
             // 
             this.colCustomerName.Caption = "Name";
             this.colCustomerName.FieldName = "Name";
-            this.colCustomerName.MinWidth = 25;
+            this.colCustomerName.MinWidth = 22;
             this.colCustomerName.Name = "colCustomerName";
             this.colCustomerName.Visible = true;
             this.colCustomerName.VisibleIndex = 0;
-            this.colCustomerName.Width = 94;
+            this.colCustomerName.Width = 82;
             // 
             // colCustomerSurname
             // 
             this.colCustomerSurname.Caption = "Surname";
             this.colCustomerSurname.FieldName = "Surname";
-            this.colCustomerSurname.MinWidth = 25;
+            this.colCustomerSurname.MinWidth = 22;
             this.colCustomerSurname.Name = "colCustomerSurname";
             this.colCustomerSurname.Visible = true;
             this.colCustomerSurname.VisibleIndex = 1;
-            this.colCustomerSurname.Width = 94;
+            this.colCustomerSurname.Width = 82;
             // 
             // colCustomerPhone
             // 
             this.colCustomerPhone.Caption = "Phone";
             this.colCustomerPhone.FieldName = "Phone";
-            this.colCustomerPhone.MinWidth = 25;
+            this.colCustomerPhone.MinWidth = 22;
             this.colCustomerPhone.Name = "colCustomerPhone";
             this.colCustomerPhone.Visible = true;
             this.colCustomerPhone.VisibleIndex = 2;
-            this.colCustomerPhone.Width = 94;
+            this.colCustomerPhone.Width = 82;
             // 
             // colCustomerTIN
             // 
             this.colCustomerTIN.Caption = "TIN";
             this.colCustomerTIN.FieldName = "TIN";
-            this.colCustomerTIN.MinWidth = 25;
+            this.colCustomerTIN.MinWidth = 22;
             this.colCustomerTIN.Name = "colCustomerTIN";
             this.colCustomerTIN.Visible = true;
             this.colCustomerTIN.VisibleIndex = 3;
-            this.colCustomerTIN.Width = 94;
+            this.colCustomerTIN.Width = 82;
             // 
             // btnSend
             // 
             this.btnSend.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSend.Location = new System.Drawing.Point(666, 643);
+            this.btnSend.Location = new System.Drawing.Point(583, 482);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(94, 36);
+            this.btnSend.Size = new System.Drawing.Size(82, 27);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = false;
@@ -143,9 +149,10 @@
             // btnLoad
             // 
             this.btnLoad.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnLoad.Location = new System.Drawing.Point(534, 643);
+            this.btnLoad.Location = new System.Drawing.Point(467, 482);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(94, 36);
+            this.btnLoad.Size = new System.Drawing.Size(82, 27);
             this.btnLoad.TabIndex = 3;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = false;
@@ -161,10 +168,12 @@
             // 
             // grdCars
             // 
-            this.grdCars.Location = new System.Drawing.Point(21, 254);
+            this.grdCars.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdCars.Location = new System.Drawing.Point(18, 190);
             this.grdCars.MainView = this.gcvCars;
+            this.grdCars.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdCars.Name = "grdCars";
-            this.grdCars.Size = new System.Drawing.Size(748, 173);
+            this.grdCars.Size = new System.Drawing.Size(654, 130);
             this.grdCars.TabIndex = 6;
             this.grdCars.UseEmbeddedNavigator = true;
             this.grdCars.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -176,6 +185,7 @@
             this.colCarsBrand,
             this.colCarsModel,
             this.colCarsRegistration});
+            this.gcvCars.DetailHeight = 262;
             this.gcvCars.GridControl = this.grdCars;
             this.gcvCars.Name = "gcvCars";
             this.gcvCars.OptionsView.ShowGroupPanel = false;
@@ -185,38 +195,40 @@
             // 
             this.colCarsBrand.Caption = "Brand";
             this.colCarsBrand.FieldName = "Brand";
-            this.colCarsBrand.MinWidth = 25;
+            this.colCarsBrand.MinWidth = 22;
             this.colCarsBrand.Name = "colCarsBrand";
             this.colCarsBrand.Visible = true;
             this.colCarsBrand.VisibleIndex = 1;
-            this.colCarsBrand.Width = 94;
+            this.colCarsBrand.Width = 82;
             // 
             // colCarsModel
             // 
             this.colCarsModel.Caption = "Model";
             this.colCarsModel.FieldName = "Model";
-            this.colCarsModel.MinWidth = 25;
+            this.colCarsModel.MinWidth = 22;
             this.colCarsModel.Name = "colCarsModel";
             this.colCarsModel.Visible = true;
             this.colCarsModel.VisibleIndex = 0;
-            this.colCarsModel.Width = 94;
+            this.colCarsModel.Width = 82;
             // 
             // colCarsRegistration
             // 
             this.colCarsRegistration.Caption = "Registration";
             this.colCarsRegistration.FieldName = "CarRegistrationNumber";
-            this.colCarsRegistration.MinWidth = 25;
+            this.colCarsRegistration.MinWidth = 22;
             this.colCarsRegistration.Name = "colCarsRegistration";
             this.colCarsRegistration.Visible = true;
             this.colCarsRegistration.VisibleIndex = 2;
-            this.colCarsRegistration.Width = 94;
+            this.colCarsRegistration.Width = 82;
             // 
             // grdServiceTasks
             // 
-            this.grdServiceTasks.Location = new System.Drawing.Point(21, 464);
+            this.grdServiceTasks.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdServiceTasks.Location = new System.Drawing.Point(18, 348);
             this.grdServiceTasks.MainView = this.grvServiceTasks;
+            this.grdServiceTasks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdServiceTasks.Name = "grdServiceTasks";
-            this.grdServiceTasks.Size = new System.Drawing.Size(748, 173);
+            this.grdServiceTasks.Size = new System.Drawing.Size(654, 130);
             this.grdServiceTasks.TabIndex = 7;
             this.grdServiceTasks.UseEmbeddedNavigator = true;
             this.grdServiceTasks.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -228,6 +240,7 @@
             this.colServiceTasksCode,
             this.colServiceTasksDescription,
             this.colServiceTasksHours});
+            this.grvServiceTasks.DetailHeight = 262;
             this.grvServiceTasks.GridControl = this.grdServiceTasks;
             this.grvServiceTasks.Name = "grvServiceTasks";
             this.grvServiceTasks.OptionsView.ShowGroupPanel = false;
@@ -238,61 +251,62 @@
             // 
             this.colServiceTasksCode.Caption = "Code";
             this.colServiceTasksCode.FieldName = "Code";
-            this.colServiceTasksCode.MinWidth = 25;
+            this.colServiceTasksCode.MinWidth = 22;
             this.colServiceTasksCode.Name = "colServiceTasksCode";
             this.colServiceTasksCode.Visible = true;
             this.colServiceTasksCode.VisibleIndex = 0;
-            this.colServiceTasksCode.Width = 94;
+            this.colServiceTasksCode.Width = 82;
             // 
             // colServiceTasksDescription
             // 
             this.colServiceTasksDescription.Caption = "Description";
             this.colServiceTasksDescription.FieldName = "Description";
-            this.colServiceTasksDescription.MinWidth = 25;
+            this.colServiceTasksDescription.MinWidth = 22;
             this.colServiceTasksDescription.Name = "colServiceTasksDescription";
             this.colServiceTasksDescription.OptionsColumn.ReadOnly = true;
             this.colServiceTasksDescription.Visible = true;
             this.colServiceTasksDescription.VisibleIndex = 1;
-            this.colServiceTasksDescription.Width = 94;
+            this.colServiceTasksDescription.Width = 82;
             // 
             // colServiceTasksHours
             // 
             this.colServiceTasksHours.Caption = "Hours";
             this.colServiceTasksHours.FieldName = "Hours";
-            this.colServiceTasksHours.MinWidth = 25;
+            this.colServiceTasksHours.MinWidth = 22;
             this.colServiceTasksHours.Name = "colServiceTasksHours";
             this.colServiceTasksHours.OptionsColumn.ReadOnly = true;
             this.colServiceTasksHours.Visible = true;
             this.colServiceTasksHours.VisibleIndex = 2;
-            this.colServiceTasksHours.Width = 94;
+            this.colServiceTasksHours.Width = 82;
             // 
             // btnPopulate
             // 
-            this.btnPopulate.Location = new System.Drawing.Point(35, 643);
+            this.btnPopulate.Location = new System.Drawing.Point(31, 482);
+            this.btnPopulate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPopulate.Name = "btnPopulate";
-            this.btnPopulate.Size = new System.Drawing.Size(94, 36);
+            this.btnPopulate.Size = new System.Drawing.Size(82, 27);
             this.btnPopulate.TabIndex = 8;
             this.btnPopulate.Text = "Populate";
             this.btnPopulate.Click += new System.EventHandler(this.btnPopulate_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(326, 11);
+            this.textBox1.Location = new System.Drawing.Point(285, 8);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(130, 27);
+            this.textBox1.Size = new System.Drawing.Size(114, 23);
             this.textBox1.TabIndex = 9;
             this.textBox1.Text = "Customer";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(326, 223);
+            this.textBox2.Location = new System.Drawing.Point(285, 167);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(130, 27);
+            this.textBox2.Size = new System.Drawing.Size(114, 23);
             this.textBox2.TabIndex = 10;
             this.textBox2.Text = "Car";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -300,11 +314,11 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(326, 434);
+            this.textBox3.Location = new System.Drawing.Point(285, 326);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(130, 27);
+            this.textBox3.Size = new System.Drawing.Size(114, 23);
             this.textBox3.TabIndex = 11;
             this.textBox3.Text = "Services ";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -312,9 +326,9 @@
             // 
             // CustomerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 686);
+            this.ClientSize = new System.Drawing.Size(694, 514);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -325,6 +339,7 @@
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.grdCustomers);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "CustomerForm";
             this.Text = "Customer Form";
             this.Load += new System.EventHandler(this.CustomerForm_Load_1);

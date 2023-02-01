@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarSercviceCenter.Orm\CarSercviceCenter.Orm.csproj" />
     <ProjectReference Include="..\LibCarService\LibCarService.csproj" />
     <ProjectReference Include="..\LibSerializer\LibSerializer.csproj" />
   </ItemGroup>

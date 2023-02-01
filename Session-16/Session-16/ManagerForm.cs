@@ -26,7 +26,7 @@ using static LibCarService.ServiceTask;
 using GridView = DevExpress.XtraGrid.Views.Grid.GridView;
 using Transaction = LibCarService.Transaction;
 
-namespace Session_17 {
+namespace Session_16 {
     public partial class ManagerForm : Form {
 
         CarServiceCenter carServiceCenter;
@@ -97,7 +97,7 @@ namespace Session_17 {
 
         private void grvServiceTasks_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
             if (e.Column.Caption == "Code") {
-                //MessageBox.Show(e.Value.ToString());
+                MessageBox.Show(e.RowHandle.ToString());
 
                 switch (e.Value) {
                     case CodeEnum.OilChange:

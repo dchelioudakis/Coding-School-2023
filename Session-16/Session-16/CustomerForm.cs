@@ -1,4 +1,5 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
+﻿using CarSercviceCenter.Orm.Repositories;
+using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using LibCarService;
@@ -15,10 +16,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static LibCarService.ServiceTask;
 
-namespace Session_17
+namespace Session_16
 {
     public partial class CustomerForm : Form
     {
+        private CustomerRepo? _customerRepo = new CustomerRepo();
 
         CarServiceCenter carServiceCenter;
         public CustomerForm(LoginForm mainForm)
@@ -219,6 +221,27 @@ namespace Session_17
             if (e.Valid)
             {
                 btnSend.Enabled = true;
+            }
+        }
+
+        private void grdCustomers_Click(object sender, EventArgs e) {
+
+        }
+
+        private void grvCustomers_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e) {
+            if (grvCustomers.IsNewItemRow(e.RowHandle)) {
+                int rowHandle = grvCustomers.DataRowCount-1;
+
+
+                var newCustomer = new Customer() {
+                    Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
+                    Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
+                    Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
+                    TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
+
+                };
+
+                _customerRepo.Add(newCustomer);
             }
         }
     }

@@ -33,7 +33,7 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public Manager? GetById(Guid id) {
             using var context = new AppDbContext();
-            return context.Managers.Where(user => user.Id == id)
+            return context.Managers.Where(manager => manager.Id == id)
                 .Include(manager => manager.Engineers)
                 .Include(manager => manager.Transactions).SingleOrDefault();
         }

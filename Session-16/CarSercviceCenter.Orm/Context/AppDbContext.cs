@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace CarSercviceCenter.Orm.Context {
     public class AppDbContext : DbContext {
         public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Engineer> Engineers { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Car> Cars { get; set; }

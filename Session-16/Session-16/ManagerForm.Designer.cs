@@ -1,4 +1,4 @@
-﻿namespace Session_17 {
+﻿namespace Session_16 {
     partial class ManagerForm {
         /// <summary>
         /// Required designer variable.
