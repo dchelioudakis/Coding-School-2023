@@ -317,7 +317,10 @@ namespace Session_16 {
             if (dialogResult == DialogResult.Yes) {
                 try {
                     Guid deletingCustomerID = (Guid)grvCustomers.GetRowCellValue(e.RowHandle, "Id");
+                    Guid deletingUserID = _customerRepo.GetById(deletingCustomerID).UserId;
+
                     _customerRepo.Delete(deletingCustomerID);
+                    _userRepo.Delete(deletingUserID);
 
                     e.Cancel = false;
                 }
