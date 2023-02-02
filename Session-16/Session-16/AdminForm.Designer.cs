@@ -24,11 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.grvManagers = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.grdColName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -105,15 +105,15 @@
             this.tabStatistics = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.label1 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.btnLoadFromSQL = new DevExpress.XtraEditors.SimpleButton();
             this.tabCustomers = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.grdCustomers = new DevExpress.XtraGrid.GridControl();
             this.grvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colCustomerID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerSurname = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerTIN = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerPhone = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnLoadFromSQL = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdManagers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdEngineers)).BeginInit();
@@ -495,7 +495,7 @@
             this.repTransactionLinesViewBtn.AdvancedModeOptions.Label = "Details";
             this.repTransactionLinesViewBtn.AutoHeight = false;
             this.repTransactionLinesViewBtn.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Details", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Details", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repTransactionLinesViewBtn.Name = "repTransactionLinesViewBtn";
             this.repTransactionLinesViewBtn.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repTransactionLinesViewBtn.Click += new System.EventHandler(this.repTransactionLinesViewBtn_Click);
@@ -977,16 +977,6 @@
             this.simpleButton1.Text = "All Months";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
-            // btnLoadFromSQL
-            // 
-            this.btnLoadFromSQL.Location = new System.Drawing.Point(428, 480);
-            this.btnLoadFromSQL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnLoadFromSQL.Name = "btnLoadFromSQL";
-            this.btnLoadFromSQL.Size = new System.Drawing.Size(82, 27);
-            this.btnLoadFromSQL.TabIndex = 24;
-            this.btnLoadFromSQL.Text = "Load(SQL)";
-            this.btnLoadFromSQL.Click += new System.EventHandler(this.btnLoadFromSQL_Click);
-            // 
             // tabCustomers
             // 
             this.tabCustomers.Caption = "Customers";
@@ -1008,7 +998,7 @@
             // grvCustomers
             // 
             this.grvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colCustomerID,
+            this.colCustomerId,
             this.colCustomerName,
             this.colCustomerSurname,
             this.colCustomerTIN,
@@ -1016,12 +1006,14 @@
             this.grvCustomers.GridControl = this.grdCustomers;
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.OptionsView.ShowGroupPanel = false;
+            this.grvCustomers.RowDeleting += new DevExpress.Data.RowDeletingEventHandler(this.grvCustomers_RowDeleting);
+            this.grvCustomers.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.grvCustomers_RowDeleted);
             // 
-            // colCustomerID
+            // colCustomerId
             // 
-            this.colCustomerID.Caption = "ID";
-            this.colCustomerID.FieldName = "ID";
-            this.colCustomerID.Name = "colCustomerID";
+            this.colCustomerId.Caption = "Id";
+            this.colCustomerId.FieldName = "Id";
+            this.colCustomerId.Name = "colCustomerId";
             // 
             // colCustomerName
             // 
@@ -1029,7 +1021,7 @@
             this.colCustomerName.FieldName = "Name";
             this.colCustomerName.Name = "colCustomerName";
             this.colCustomerName.Visible = true;
-            this.colCustomerName.VisibleIndex = 0;
+            this.colCustomerName.VisibleIndex = 1;
             // 
             // colCustomerSurname
             // 
@@ -1037,7 +1029,7 @@
             this.colCustomerSurname.FieldName = "Surname";
             this.colCustomerSurname.Name = "colCustomerSurname";
             this.colCustomerSurname.Visible = true;
-            this.colCustomerSurname.VisibleIndex = 1;
+            this.colCustomerSurname.VisibleIndex = 2;
             // 
             // colCustomerTIN
             // 
@@ -1045,7 +1037,7 @@
             this.colCustomerTIN.FieldName = "TIN";
             this.colCustomerTIN.Name = "colCustomerTIN";
             this.colCustomerTIN.Visible = true;
-            this.colCustomerTIN.VisibleIndex = 2;
+            this.colCustomerTIN.VisibleIndex = 3;
             // 
             // colCustomerPhone
             // 
@@ -1053,7 +1045,17 @@
             this.colCustomerPhone.FieldName = "Phone";
             this.colCustomerPhone.Name = "colCustomerPhone";
             this.colCustomerPhone.Visible = true;
-            this.colCustomerPhone.VisibleIndex = 3;
+            this.colCustomerPhone.VisibleIndex = 4;
+            // 
+            // btnLoadFromSQL
+            // 
+            this.btnLoadFromSQL.Location = new System.Drawing.Point(428, 480);
+            this.btnLoadFromSQL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLoadFromSQL.Name = "btnLoadFromSQL";
+            this.btnLoadFromSQL.Size = new System.Drawing.Size(82, 27);
+            this.btnLoadFromSQL.TabIndex = 24;
+            this.btnLoadFromSQL.Text = "Load(SQL)";
+            this.btnLoadFromSQL.Click += new System.EventHandler(this.btnLoadFromSQL_Click);
             // 
             // AdminForm
             // 
@@ -1067,6 +1069,7 @@
             this.Controls.Add(this.btnLoad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "AdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administrator";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvManagers)).EndInit();
@@ -1197,7 +1200,7 @@
         private DevExpress.XtraBars.Navigation.TabNavigationPage tabCustomers;
         private DevExpress.XtraGrid.GridControl grdCustomers;
         private DevExpress.XtraGrid.Views.Grid.GridView grvCustomers;
-        private DevExpress.XtraGrid.Columns.GridColumn colCustomerID;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerId;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerName;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerSurname;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerTIN;

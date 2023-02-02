@@ -291,10 +291,10 @@ namespace Session_16 {
                     break;
                 case UserTypeEnum.Customer:
                     var newCustomer = new Customer() {
-                        Name = grvManagers.GetRowCellValue(rowHandle, "Name").ToString(),
-                        Surname = grvManagers.GetRowCellValue(rowHandle, "Surname").ToString(),
-                        Phone = grvManagers.GetRowCellValue(rowHandle, "Phone").ToString(),
-                        TIN = grvManagers.GetRowCellValue(rowHandle, "TIN").ToString(),
+                        Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
+                        Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
+                        Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
+                        TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
                         UserId = newUserId
                     };
 
@@ -307,8 +307,32 @@ namespace Session_16 {
         }
 
         private void btnLoadFromSQL_Click(object sender, EventArgs e) {
+            carServiceCenter.Customers.Clear();
             carServiceCenter.Customers.AddRange(_customerRepo.GetAll());
             LoadToGrids();
+        }
+
+        private void grvCustomers_RowDeleting(object sender, DevExpress.Data.RowDeletingEventArgs e) {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected customer;", "Customer Deletion", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                try {
+                    Guid deletingCustomerID = (Guid)grvCustomers.GetRowCellValue(e.RowHandle, "Id");
+                    _customerRepo.Delete(deletingCustomerID);
+
+                    e.Cancel = false;
+                }
+                catch (Exception ex) {
+                    e.Cancel = true;
+                    MessageBox.Show("An internal error occured. Unsuccesful record delete");
+                }
+            }
+            else if (dialogResult == DialogResult.No) {
+                e.Cancel = true;
+            }   
+        }
+
+        private void grvCustomers_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e) {
+            MessageBox.Show("Customer Removed Succesfully");
         }
     }
 }
