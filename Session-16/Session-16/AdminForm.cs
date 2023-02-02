@@ -1,4 +1,5 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
+﻿using CarSercviceCenter.Orm.Repositories;
+using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Office.Utils;
 using DevExpress.Utils;
 using DevExpress.XtraExport.Helpers;
@@ -27,20 +28,25 @@ using GridView = DevExpress.XtraGrid.Views.Grid.GridView;
 using Transaction = LibCarService.Transaction;
 
 namespace Session_16 {
-    public partial class ManagerForm : Form {
+    public partial class AdminForm : Form {
+
+
+        private UserRepo _userRepo = new UserRepo();
+        private CustomerRepo _customerRepo = new CustomerRepo();
+        private EngineerRepo _engineerRepo = new EngineerRepo();
 
         CarServiceCenter carServiceCenter;
         //Settings formSettings;
-        public ManagerForm(LoginForm mainForm) {
+        public AdminForm(LoginForm mainForm) {
             InitializeComponent();
             carServiceCenter = mainForm.CarServiceCenter;
         }
 
-        private void ManagerForm_Load(object sender, EventArgs e) {
+        private void AdminForm_Load(object sender, EventArgs e) {
             carServiceCenter = new CarServiceCenter();
             //carServiceCenter.Settings = new Settings();
             //carServiceCenter.Settings.PricePerHour = 45.5M;
-            SetFormGrids();
+            LoadToGrids();
         }
 
         private void PopulateCarCenter() {
@@ -56,10 +62,13 @@ namespace Session_16 {
             carServiceCenter.TransactionLines = data.TransactionLines;
 
         }
-        private void SetFormGrids() {
+        private void LoadToGrids() {
             BindingList<Manager> managers = new BindingList<Manager>(carServiceCenter.Managers);
             grdManagers.DataSource = new BindingSource() { DataSource = managers };
-            
+
+            BindingList<Customer> customers = new BindingList<Customer>(carServiceCenter.Customers);
+            grdCustomers.DataSource = new BindingSource() { DataSource = customers };
+
             BindingList<Engineer> engineers = new BindingList<Engineer>(carServiceCenter.Engineers);
             grdEngineers.DataSource = new BindingSource() { DataSource = engineers };
 
@@ -79,7 +88,7 @@ namespace Session_16 {
             repCars.DisplayMember = "Model";
             repCars.ValueMember = "ID";
 
-            BindingList<Customer> customers = new BindingList<Customer>(carServiceCenter.Customers);
+            
             repCustomers.DataSource = new BindingSource() { DataSource = customers };
             repCustomers.DisplayMember = "Surname";
             repCustomers.ValueMember = "ID";
@@ -171,7 +180,7 @@ namespace Session_16 {
             if (File.Exists(fileName)) {
                 carServiceCenter = serializer.Deserialize<CarServiceCenter>("carServiceCenter.json");
                 if (carServiceCenter != null) {
-                    SetFormGrids();
+                    LoadToGrids();
                 }
                 else {
                     MessageBox.Show("File is empty");
@@ -191,7 +200,7 @@ namespace Session_16 {
 
         private void btnPopulate_Click(object sender, EventArgs e) {
             PopulateCarCenter();
-            SetFormGrids();
+            LoadToGrids();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) {
@@ -253,10 +262,6 @@ namespace Session_16 {
 
         }
 
-        private void label1_Click(object sender, EventArgs e) {
-
-        }
-
         private void btnAddLine_Click(object sender, EventArgs e) {
             //GridColumn column = grvTransactionLines.Columns[0] as GridColumn;
             //column.OptionsColumn.ReadOnly = false;
@@ -264,105 +269,46 @@ namespace Session_16 {
             grvTransactionLines.AddNewRow();
         }
 
-        private void gridView3_CellValueChanging(object sender, CellValueChangedEventArgs e) {
-            //if (e.Column.Caption == "Code") {
-            //    //MessageBox.Show(e.Value.ToString());
-            //    decimal Hours;
-            //    switch (e.Value) {
-            //        case CodeEnum.OilChange:
-            //            Hours = 1.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, formSettings.PricePerHour));
-            //            break;
-            //        case CodeEnum.TireChange:
-            //            Hours = 2.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, formSettings.PricePerHour));
-            //            break;
-            //        case CodeEnum.BrokenWindow:
-            //            Hours = 1.25M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, formSettings.PricePerHour));
-            //            break;
-            //        case CodeEnum.EngineChange:
-            //            Hours = 5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, formSettings.PricePerHour));
-            //            break;
-            //        case CodeEnum.MirrorReplacement:
-            //            Hours = 0.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, formSettings.PricePerHour));
-            //            break;
-            //        default:
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", formSettings.PricePerHour);
-            //            break;
-            //    }
+        private void grvManagers_RowUpdated(object sender, RowObjectEventArgs e) {
+            if (grvManagers.IsNewItemRow(e.RowHandle)) {
+                int rowHandle = grvManagers.DataRowCount - 1;
 
-
-
-            //}
+                AddUserTypeEntityToDB(UserTypeEnum.Customer, rowHandle);
+            }
         }
 
-        private void grvTransactionLines_CellValueChanging(object sender, CellValueChangedEventArgs e) {
-            //if (e.Column.Caption == "Task") {
-            //    //MessageBox.Show(e.Value.ToString());
-            //    decimal Hours;
-            //    decimal PricePerHour = 45.5M;
-                
-            //    switch (e.Value) {
-            //        case CodeEnum.OilChange:
-            //            Hours = 1.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, PricePerHour));
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", PricePerHour);
-            //            break;
-            //        case CodeEnum.TireChange:
-            //            Hours = 2.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, PricePerHour));
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", PricePerHour);
-            //            break;
-            //        case CodeEnum.BrokenWindow:
-            //            Hours = 1.25M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, PricePerHour));
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", PricePerHour);
-            //            break;
-            //        case CodeEnum.EngineChange:
-            //            Hours = 5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, PricePerHour));
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", PricePerHour);
-            //            break;
-            //        case CodeEnum.MirrorReplacement:
-            //            Hours = 0.5M;
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Hours", Hours);
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "Price", carServiceCenter.CalcPrice(Hours, PricePerHour));
-            //            grvTransactionLines.SetRowCellValue(e.RowHandle, "PricePerHour", PricePerHour);
-            //            break;
-            //        default:
-                        
-            //            break;
-            //    }
-            //}
+        private void AddUserTypeEntityToDB(UserTypeEnum enumVal, int rowHandle) {
 
+            Guid newUserId = Guid.NewGuid();
+            _userRepo.Add(new User() {
+                Id = newUserId,
+            });
 
+            switch (enumVal) {
+                case UserTypeEnum.Manager:
+                    break;
+                case UserTypeEnum.Engineer:
+                    break;
+                case UserTypeEnum.Customer:
+                    var newCustomer = new Customer() {
+                        Name = grvManagers.GetRowCellValue(rowHandle, "Name").ToString(),
+                        Surname = grvManagers.GetRowCellValue(rowHandle, "Surname").ToString(),
+                        Phone = grvManagers.GetRowCellValue(rowHandle, "Phone").ToString(),
+                        TIN = grvManagers.GetRowCellValue(rowHandle, "TIN").ToString(),
+                        UserId = newUserId
+                    };
+
+                    _customerRepo.Add(newCustomer);
+                    break;
+                default:
+                    break;
+            }
 
         }
 
-        //private void grvTransactions_MouseDown(object sender, MouseEventArgs e) {
-        //    GridView view = sender as GridView;
-        //    GridHitInfo hitInfo = view.CalcHitInfo(e.Location);
-        //    DXMouseEventArgs.GetMouseArgs(e).Handled = view.ActiveEditor != null && view.FocusedRowHandle != hitInfo.RowHandle;
-        //}
-
-        //private void grdTransactions_ProcessGridKey(object sender, KeyEventArgs e) {
-        //    GridControl grid = sender as GridControl;
-        //    GridView view = grid.MainView as GridView;
-        //    if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down) {
-        //        e.Handled = view.ActiveEditor != null;
-        //    }
-        //}
+        private void btnLoadFromSQL_Click(object sender, EventArgs e) {
+            carServiceCenter.Customers.AddRange(_customerRepo.GetAll());
+            LoadToGrids();
+        }
     }
 }

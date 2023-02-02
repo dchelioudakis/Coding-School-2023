@@ -22,8 +22,8 @@ namespace Session_16 {
         }
 
         public void btnManager_Click(object sender, EventArgs e) {
-            ManagerForm managerForm = new ManagerForm(this);
-            managerForm.ShowDialog();
+            AdminForm AdminForm = new AdminForm(this);
+            AdminForm.ShowDialog();
         }
 
         public void btnEngineer_Click(object sender, EventArgs e) {

@@ -1,5 +1,5 @@
 ﻿namespace Session_16 {
-    partial class ManagerForm {
+    partial class AdminForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -105,6 +105,15 @@
             this.tabStatistics = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.label1 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnLoadFromSQL = new DevExpress.XtraEditors.SimpleButton();
+            this.tabCustomers = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.grdCustomers = new DevExpress.XtraGrid.GridControl();
+            this.grvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colCustomerID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCustomerName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCustomerSurname = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCustomerTIN = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCustomerPhone = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdManagers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdEngineers)).BeginInit();
@@ -137,6 +146,9 @@
             this.tabTasks.SuspendLayout();
             this.tabTransactions.SuspendLayout();
             this.tabStatistics.SuspendLayout();
+            this.tabCustomers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
             this.SuspendLayout();
             // 
             // grvManagers
@@ -145,46 +157,50 @@
             this.grdColName,
             this.grdColSurname,
             this.grdColSalary});
+            this.grvManagers.DetailHeight = 262;
             this.grvManagers.GridControl = this.grdManagers;
             this.grvManagers.Name = "grvManagers";
             this.grvManagers.OptionsView.ShowGroupPanel = false;
+            this.grvManagers.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.grvManagers_RowUpdated);
             // 
             // grdColName
             // 
             this.grdColName.Caption = "Name";
             this.grdColName.FieldName = "Name";
-            this.grdColName.MinWidth = 25;
+            this.grdColName.MinWidth = 22;
             this.grdColName.Name = "grdColName";
             this.grdColName.Visible = true;
             this.grdColName.VisibleIndex = 0;
-            this.grdColName.Width = 94;
+            this.grdColName.Width = 82;
             // 
             // grdColSurname
             // 
             this.grdColSurname.Caption = "Surname";
             this.grdColSurname.FieldName = "Surname";
-            this.grdColSurname.MinWidth = 25;
+            this.grdColSurname.MinWidth = 22;
             this.grdColSurname.Name = "grdColSurname";
             this.grdColSurname.Visible = true;
             this.grdColSurname.VisibleIndex = 1;
-            this.grdColSurname.Width = 94;
+            this.grdColSurname.Width = 82;
             // 
             // grdColSalary
             // 
             this.grdColSalary.Caption = "Month Salary";
             this.grdColSalary.FieldName = "SalaryPerMonth";
-            this.grdColSalary.MinWidth = 25;
+            this.grdColSalary.MinWidth = 22;
             this.grdColSalary.Name = "grdColSalary";
             this.grdColSalary.Visible = true;
             this.grdColSalary.VisibleIndex = 2;
-            this.grdColSalary.Width = 94;
+            this.grdColSalary.Width = 82;
             // 
             // grdManagers
             // 
-            this.grdManagers.Location = new System.Drawing.Point(19, 53);
+            this.grdManagers.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdManagers.Location = new System.Drawing.Point(17, 40);
             this.grdManagers.MainView = this.grvManagers;
+            this.grdManagers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdManagers.Name = "grdManagers";
-            this.grdManagers.Size = new System.Drawing.Size(753, 495);
+            this.grdManagers.Size = new System.Drawing.Size(659, 371);
             this.grdManagers.TabIndex = 1;
             this.grdManagers.UseEmbeddedNavigator = true;
             this.grdManagers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -192,12 +208,14 @@
             // 
             // grdEngineers
             // 
-            this.grdEngineers.Location = new System.Drawing.Point(21, 47);
+            this.grdEngineers.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdEngineers.Location = new System.Drawing.Point(18, 35);
             this.grdEngineers.MainView = this.grvEngineers;
+            this.grdEngineers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdEngineers.Name = "grdEngineers";
             this.grdEngineers.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repManagers});
-            this.grdEngineers.Size = new System.Drawing.Size(751, 501);
+            this.grdEngineers.Size = new System.Drawing.Size(657, 376);
             this.grdEngineers.TabIndex = 3;
             this.grdEngineers.UseEmbeddedNavigator = true;
             this.grdEngineers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -210,6 +228,7 @@
             this.grdColEngineerSurname,
             this.grdColEngineerManager,
             this.grdColEngineerSalary});
+            this.grvEngineers.DetailHeight = 262;
             this.grvEngineers.GridControl = this.grdEngineers;
             this.grvEngineers.Name = "grvEngineers";
             this.grvEngineers.OptionsView.ShowGroupPanel = false;
@@ -218,32 +237,32 @@
             // 
             this.grdColEngineerName.Caption = "Name";
             this.grdColEngineerName.FieldName = "Name";
-            this.grdColEngineerName.MinWidth = 25;
+            this.grdColEngineerName.MinWidth = 22;
             this.grdColEngineerName.Name = "grdColEngineerName";
             this.grdColEngineerName.Visible = true;
             this.grdColEngineerName.VisibleIndex = 0;
-            this.grdColEngineerName.Width = 94;
+            this.grdColEngineerName.Width = 82;
             // 
             // grdColEngineerSurname
             // 
             this.grdColEngineerSurname.Caption = "Surname";
             this.grdColEngineerSurname.FieldName = "Surname";
-            this.grdColEngineerSurname.MinWidth = 25;
+            this.grdColEngineerSurname.MinWidth = 22;
             this.grdColEngineerSurname.Name = "grdColEngineerSurname";
             this.grdColEngineerSurname.Visible = true;
             this.grdColEngineerSurname.VisibleIndex = 1;
-            this.grdColEngineerSurname.Width = 94;
+            this.grdColEngineerSurname.Width = 82;
             // 
             // grdColEngineerManager
             // 
             this.grdColEngineerManager.Caption = "Manager";
             this.grdColEngineerManager.ColumnEdit = this.repManagers;
             this.grdColEngineerManager.FieldName = "ManagerID";
-            this.grdColEngineerManager.MinWidth = 25;
+            this.grdColEngineerManager.MinWidth = 22;
             this.grdColEngineerManager.Name = "grdColEngineerManager";
             this.grdColEngineerManager.Visible = true;
             this.grdColEngineerManager.VisibleIndex = 2;
-            this.grdColEngineerManager.Width = 94;
+            this.grdColEngineerManager.Width = 82;
             // 
             // repManagers
             // 
@@ -255,6 +274,7 @@
             // 
             // repManagersView
             // 
+            this.repManagersView.DetailHeight = 262;
             this.repManagersView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.repManagersView.Name = "repManagersView";
             this.repManagersView.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -264,18 +284,20 @@
             // 
             this.grdColEngineerSalary.Caption = "Month Salary";
             this.grdColEngineerSalary.FieldName = "SalaryPerMonth";
-            this.grdColEngineerSalary.MinWidth = 25;
+            this.grdColEngineerSalary.MinWidth = 22;
             this.grdColEngineerSalary.Name = "grdColEngineerSalary";
             this.grdColEngineerSalary.Visible = true;
             this.grdColEngineerSalary.VisibleIndex = 3;
-            this.grdColEngineerSalary.Width = 94;
+            this.grdColEngineerSalary.Width = 82;
             // 
             // grdServiceTasks
             // 
-            this.grdServiceTasks.Location = new System.Drawing.Point(15, 48);
+            this.grdServiceTasks.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdServiceTasks.Location = new System.Drawing.Point(13, 36);
             this.grdServiceTasks.MainView = this.grvServiceTasks;
+            this.grdServiceTasks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdServiceTasks.Name = "grdServiceTasks";
-            this.grdServiceTasks.Size = new System.Drawing.Size(757, 500);
+            this.grdServiceTasks.Size = new System.Drawing.Size(662, 375);
             this.grdServiceTasks.TabIndex = 4;
             this.grdServiceTasks.UseEmbeddedNavigator = true;
             this.grdServiceTasks.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -287,6 +309,7 @@
             this.colServiceTaskCode,
             this.colServiceTaskDescription,
             this.colServiceTaskHours});
+            this.grvServiceTasks.DetailHeight = 262;
             this.grvServiceTasks.GridControl = this.grdServiceTasks;
             this.grvServiceTasks.Name = "grvServiceTasks";
             this.grvServiceTasks.OptionsView.ShowGroupPanel = false;
@@ -296,36 +319,36 @@
             // 
             this.colServiceTaskCode.Caption = "Code";
             this.colServiceTaskCode.FieldName = "Code";
-            this.colServiceTaskCode.MinWidth = 25;
+            this.colServiceTaskCode.MinWidth = 22;
             this.colServiceTaskCode.Name = "colServiceTaskCode";
             this.colServiceTaskCode.Visible = true;
             this.colServiceTaskCode.VisibleIndex = 0;
-            this.colServiceTaskCode.Width = 94;
+            this.colServiceTaskCode.Width = 82;
             // 
             // colServiceTaskDescription
             // 
             this.colServiceTaskDescription.Caption = "Description";
             this.colServiceTaskDescription.FieldName = "Description";
-            this.colServiceTaskDescription.MinWidth = 25;
+            this.colServiceTaskDescription.MinWidth = 22;
             this.colServiceTaskDescription.Name = "colServiceTaskDescription";
             this.colServiceTaskDescription.Visible = true;
             this.colServiceTaskDescription.VisibleIndex = 1;
-            this.colServiceTaskDescription.Width = 94;
+            this.colServiceTaskDescription.Width = 82;
             // 
             // colServiceTaskHours
             // 
             this.colServiceTaskHours.Caption = "Hours";
             this.colServiceTaskHours.FieldName = "Hours";
-            this.colServiceTaskHours.MinWidth = 25;
+            this.colServiceTaskHours.MinWidth = 22;
             this.colServiceTaskHours.Name = "colServiceTaskHours";
             this.colServiceTaskHours.Visible = true;
             this.colServiceTaskHours.VisibleIndex = 2;
-            this.colServiceTaskHours.Width = 94;
+            this.colServiceTaskHours.Width = 82;
             // 
             // grdTransactions
             // 
             this.grdTransactions.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
-            this.grdTransactions.Location = new System.Drawing.Point(15, 28);
+            this.grdTransactions.Location = new System.Drawing.Point(13, 21);
             this.grdTransactions.MainView = this.grvTransactions;
             this.grdTransactions.Margin = new System.Windows.Forms.Padding(2);
             this.grdTransactions.Name = "grdTransactions";
@@ -334,7 +357,7 @@
             this.repCustomers,
             this.repManagers2,
             this.repTransactionLinesViewBtn});
-            this.grdTransactions.Size = new System.Drawing.Size(757, 223);
+            this.grdTransactions.Size = new System.Drawing.Size(662, 167);
             this.grdTransactions.TabIndex = 5;
             this.grdTransactions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvTransactions});
@@ -348,7 +371,7 @@
             this.grdManager,
             this.grdTotalPrice,
             this.colTransactionsViewBtn});
-            this.grvTransactions.DetailHeight = 280;
+            this.grvTransactions.DetailHeight = 210;
             this.grvTransactions.GridControl = this.grdTransactions;
             this.grvTransactions.Name = "grvTransactions";
             this.grvTransactions.OptionsView.ShowGroupPanel = false;
@@ -357,22 +380,22 @@
             // 
             this.grdDate.Caption = "Date";
             this.grdDate.FieldName = "Date";
-            this.grdDate.MinWidth = 24;
+            this.grdDate.MinWidth = 21;
             this.grdDate.Name = "grdDate";
             this.grdDate.Visible = true;
             this.grdDate.VisibleIndex = 0;
-            this.grdDate.Width = 90;
+            this.grdDate.Width = 79;
             // 
             // grdCustomerName
             // 
             this.grdCustomerName.Caption = "Customer Name";
             this.grdCustomerName.ColumnEdit = this.repCustomers;
             this.grdCustomerName.FieldName = "CustomerID";
-            this.grdCustomerName.MinWidth = 24;
+            this.grdCustomerName.MinWidth = 21;
             this.grdCustomerName.Name = "grdCustomerName";
             this.grdCustomerName.Visible = true;
             this.grdCustomerName.VisibleIndex = 1;
-            this.grdCustomerName.Width = 90;
+            this.grdCustomerName.Width = 79;
             // 
             // repCustomers
             // 
@@ -384,7 +407,7 @@
             // 
             // gridView1
             // 
-            this.gridView1.DetailHeight = 280;
+            this.gridView1.DetailHeight = 210;
             this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -395,11 +418,11 @@
             this.grdCar.Caption = "Car";
             this.grdCar.ColumnEdit = this.repCars;
             this.grdCar.FieldName = "CarID";
-            this.grdCar.MinWidth = 24;
+            this.grdCar.MinWidth = 21;
             this.grdCar.Name = "grdCar";
             this.grdCar.Visible = true;
             this.grdCar.VisibleIndex = 2;
-            this.grdCar.Width = 90;
+            this.grdCar.Width = 79;
             // 
             // repCars
             // 
@@ -411,7 +434,7 @@
             // 
             // repositoryItemGridLookUpEdit1View
             // 
-            this.repositoryItemGridLookUpEdit1View.DetailHeight = 280;
+            this.repositoryItemGridLookUpEdit1View.DetailHeight = 210;
             this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
             this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -422,11 +445,11 @@
             this.grdManager.Caption = "Manager";
             this.grdManager.ColumnEdit = this.repManagers2;
             this.grdManager.FieldName = "ManagerID";
-            this.grdManager.MinWidth = 24;
+            this.grdManager.MinWidth = 21;
             this.grdManager.Name = "grdManager";
             this.grdManager.Visible = true;
             this.grdManager.VisibleIndex = 3;
-            this.grdManager.Width = 90;
+            this.grdManager.Width = 79;
             // 
             // repManagers2
             // 
@@ -438,7 +461,7 @@
             // 
             // gridView2
             // 
-            this.gridView2.DetailHeight = 280;
+            this.gridView2.DetailHeight = 210;
             this.gridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -448,24 +471,24 @@
             // 
             this.grdTotalPrice.Caption = "Total Price";
             this.grdTotalPrice.FieldName = "TotalPrice";
-            this.grdTotalPrice.MinWidth = 24;
+            this.grdTotalPrice.MinWidth = 21;
             this.grdTotalPrice.Name = "grdTotalPrice";
             this.grdTotalPrice.OptionsColumn.AllowEdit = false;
             this.grdTotalPrice.Visible = true;
             this.grdTotalPrice.VisibleIndex = 4;
-            this.grdTotalPrice.Width = 90;
+            this.grdTotalPrice.Width = 79;
             // 
             // colTransactionsViewBtn
             // 
             this.colTransactionsViewBtn.Caption = "Actions";
             this.colTransactionsViewBtn.ColumnEdit = this.repTransactionLinesViewBtn;
             this.colTransactionsViewBtn.FieldName = "colTransactionsViewBtn";
-            this.colTransactionsViewBtn.MinWidth = 25;
+            this.colTransactionsViewBtn.MinWidth = 22;
             this.colTransactionsViewBtn.Name = "colTransactionsViewBtn";
             this.colTransactionsViewBtn.UnboundDataType = typeof(object);
             this.colTransactionsViewBtn.Visible = true;
             this.colTransactionsViewBtn.VisibleIndex = 5;
-            this.colTransactionsViewBtn.Width = 94;
+            this.colTransactionsViewBtn.Width = 82;
             // 
             // repTransactionLinesViewBtn
             // 
@@ -479,13 +502,15 @@
             // 
             // grdTransactionLines
             // 
-            this.grdTransactionLines.Location = new System.Drawing.Point(15, 344);
+            this.grdTransactionLines.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdTransactionLines.Location = new System.Drawing.Point(13, 258);
             this.grdTransactionLines.MainView = this.grvTransactionLines;
+            this.grdTransactionLines.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdTransactionLines.Name = "grdTransactionLines";
             this.grdTransactionLines.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repTransactionLinesTasks,
             this.repTransactionLineEngineers});
-            this.grdTransactionLines.Size = new System.Drawing.Size(757, 175);
+            this.grdTransactionLines.Size = new System.Drawing.Size(662, 131);
             this.grdTransactionLines.TabIndex = 6;
             this.grdTransactionLines.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvTransactionLines});
@@ -498,21 +523,21 @@
             this.colTransactionLinesHours,
             this.colTransactionLinePricePerHour,
             this.colTransactionLinePrice});
+            this.grvTransactionLines.DetailHeight = 262;
             this.grvTransactionLines.GridControl = this.grdTransactionLines;
             this.grvTransactionLines.Name = "grvTransactionLines";
             this.grvTransactionLines.OptionsView.ShowGroupPanel = false;
-            this.grvTransactionLines.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.grvTransactionLines_CellValueChanging);
             // 
             // colTransactionLinesServiceTask
             // 
             this.colTransactionLinesServiceTask.Caption = "Task";
             this.colTransactionLinesServiceTask.ColumnEdit = this.repTransactionLinesTasks;
             this.colTransactionLinesServiceTask.FieldName = "ServiceTaskID";
-            this.colTransactionLinesServiceTask.MinWidth = 25;
+            this.colTransactionLinesServiceTask.MinWidth = 22;
             this.colTransactionLinesServiceTask.Name = "colTransactionLinesServiceTask";
             this.colTransactionLinesServiceTask.Visible = true;
             this.colTransactionLinesServiceTask.VisibleIndex = 0;
-            this.colTransactionLinesServiceTask.Width = 94;
+            this.colTransactionLinesServiceTask.Width = 82;
             // 
             // repTransactionLinesTasks
             // 
@@ -524,22 +549,22 @@
             // 
             // gridView3
             // 
+            this.gridView3.DetailHeight = 262;
             this.gridView3.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView3.Name = "gridView3";
             this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView3.OptionsView.ShowGroupPanel = false;
-            this.gridView3.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView3_CellValueChanging);
             // 
             // colTransactionLineEngineer
             // 
             this.colTransactionLineEngineer.Caption = "Engineer";
             this.colTransactionLineEngineer.ColumnEdit = this.repTransactionLineEngineers;
             this.colTransactionLineEngineer.FieldName = "EngineerID";
-            this.colTransactionLineEngineer.MinWidth = 25;
+            this.colTransactionLineEngineer.MinWidth = 22;
             this.colTransactionLineEngineer.Name = "colTransactionLineEngineer";
             this.colTransactionLineEngineer.Visible = true;
             this.colTransactionLineEngineer.VisibleIndex = 1;
-            this.colTransactionLineEngineer.Width = 94;
+            this.colTransactionLineEngineer.Width = 82;
             // 
             // repTransactionLineEngineers
             // 
@@ -551,6 +576,7 @@
             // 
             // gridView4
             // 
+            this.gridView4.DetailHeight = 262;
             this.gridView4.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView4.Name = "gridView4";
             this.gridView4.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -560,113 +586,116 @@
             // 
             this.colTransactionLinesHours.Caption = "Hours";
             this.colTransactionLinesHours.FieldName = "Hours";
-            this.colTransactionLinesHours.MinWidth = 25;
+            this.colTransactionLinesHours.MinWidth = 22;
             this.colTransactionLinesHours.Name = "colTransactionLinesHours";
             this.colTransactionLinesHours.OptionsColumn.AllowEdit = false;
             this.colTransactionLinesHours.Visible = true;
             this.colTransactionLinesHours.VisibleIndex = 2;
-            this.colTransactionLinesHours.Width = 94;
+            this.colTransactionLinesHours.Width = 82;
             // 
             // colTransactionLinePricePerHour
             // 
             this.colTransactionLinePricePerHour.Caption = "PricePerHour";
             this.colTransactionLinePricePerHour.FieldName = "PricePerHour";
-            this.colTransactionLinePricePerHour.MinWidth = 25;
+            this.colTransactionLinePricePerHour.MinWidth = 22;
             this.colTransactionLinePricePerHour.Name = "colTransactionLinePricePerHour";
             this.colTransactionLinePricePerHour.OptionsColumn.AllowEdit = false;
             this.colTransactionLinePricePerHour.Visible = true;
             this.colTransactionLinePricePerHour.VisibleIndex = 3;
-            this.colTransactionLinePricePerHour.Width = 94;
+            this.colTransactionLinePricePerHour.Width = 82;
             // 
             // colTransactionLinePrice
             // 
             this.colTransactionLinePrice.Caption = "Price";
             this.colTransactionLinePrice.FieldName = "Price";
-            this.colTransactionLinePrice.MinWidth = 25;
+            this.colTransactionLinePrice.MinWidth = 22;
             this.colTransactionLinePrice.Name = "colTransactionLinePrice";
             this.colTransactionLinePrice.OptionsColumn.AllowEdit = false;
             this.colTransactionLinePrice.Visible = true;
             this.colTransactionLinePrice.VisibleIndex = 4;
-            this.colTransactionLinePrice.Width = 94;
+            this.colTransactionLinePrice.Width = 82;
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(590, 640);
+            this.btnLoad.Location = new System.Drawing.Point(516, 480);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(94, 36);
+            this.btnLoad.Size = new System.Drawing.Size(82, 27);
             this.btnLoad.TabIndex = 7;
-            this.btnLoad.Text = "Load";
+            this.btnLoad.Text = "Load(JSON)";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(690, 640);
+            this.btnSave.Location = new System.Drawing.Point(604, 480);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(94, 36);
+            this.btnSave.Size = new System.Drawing.Size(82, 27);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnPopulate
             // 
-            this.btnPopulate.Location = new System.Drawing.Point(31, 640);
+            this.btnPopulate.Location = new System.Drawing.Point(27, 480);
+            this.btnPopulate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPopulate.Name = "btnPopulate";
-            this.btnPopulate.Size = new System.Drawing.Size(118, 36);
+            this.btnPopulate.Size = new System.Drawing.Size(103, 27);
             this.btnPopulate.TabIndex = 9;
             this.btnPopulate.Text = "Populate";
             this.btnPopulate.Click += new System.EventHandler(this.btnPopulate_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(355, 23);
+            this.textBox1.Location = new System.Drawing.Point(311, 17);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(121, 27);
+            this.textBox1.Size = new System.Drawing.Size(106, 23);
             this.textBox1.TabIndex = 10;
             this.textBox1.Text = "Managers";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(347, 15);
+            this.textBox2.Location = new System.Drawing.Point(304, 11);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(121, 27);
+            this.textBox2.Size = new System.Drawing.Size(106, 23);
             this.textBox2.TabIndex = 11;
             this.textBox2.Text = "Engineers";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(322, 2);
+            this.textBox3.Location = new System.Drawing.Point(282, 2);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(121, 27);
+            this.textBox3.Size = new System.Drawing.Size(106, 23);
             this.textBox3.TabIndex = 12;
             this.textBox3.Text = "Transaction";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(352, 16);
+            this.textBox4.Location = new System.Drawing.Point(308, 12);
             this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(121, 27);
+            this.textBox4.Size = new System.Drawing.Size(106, 23);
             this.textBox4.TabIndex = 13;
             this.textBox4.Text = "Tasks";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(311, 315);
+            this.textBox5.Location = new System.Drawing.Point(272, 236);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(121, 27);
+            this.textBox5.Size = new System.Drawing.Size(106, 23);
             this.textBox5.TabIndex = 14;
             this.textBox5.Text = "Transaction Lines";
             this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -675,11 +704,11 @@
             // 
             this.textBox6.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.textBox6.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.textBox6.Location = new System.Drawing.Point(654, 15);
+            this.textBox6.Location = new System.Drawing.Point(572, 11);
             this.textBox6.Margin = new System.Windows.Forms.Padding(2);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(118, 25);
+            this.textBox6.Size = new System.Drawing.Size(104, 22);
             this.textBox6.TabIndex = 15;
             this.textBox6.Text = "Insert engineer info";
             this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -687,11 +716,11 @@
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.textBox7.Location = new System.Drawing.Point(654, 23);
+            this.textBox7.Location = new System.Drawing.Point(572, 17);
             this.textBox7.Margin = new System.Windows.Forms.Padding(2);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(118, 25);
+            this.textBox7.Size = new System.Drawing.Size(104, 22);
             this.textBox7.TabIndex = 16;
             this.textBox7.Text = "Insert manager info";
             this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -699,11 +728,11 @@
             // textBox8
             // 
             this.textBox8.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.textBox8.Location = new System.Drawing.Point(669, 18);
+            this.textBox8.Location = new System.Drawing.Point(585, 14);
             this.textBox8.Margin = new System.Windows.Forms.Padding(2);
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(103, 25);
+            this.textBox8.Size = new System.Drawing.Size(91, 22);
             this.textBox8.TabIndex = 17;
             this.textBox8.Text = "Insert task info";
             this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -711,11 +740,11 @@
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.textBox9.Location = new System.Drawing.Point(642, 4);
+            this.textBox9.Location = new System.Drawing.Point(562, 3);
             this.textBox9.Margin = new System.Windows.Forms.Padding(2);
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(130, 25);
+            this.textBox9.Size = new System.Drawing.Size(114, 22);
             this.textBox9.TabIndex = 18;
             this.textBox9.Text = "Insert transaction info";
             this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -724,18 +753,21 @@
             // 
             this.dateTimePicker1.CustomFormat = "MM/yyyy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(134, 468);
+            this.dateTimePicker1.Location = new System.Drawing.Point(117, 351);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(111, 27);
+            this.dateTimePicker1.Size = new System.Drawing.Size(98, 23);
             this.dateTimePicker1.TabIndex = 19;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // grdMonthlyLedger
             // 
-            this.grdMonthlyLedger.Location = new System.Drawing.Point(17, 45);
+            this.grdMonthlyLedger.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grdMonthlyLedger.Location = new System.Drawing.Point(15, 34);
             this.grdMonthlyLedger.MainView = this.grvMonthlyLedger;
+            this.grdMonthlyLedger.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdMonthlyLedger.Name = "grdMonthlyLedger";
-            this.grdMonthlyLedger.Size = new System.Drawing.Size(755, 417);
+            this.grdMonthlyLedger.Size = new System.Drawing.Size(661, 313);
             this.grdMonthlyLedger.TabIndex = 20;
             this.grdMonthlyLedger.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvMonthlyLedger});
@@ -748,6 +780,7 @@
             this.colMonthlyIncome,
             this.colMonthlyExpenses,
             this.colMonthlyTotal});
+            this.grvMonthlyLedger.DetailHeight = 262;
             this.grvMonthlyLedger.GridControl = this.grdMonthlyLedger;
             this.grvMonthlyLedger.Name = "grvMonthlyLedger";
             this.grvMonthlyLedger.OptionsView.ShowGroupPanel = false;
@@ -756,64 +789,64 @@
             // 
             this.colMonthlyYear.Caption = "Year";
             this.colMonthlyYear.FieldName = "Year";
-            this.colMonthlyYear.MinWidth = 25;
+            this.colMonthlyYear.MinWidth = 22;
             this.colMonthlyYear.Name = "colMonthlyYear";
             this.colMonthlyYear.OptionsColumn.AllowEdit = false;
             this.colMonthlyYear.Visible = true;
             this.colMonthlyYear.VisibleIndex = 0;
-            this.colMonthlyYear.Width = 94;
+            this.colMonthlyYear.Width = 82;
             // 
             // colMonthlyMonth
             // 
             this.colMonthlyMonth.Caption = "Month";
             this.colMonthlyMonth.FieldName = "Month";
-            this.colMonthlyMonth.MinWidth = 25;
+            this.colMonthlyMonth.MinWidth = 22;
             this.colMonthlyMonth.Name = "colMonthlyMonth";
             this.colMonthlyMonth.OptionsColumn.AllowEdit = false;
             this.colMonthlyMonth.Visible = true;
             this.colMonthlyMonth.VisibleIndex = 1;
-            this.colMonthlyMonth.Width = 94;
+            this.colMonthlyMonth.Width = 82;
             // 
             // colMonthlyIncome
             // 
             this.colMonthlyIncome.Caption = "Income";
             this.colMonthlyIncome.FieldName = "Income";
-            this.colMonthlyIncome.MinWidth = 25;
+            this.colMonthlyIncome.MinWidth = 22;
             this.colMonthlyIncome.Name = "colMonthlyIncome";
             this.colMonthlyIncome.OptionsColumn.AllowEdit = false;
             this.colMonthlyIncome.Visible = true;
             this.colMonthlyIncome.VisibleIndex = 2;
-            this.colMonthlyIncome.Width = 94;
+            this.colMonthlyIncome.Width = 82;
             // 
             // colMonthlyExpenses
             // 
             this.colMonthlyExpenses.Caption = "Expenses";
             this.colMonthlyExpenses.FieldName = "Expenses";
-            this.colMonthlyExpenses.MinWidth = 25;
+            this.colMonthlyExpenses.MinWidth = 22;
             this.colMonthlyExpenses.Name = "colMonthlyExpenses";
             this.colMonthlyExpenses.OptionsColumn.AllowEdit = false;
             this.colMonthlyExpenses.Visible = true;
             this.colMonthlyExpenses.VisibleIndex = 3;
-            this.colMonthlyExpenses.Width = 94;
+            this.colMonthlyExpenses.Width = 82;
             // 
             // colMonthlyTotal
             // 
             this.colMonthlyTotal.Caption = "Total";
             this.colMonthlyTotal.FieldName = "Total";
-            this.colMonthlyTotal.MinWidth = 25;
+            this.colMonthlyTotal.MinWidth = 22;
             this.colMonthlyTotal.Name = "colMonthlyTotal";
             this.colMonthlyTotal.OptionsColumn.AllowEdit = false;
             this.colMonthlyTotal.Visible = true;
             this.colMonthlyTotal.VisibleIndex = 4;
-            this.colMonthlyTotal.Width = 94;
+            this.colMonthlyTotal.Width = 82;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(331, 13);
+            this.textBox10.Location = new System.Drawing.Point(290, 10);
             this.textBox10.Margin = new System.Windows.Forms.Padding(2);
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(121, 27);
+            this.textBox10.Size = new System.Drawing.Size(106, 23);
             this.textBox10.TabIndex = 21;
             this.textBox10.Text = "Statistics";
             this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -827,17 +860,20 @@
             this.tabPane1.Controls.Add(this.tabTasks);
             this.tabPane1.Controls.Add(this.tabTransactions);
             this.tabPane1.Controls.Add(this.tabStatistics);
-            this.tabPane1.Location = new System.Drawing.Point(12, 12);
+            this.tabPane1.Controls.Add(this.tabCustomers);
+            this.tabPane1.Location = new System.Drawing.Point(10, 9);
+            this.tabPane1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabManagers,
             this.tabEngineers,
+            this.tabCustomers,
             this.tabTasks,
-            this.tabTransactions,
-            this.tabStatistics});
-            this.tabPane1.RegularSize = new System.Drawing.Size(789, 608);
+            this.tabStatistics,
+            this.tabTransactions});
+            this.tabPane1.RegularSize = new System.Drawing.Size(690, 456);
             this.tabPane1.SelectedPage = this.tabManagers;
-            this.tabPane1.Size = new System.Drawing.Size(789, 608);
+            this.tabPane1.Size = new System.Drawing.Size(690, 456);
             this.tabPane1.TabIndex = 23;
             this.tabPane1.Text = "tabPane1";
             // 
@@ -847,9 +883,10 @@
             this.tabManagers.Controls.Add(this.grdManagers);
             this.tabManagers.Controls.Add(this.textBox1);
             this.tabManagers.Controls.Add(this.textBox7);
+            this.tabManagers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabManagers.Name = "tabManagers";
             this.tabManagers.PageText = "Managers";
-            this.tabManagers.Size = new System.Drawing.Size(789, 567);
+            this.tabManagers.Size = new System.Drawing.Size(690, 423);
             // 
             // tabEngineers
             // 
@@ -857,9 +894,10 @@
             this.tabEngineers.Controls.Add(this.textBox2);
             this.tabEngineers.Controls.Add(this.grdEngineers);
             this.tabEngineers.Controls.Add(this.textBox6);
+            this.tabEngineers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabEngineers.Name = "tabEngineers";
             this.tabEngineers.PageText = "Engineers";
-            this.tabEngineers.Size = new System.Drawing.Size(789, 567);
+            this.tabEngineers.Size = new System.Drawing.Size(690, 456);
             // 
             // tabTasks
             // 
@@ -867,9 +905,10 @@
             this.tabTasks.Controls.Add(this.grdServiceTasks);
             this.tabTasks.Controls.Add(this.textBox4);
             this.tabTasks.Controls.Add(this.textBox8);
+            this.tabTasks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTasks.Name = "tabTasks";
             this.tabTasks.PageText = "Tasks";
-            this.tabTasks.Size = new System.Drawing.Size(789, 567);
+            this.tabTasks.Size = new System.Drawing.Size(690, 456);
             // 
             // tabTransactions
             // 
@@ -881,24 +920,27 @@
             this.tabTransactions.Controls.Add(this.textBox3);
             this.tabTransactions.Controls.Add(this.textBox5);
             this.tabTransactions.Controls.Add(this.grdTransactionLines);
+            this.tabTransactions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTransactions.Name = "tabTransactions";
             this.tabTransactions.PageText = "Transactions";
-            this.tabTransactions.Size = new System.Drawing.Size(789, 567);
+            this.tabTransactions.Size = new System.Drawing.Size(690, 456);
             // 
             // btnAddLine
             // 
-            this.btnAddLine.Location = new System.Drawing.Point(335, 525);
+            this.btnAddLine.Location = new System.Drawing.Point(293, 394);
+            this.btnAddLine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddLine.Name = "btnAddLine";
-            this.btnAddLine.Size = new System.Drawing.Size(118, 36);
+            this.btnAddLine.Size = new System.Drawing.Size(103, 27);
             this.btnAddLine.TabIndex = 25;
             this.btnAddLine.Text = "New Line";
             this.btnAddLine.Click += new System.EventHandler(this.btnAddLine_Click);
             // 
             // btnAddTransaction
             // 
-            this.btnAddTransaction.Location = new System.Drawing.Point(335, 254);
+            this.btnAddTransaction.Location = new System.Drawing.Point(293, 190);
+            this.btnAddTransaction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddTransaction.Name = "btnAddTransaction";
-            this.btnAddTransaction.Size = new System.Drawing.Size(118, 36);
+            this.btnAddTransaction.Size = new System.Drawing.Size(103, 27);
             this.btnAddTransaction.TabIndex = 24;
             this.btnAddTransaction.Text = "New Transaction";
             this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
@@ -911,43 +953,122 @@
             this.tabStatistics.Controls.Add(this.textBox10);
             this.tabStatistics.Controls.Add(this.dateTimePicker1);
             this.tabStatistics.Controls.Add(this.grdMonthlyLedger);
+            this.tabStatistics.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabStatistics.Name = "tabStatistics";
             this.tabStatistics.PageText = "Statistics";
-            this.tabStatistics.Size = new System.Drawing.Size(789, 567);
+            this.tabStatistics.Size = new System.Drawing.Size(690, 456);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 470);
+            this.label1.Location = new System.Drawing.Point(15, 352);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 20);
+            this.label1.Size = new System.Drawing.Size(90, 15);
             this.label1.TabIndex = 25;
             this.label1.Text = "Specific Month:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(654, 468);
+            this.simpleButton1.Location = new System.Drawing.Point(572, 351);
+            this.simpleButton1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(118, 36);
+            this.simpleButton1.Size = new System.Drawing.Size(103, 27);
             this.simpleButton1.TabIndex = 24;
             this.simpleButton1.Text = "All Months";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
-            // ManagerForm
+            // btnLoadFromSQL
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.btnLoadFromSQL.Location = new System.Drawing.Point(428, 480);
+            this.btnLoadFromSQL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLoadFromSQL.Name = "btnLoadFromSQL";
+            this.btnLoadFromSQL.Size = new System.Drawing.Size(82, 27);
+            this.btnLoadFromSQL.TabIndex = 24;
+            this.btnLoadFromSQL.Text = "Load(SQL)";
+            this.btnLoadFromSQL.Click += new System.EventHandler(this.btnLoadFromSQL_Click);
+            // 
+            // tabCustomers
+            // 
+            this.tabCustomers.Caption = "Customers";
+            this.tabCustomers.Controls.Add(this.grdCustomers);
+            this.tabCustomers.Name = "tabCustomers";
+            this.tabCustomers.Size = new System.Drawing.Size(690, 423);
+            // 
+            // grdCustomers
+            // 
+            this.grdCustomers.Location = new System.Drawing.Point(3, 3);
+            this.grdCustomers.MainView = this.grvCustomers;
+            this.grdCustomers.Name = "grdCustomers";
+            this.grdCustomers.Size = new System.Drawing.Size(687, 420);
+            this.grdCustomers.TabIndex = 0;
+            this.grdCustomers.UseEmbeddedNavigator = true;
+            this.grdCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grvCustomers});
+            // 
+            // grvCustomers
+            // 
+            this.grvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colCustomerID,
+            this.colCustomerName,
+            this.colCustomerSurname,
+            this.colCustomerTIN,
+            this.colCustomerPhone});
+            this.grvCustomers.GridControl = this.grdCustomers;
+            this.grvCustomers.Name = "grvCustomers";
+            this.grvCustomers.OptionsView.ShowGroupPanel = false;
+            // 
+            // colCustomerID
+            // 
+            this.colCustomerID.Caption = "ID";
+            this.colCustomerID.FieldName = "ID";
+            this.colCustomerID.Name = "colCustomerID";
+            // 
+            // colCustomerName
+            // 
+            this.colCustomerName.Caption = "Name";
+            this.colCustomerName.FieldName = "Name";
+            this.colCustomerName.Name = "colCustomerName";
+            this.colCustomerName.Visible = true;
+            this.colCustomerName.VisibleIndex = 0;
+            // 
+            // colCustomerSurname
+            // 
+            this.colCustomerSurname.Caption = "Surname";
+            this.colCustomerSurname.FieldName = "Surname";
+            this.colCustomerSurname.Name = "colCustomerSurname";
+            this.colCustomerSurname.Visible = true;
+            this.colCustomerSurname.VisibleIndex = 1;
+            // 
+            // colCustomerTIN
+            // 
+            this.colCustomerTIN.Caption = "TIN";
+            this.colCustomerTIN.FieldName = "TIN";
+            this.colCustomerTIN.Name = "colCustomerTIN";
+            this.colCustomerTIN.Visible = true;
+            this.colCustomerTIN.VisibleIndex = 2;
+            // 
+            // colCustomerPhone
+            // 
+            this.colCustomerPhone.Caption = "Phone";
+            this.colCustomerPhone.FieldName = "Phone";
+            this.colCustomerPhone.Name = "colCustomerPhone";
+            this.colCustomerPhone.Visible = true;
+            this.colCustomerPhone.VisibleIndex = 3;
+            // 
+            // AdminForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 688);
+            this.ClientSize = new System.Drawing.Size(720, 516);
+            this.Controls.Add(this.btnLoadFromSQL);
             this.Controls.Add(this.tabPane1);
             this.Controls.Add(this.btnPopulate);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnLoad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ManagerForm";
-            this.Text = "ManagerForm";
-            this.Load += new System.EventHandler(this.ManagerForm_Load);
+            this.Name = "AdminForm";
+            this.Text = "Administrator";
+            this.Load += new System.EventHandler(this.AdminForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvManagers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdManagers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdEngineers)).EndInit();
@@ -985,6 +1106,9 @@
             this.tabTransactions.PerformLayout();
             this.tabStatistics.ResumeLayout(false);
             this.tabStatistics.PerformLayout();
+            this.tabCustomers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1069,5 +1193,14 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
         private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repTransactionLineEngineers;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
+        private DevExpress.XtraEditors.SimpleButton btnLoadFromSQL;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tabCustomers;
+        private DevExpress.XtraGrid.GridControl grdCustomers;
+        private DevExpress.XtraGrid.Views.Grid.GridView grvCustomers;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerID;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerName;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerSurname;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerTIN;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerPhone;
     }
 }

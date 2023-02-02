@@ -46,6 +46,7 @@
             this.btnCustomer.TabIndex = 0;
             this.btnCustomer.Text = "Customer";
             this.btnCustomer.UseVisualStyleBackColor = true;
+            this.btnCustomer.Visible = false;
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
             // btnManager
@@ -54,7 +55,7 @@
             this.btnManager.Name = "btnManager";
             this.btnManager.Size = new System.Drawing.Size(104, 87);
             this.btnManager.TabIndex = 1;
-            this.btnManager.Text = "Manager";
+            this.btnManager.Text = "Administrator";
             this.btnManager.UseVisualStyleBackColor = true;
             this.btnManager.Click += new System.EventHandler(this.btnManager_Click);
             // 
@@ -66,6 +67,7 @@
             this.btnEngineer.TabIndex = 2;
             this.btnEngineer.Text = "Engineer";
             this.btnEngineer.UseVisualStyleBackColor = true;
+            this.btnEngineer.Visible = false;
             this.btnEngineer.Click += new System.EventHandler(this.btnEngineer_Click);
             // 
             // textBox1
