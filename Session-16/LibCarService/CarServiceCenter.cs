@@ -32,7 +32,7 @@ namespace Session_16 {
 
 
         // Methods / Business
-        public void CreateTransaction(Customer customer, Car car, Manager manager) {
+        public void CreateTransaction(User customer, Car car, Manager manager) {
             // basic info
             Transaction transaction = new Transaction();
             transaction.Date = DateTime.Now.Date;

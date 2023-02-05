@@ -19,7 +19,7 @@ namespace CarSercviceCenter.Orm.Configurations {
             builder.Property(transaction => transaction.Date).IsRequired(true);
             builder.Property(transaction => transaction.TotalPrice).IsRequired(true);
 
-            
+            //HasRequired(x => x.Member).WithMany(x => x.Statuses).HasForeignKey(x => x.MemberID)
 
             builder.HasOne(transaction => transaction.Customer)
                  .WithMany(customer => customer.Transactions)

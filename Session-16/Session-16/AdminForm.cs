@@ -1,28 +1,9 @@
 ﻿using CarSercviceCenter.Orm.Repositories;
-using DevExpress.ClipboardSource.SpreadsheetML;
-using DevExpress.Office.Utils;
-using DevExpress.Utils;
-using DevExpress.XtraExport.Helpers;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid.Views.BandedGrid;
 using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
-using DevExpress.XtraWaitForm;
 using LibCarService;
 using LibSerializer;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using static LibCarService.ServiceTask;
 using GridView = DevExpress.XtraGrid.Views.Grid.GridView;
 using Transaction = LibCarService.Transaction;
@@ -31,9 +12,12 @@ namespace Session_16 {
     public partial class AdminForm : Form {
 
 
-        private UserRepo _userRepo = new UserRepo();
+        //private UserRepo _userRepo = new UserRepo();
         private CustomerRepo _customerRepo = new CustomerRepo();
         private EngineerRepo _engineerRepo = new EngineerRepo();
+        private ManagerRepo _managerRepo = new ManagerRepo();
+        private CarRepo _carRepo = new CarRepo();
+        
 
         CarServiceCenter carServiceCenter;
         //Settings formSettings;
@@ -43,7 +27,7 @@ namespace Session_16 {
         }
 
         private void AdminForm_Load(object sender, EventArgs e) {
-            carServiceCenter = new CarServiceCenter();
+            //carServiceCenter = new CarServiceCenter();
             //carServiceCenter.Settings = new Settings();
             //carServiceCenter.Settings.PricePerHour = 45.5M;
             LoadToGrids();
@@ -62,6 +46,56 @@ namespace Session_16 {
             carServiceCenter.TransactionLines = data.TransactionLines;
 
         }
+
+
+        private void btnLoadFromSQL_Click(object sender, EventArgs e) {   
+            carServiceCenter.Customers.Clear();
+            carServiceCenter.Customers.AddRange(_customerRepo.GetAll());
+
+            carServiceCenter.Managers.Clear();
+            carServiceCenter.Managers.AddRange(_managerRepo.GetAll());
+
+            carServiceCenter.Engineers.Clear();
+            carServiceCenter.Engineers.AddRange(_engineerRepo.GetAll());
+
+            carServiceCenter.Cars.Clear();
+            carServiceCenter.Cars.AddRange(_carRepo.GetAll());
+
+            LoadToGrids();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e) {
+            string fileName = "carServiceCenter.json";
+
+            Serializer serializer = new Serializer();
+
+            if (File.Exists(fileName)) {
+                carServiceCenter = serializer.Deserialize<CarServiceCenter>("carServiceCenter.json");
+                if (carServiceCenter != null) {
+                    LoadToGrids();
+                }
+                else {
+                    MessageBox.Show("File is empty");
+                }
+            }
+            else {
+                MessageBox.Show("File not Found");
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e) {
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(carServiceCenter, "carServiceCenter.json");
+
+            MessageBox.Show("Data Saved!");
+        }
+
+        private void btnPopulate_Click(object sender, EventArgs e) {
+            PopulateCarCenter();
+            LoadToGrids();
+        }
+
+
         private void LoadToGrids() {
             BindingList<Manager> managers = new BindingList<Manager>(carServiceCenter.Managers);
             grdManagers.DataSource = new BindingSource() { DataSource = managers };
@@ -147,10 +181,10 @@ namespace Session_16 {
             Guid currentTranstactionID = (Guid)grvTransactions.GetRowCellValue(row, "ID");
             List<TransactionLine> currentTransactionLines = new List<TransactionLine>();
             //currentTransactionLines = allTransactionLines.FindAll(c =>c.TransactionID == currentTranstactionID).ToList();
-            Transaction curremtTransaction = carServiceCenter.Transactions.Find(c => c.Id == currentTranstactionID);
+            Transaction currentTransaction = carServiceCenter.Transactions.Find(c => c.Id == currentTranstactionID);
             
 
-            BindingList<TransactionLine> transactionLines = new BindingList<TransactionLine>(curremtTransaction.TransactionLines);
+            BindingList<TransactionLine> transactionLines = new BindingList<TransactionLine>(currentTransaction.TransactionLines);
             grdTransactionLines.DataSource = new BindingSource() { DataSource = transactionLines };
 
 
@@ -172,36 +206,7 @@ namespace Session_16 {
 
         }
 
-        private void btnLoad_Click(object sender, EventArgs e) {
-            string fileName = "carServiceCenter.json";
-
-            Serializer serializer = new Serializer();
-
-            if (File.Exists(fileName)) {
-                carServiceCenter = serializer.Deserialize<CarServiceCenter>("carServiceCenter.json");
-                if (carServiceCenter != null) {
-                    LoadToGrids();
-                }
-                else {
-                    MessageBox.Show("File is empty");
-                }
-            }
-            else {
-                MessageBox.Show("File not Found");
-            }
-        }
-
-        private void btnSave_Click(object sender, EventArgs e) {
-            Serializer serializer = new Serializer();
-            serializer.SerializeToFile(carServiceCenter, "carServiceCenter.json");
-
-            MessageBox.Show("Data Saved!");
-        }
-
-        private void btnPopulate_Click(object sender, EventArgs e) {
-            PopulateCarCenter();
-            LoadToGrids();
-        }
+        
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) {
             DateTime date = dateTimePicker1.Value;
@@ -270,35 +275,43 @@ namespace Session_16 {
         }
 
         private void grvManagers_RowUpdated(object sender, RowObjectEventArgs e) {
-            if (grvManagers.IsNewItemRow(e.RowHandle)) {
-                int rowHandle = grvManagers.DataRowCount - 1;
+            
+        }
+
+        private void grvCustomers_RowUpdated(object sender, RowObjectEventArgs e) {
+            if (grvCustomers.IsNewItemRow(e.RowHandle)) {
+                int rowHandle = grvCustomers.DataRowCount - 1;
 
                 AddUserTypeEntityToDB(UserTypeEnum.Customer, rowHandle);
             }
         }
 
         private void AddUserTypeEntityToDB(UserTypeEnum enumVal, int rowHandle) {
-
-            Guid newUserId = Guid.NewGuid();
-            _userRepo.Add(new User() {
-                Id = newUserId,
-            });
-
             switch (enumVal) {
                 case UserTypeEnum.Manager:
                     break;
                 case UserTypeEnum.Engineer:
                     break;
                 case UserTypeEnum.Customer:
-                    var newCustomer = new Customer() {
-                        Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
-                        Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
-                        Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
-                        TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
-                        UserId = newUserId
-                    };
+                    try {
+                        var newCustomer = new Customer() {
+                            Name = grvCustomers.GetRowCellValue(rowHandle, "Name").ToString(),
+                            Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
+                            Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
+                            TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
+                            //UserId = newUserId
+                        };
 
-                    _customerRepo.Add(newCustomer);
+                        _customerRepo.Add(newCustomer);
+                        MessageBox.Show("Customer Created Succesfully");
+                    }
+                    catch (Exception ex) {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                    
+
+
                     break;
                 default:
                     break;
@@ -306,27 +319,21 @@ namespace Session_16 {
 
         }
 
-        private void btnLoadFromSQL_Click(object sender, EventArgs e) {
-            carServiceCenter.Customers.Clear();
-            carServiceCenter.Customers.AddRange(_customerRepo.GetAll());
-            LoadToGrids();
-        }
+        
 
         private void grvCustomers_RowDeleting(object sender, DevExpress.Data.RowDeletingEventArgs e) {
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected customer;", "Customer Deletion", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes) {
                 try {
                     Guid deletingCustomerID = (Guid)grvCustomers.GetRowCellValue(e.RowHandle, "Id");
-                    Guid deletingUserID = _customerRepo.GetById(deletingCustomerID).UserId;
-
+                  
                     _customerRepo.Delete(deletingCustomerID);
-                    _userRepo.Delete(deletingUserID);
 
                     e.Cancel = false;
                 }
                 catch (Exception ex) {
                     e.Cancel = true;
-                    MessageBox.Show("An internal error occured. Unsuccesful record delete");
+                    MessageBox.Show("An internal error occured. Unsuccesful customer delete");
                 }
             }
             else if (dialogResult == DialogResult.No) {
@@ -335,7 +342,9 @@ namespace Session_16 {
         }
 
         private void grvCustomers_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e) {
-            MessageBox.Show("Customer Removed Succesfully");
+            MessageBox.Show("Customer Deleted Succesfully");
         }
+
+        
     }
 }

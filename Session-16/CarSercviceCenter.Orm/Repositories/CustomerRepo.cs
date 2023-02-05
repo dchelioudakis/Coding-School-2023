@@ -33,7 +33,7 @@ namespace CarSercviceCenter.Orm.Repositories {
         public Customer? GetById(Guid id) {
             using var context = new AppDbContext();
             return context.Customers.Where(customer => customer.Id == id)
-                .Include(manager => manager.Transactions).SingleOrDefault();
+                .Include(customer => customer.Transactions).SingleOrDefault();
         }
 
         public void Update(Guid id, Customer entity) {
@@ -44,8 +44,8 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbCustomer.Name = entity.Name;
             dbCustomer.Surname = entity.Surname;
             dbCustomer.Transactions = entity.Transactions;
-            dbCustomer.UserId = entity.UserId;
-            dbCustomer.User = entity.User;
+            //dbCustomer.UserId = entity.UserId;
+            //dbCustomer.User = entity.User;
             context.SaveChanges();
         }
 

@@ -8,18 +8,21 @@ namespace LibCarService
 {
     public class User : EntityBase
     {
-        //public string Name { get; set; }
-        //public string Surname { get; set; }
-        
-        public List<Manager> Managers { get; set; }
-        public List<Engineer> Engineers { get; set; }
-        public List<Customer> Customers { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<Manager> Managers { get; set; }
+        public ICollection<Engineer> Engineers { get; set; }
+        public ICollection<Customer> Customers { get; set; }
+        //public List<Manager> Managers { get; set; }
+        //public List<Engineer> Engineers { get; set; }
+        //public List<Customer> Customers { get; set; }
 
         //public string Username { get; set; }
         //public string Password { get; set; }
 
         public User(){
-            //Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
     }
 }

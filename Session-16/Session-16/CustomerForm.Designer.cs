@@ -76,7 +76,7 @@
             // 
             // bsCustomerOrder
             // 
-            this.bsCustomerOrder.DataSource = typeof(LibCarService.Customer);
+            this.bsCustomerOrder.DataSource = typeof(LibCarService.User);
             // 
             // grvCustomers
             // 

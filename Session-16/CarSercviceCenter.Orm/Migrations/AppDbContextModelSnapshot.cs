@@ -22,6 +22,36 @@ namespace CarSercviceCenter.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CustomerEngineer", b =>
+                {
+                    b.Property<Guid>("CustomersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EngineersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CustomersId", "EngineersId");
+
+                    b.HasIndex("EngineersId");
+
+                    b.ToTable("CustomerEngineer");
+                });
+
+            modelBuilder.Entity("CustomerManager", b =>
+                {
+                    b.Property<Guid>("CustomersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ManagersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CustomersId", "ManagersId");
+
+                    b.HasIndex("ManagersId");
+
+                    b.ToTable("CustomerManager");
+                });
+
             modelBuilder.Entity("LibCarService.Car", b =>
                 {
                     b.Property<Guid>("Id")
@@ -54,6 +84,9 @@ namespace CarSercviceCenter.Orm.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -74,12 +107,9 @@ namespace CarSercviceCenter.Orm.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Customer", (string)null);
                 });
@@ -88,6 +118,9 @@ namespace CarSercviceCenter.Orm.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EngineerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ManagerId")
@@ -107,14 +140,11 @@ namespace CarSercviceCenter.Orm.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId");
+                    b.HasIndex("EngineerId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Engineer", (string)null);
                 });
@@ -123,6 +153,12 @@ namespace CarSercviceCenter.Orm.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EngineerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -139,12 +175,11 @@ namespace CarSercviceCenter.Orm.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("EngineerId");
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Manager", (string)null);
                 });
@@ -188,6 +223,9 @@ namespace CarSercviceCenter.Orm.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("EngineerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -199,6 +237,8 @@ namespace CarSercviceCenter.Orm.Migrations
                     b.HasIndex("CarId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("EngineerId");
 
                     b.HasIndex("ManagerId");
 
@@ -240,56 +280,67 @@ namespace CarSercviceCenter.Orm.Migrations
                     b.ToTable("TransactionLine", (string)null);
                 });
 
-            modelBuilder.Entity("LibCarService.User", b =>
+            modelBuilder.Entity("CustomerEngineer", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("LibCarService.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasOne("LibCarService.Engineer", null)
+                        .WithMany()
+                        .HasForeignKey("EngineersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.ToTable("User", (string)null);
+            modelBuilder.Entity("CustomerManager", b =>
+                {
+                    b.HasOne("LibCarService.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibCarService.Manager", null)
+                        .WithMany()
+                        .HasForeignKey("ManagersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LibCarService.Customer", b =>
                 {
-                    b.HasOne("LibCarService.User", "User")
+                    b.HasOne("LibCarService.Customer", null)
                         .WithMany("Customers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("LibCarService.Engineer", b =>
                 {
+                    b.HasOne("LibCarService.Engineer", null)
+                        .WithMany("Engineers")
+                        .HasForeignKey("EngineerId");
+
                     b.HasOne("LibCarService.Manager", "Manager")
                         .WithMany("Engineers")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibCarService.User", "User")
-                        .WithMany("Engineers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Manager");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LibCarService.Manager", b =>
                 {
-                    b.HasOne("LibCarService.User", "User")
+                    b.HasOne("LibCarService.Engineer", null)
                         .WithMany("Managers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("EngineerId");
 
-                    b.Navigation("User");
+                    b.HasOne("LibCarService.Manager", null)
+                        .WithMany("Managers")
+                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("LibCarService.Transaction", b =>
@@ -305,6 +356,10 @@ namespace CarSercviceCenter.Orm.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("LibCarService.Engineer", null)
+                        .WithMany("Transactions")
+                        .HasForeignKey("EngineerId");
 
                     b.HasOne("LibCarService.Manager", "Manager")
                         .WithMany("Transactions")
@@ -353,17 +408,27 @@ namespace CarSercviceCenter.Orm.Migrations
 
             modelBuilder.Entity("LibCarService.Customer", b =>
                 {
+                    b.Navigation("Customers");
+
                     b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("LibCarService.Engineer", b =>
                 {
+                    b.Navigation("Engineers");
+
+                    b.Navigation("Managers");
+
                     b.Navigation("TransactionLines");
+
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("LibCarService.Manager", b =>
                 {
                     b.Navigation("Engineers");
+
+                    b.Navigation("Managers");
 
                     b.Navigation("Transactions");
                 });
@@ -376,15 +441,6 @@ namespace CarSercviceCenter.Orm.Migrations
             modelBuilder.Entity("LibCarService.Transaction", b =>
                 {
                     b.Navigation("TransactionLines");
-                });
-
-            modelBuilder.Entity("LibCarService.User", b =>
-                {
-                    b.Navigation("Customers");
-
-                    b.Navigation("Engineers");
-
-                    b.Navigation("Managers");
                 });
 #pragma warning restore 612, 618
         }

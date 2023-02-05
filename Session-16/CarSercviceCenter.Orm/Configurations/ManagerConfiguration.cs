@@ -17,15 +17,11 @@ namespace CarSercviceCenter.Orm.Configurations
 
             builder.HasKey(manager => manager.Id);
 
-            builder.Property(manager => manager.Id).ValueGeneratedOnAdd();
+            builder.Property(manager => manager.Id);
             builder.Property(manager => manager.Name).HasMaxLength(50).IsRequired(true);
             builder.Property(manager => manager.Surname).HasMaxLength(50).IsRequired(true);
             builder.Property(manager => manager.SalaryPerMonth).HasMaxLength(50).IsRequired(true);
 
-            builder.HasOne(manager => manager.User)
-                 .WithMany(user => user.Managers)
-                 .HasForeignKey(manager => manager.UserId)
-                 .OnDelete(DeleteBehavior.Restrict);
         }
 
 

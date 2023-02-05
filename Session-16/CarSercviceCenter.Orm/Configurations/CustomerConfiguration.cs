@@ -15,17 +15,11 @@ namespace CarSercviceCenter.Orm.Configurations {
 
             builder.HasKey(customer => customer.Id);
 
-            builder.Property(customer => customer.Id).ValueGeneratedOnAdd();
+            builder.Property(customer => customer.Id);
             builder.Property(customer => customer.Name).HasMaxLength(50).IsRequired(true);
             builder.Property(customer => customer.Surname).HasMaxLength(50).IsRequired(true);
             builder.Property(customer => customer.Phone).HasMaxLength(50).IsRequired(true);
             builder.Property(customer => customer.TIN).HasMaxLength(9).IsRequired(true);
-
-            builder.HasOne(customer => customer.User)
-                .WithMany(user => user.Customers)
-                .HasForeignKey(customer => customer.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
         }
 
 

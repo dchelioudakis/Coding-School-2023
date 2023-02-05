@@ -6,25 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibCarService 
 {
-    public class Engineer : EntityBase {
-
-
-        public string Name { get; set; }
-        public string Surname { get; set; }
+    public class Engineer : User {
 
         public decimal SalaryPerMonth { get; set; }
 
         public Guid ManagerId { get; set; }
-        public Manager Manager { get; set; } = null!;
-
-        public Guid UserId { get; set; }
-        public User User { get; set; } = null!;
+        public Manager Manager { get; set; }
 
         public List<TransactionLine> TransactionLines { get; set; }
 
 
-        public Engineer() {
-            Id = Guid.NewGuid();
+        public Engineer() : base(){
+            //Id = Guid.NewGuid();
         }
     }
 }

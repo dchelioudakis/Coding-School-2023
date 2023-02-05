@@ -21,11 +21,12 @@ namespace Session_16 {
 
 
         public void PopulateCustomers() {
-            Customer customer1 = new Customer();
-            customer1.Name = "Chris";
-            customer1.Surname = "Typou";
-            customer1.Phone = "6948192491";
-            customer1.TIN = "123456789";
+            Customer customer1 = new Customer() {
+                Name = "Chris",
+                Surname = "Typou",
+                Phone = "6948192491",
+                TIN = "123456789",
+            };  
             Customers.Add(customer1);
 
             Customer customer2 = new Customer();

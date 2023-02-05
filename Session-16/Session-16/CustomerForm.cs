@@ -1,6 +1,7 @@
 ﻿using CarSercviceCenter.Orm.Repositories;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.CodeParser;
+using DevExpress.Xpo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using LibCarService;
@@ -21,7 +22,7 @@ namespace Session_16
 {
     public partial class CustomerForm : Form
     {
-        private UserRepo _userRepo = new UserRepo();
+        //private UserRepo _userRepo = new UserRepo();
         private CustomerRepo _customerRepo = new CustomerRepo();
         
         
@@ -242,10 +243,10 @@ namespace Session_16
 
         private void AddUserTypeEntityToDB(UserTypeEnum enumVal, int rowHandle) {
 
-            Guid newUserId = Guid.NewGuid();
-            _userRepo.Add(new User() {
-                Id = newUserId,
-            });
+            //Guid newUserId = Guid.NewGuid();
+            //_userRepo.Add(new User() {
+            //    Id = newUserId,
+            //});
 
             switch (enumVal) {
                 case UserTypeEnum.Manager:
@@ -258,7 +259,7 @@ namespace Session_16
                         Surname = grvCustomers.GetRowCellValue(rowHandle, "Surname").ToString(),
                         Phone = grvCustomers.GetRowCellValue(rowHandle, "Phone").ToString(),
                         TIN = grvCustomers.GetRowCellValue(rowHandle, "TIN").ToString(),
-                        UserId = newUserId
+                        //UserId = newUserId
 
                     };
 
