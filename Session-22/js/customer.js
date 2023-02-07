@@ -15,7 +15,7 @@ var customersList = [
     }
 ];
 
-
+window.onload = createCustomersTable();
 
 class Customer{
     constructor(name, surname, age, gender) {
@@ -39,8 +39,7 @@ function createCustomersTable(){
 
     customersList.forEach(customer => {
         var newRow = document.createElement("tr");
-        newRow.onclick = "window.alert('asda')";
-        
+        //newRow.onclick = "window.alert('asda')";
         
         for (const [key, value] of Object.entries(customer)) {
             if(key == "ID"){continue;}
@@ -48,7 +47,6 @@ function createCustomersTable(){
             newCell.innerText = value;
             newRow.appendChild(newCell);
         }
-        
         
         tableBody.appendChild(newRow);
         
