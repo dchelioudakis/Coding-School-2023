@@ -15,6 +15,15 @@ class StringManipulator{
         document.querySelector("#reversed-field").value = this.ReversedString;
     }
 
+    palindomeCheck(){
+        if(this.InputString == this.ReversedString){
+            document.querySelector("#palindromeCheckResult-field").value = "It `s palindrome!";
+        }
+        else{
+            document.querySelector("#palindromeCheckResult-field").value = "Not palindrome!";
+        }
+    }
+
 }
 
 
@@ -27,3 +36,12 @@ function reverseBtn(){
     manipulator.displayReversed();
 
 }
+
+function palindromeBtn(){
+    var inputValue = document.querySelector("#palindrome-check").value;
+    const manipulator = new StringManipulator(inputValue.toUpperCase());
+
+    manipulator.reverseString();
+    manipulator.palindomeCheck();
+}
+
