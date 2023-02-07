@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
  <head>
-	  <title>Article</title>
+	  <title>Session-22</title>
 	  <meta charset='UTF-8'/> 
 	  <meta name="keywords" content="HTML, CSS, Coding School">
 	  <meta name="description" content="Css Assignment Solution">
 	  <meta name="author" content="Nikos Mavros">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">	
-	<link href="css/article.css" rel="stylesheet">	
+	<link href="css/Session-22.css" rel="stylesheet">	
 	
 	  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600&display=swap" rel="stylesheet">		
  </head>
@@ -40,9 +40,39 @@
 			<input class="general-input" id="palindromeCheckResult-field" type="text" disabled>
 			
 		</div>
+
+		<div id="exercise-3" class="exercise">
+			<h1>Exercise 3</h1>
+			<table id="customersTable">
+				<thead>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Age</th>
+					<th>Gender</th>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+			
+		</div>
+
+		<div id="exercise-5" class="exercise">
+			<h1>Exercise 5</h1>
+			<label for="stringNum-check">String to check:</label>
+			<br>
+			<input class="general-input" id="stringNum-check" name="stringNum-check" type="text">
+			
+			<button class="btn-general" onclick="checkNumBtn()">Check!</button>
+			<br>
+			<label for="stringNumCheck-field">Result:</label>
+			<input class="general-input" id="stringNumCheck-field" type="text" disabled>
+			
+		</div>
 		
 	</div>
  
-<script src="js/codingSchool.js" ></script>
+<script src="js/stringManipulator.js" ></script>
+<script src="js/customer.js" ></script>
 </body>
 </html>
