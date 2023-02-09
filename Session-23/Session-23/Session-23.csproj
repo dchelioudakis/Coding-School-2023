@@ -17,4 +17,25 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Manager\" />
+    <Folder Include="Models\Engineer\" />
+    <Folder Include="Models\Customer\" />
+    <Folder Include="Models\Car\" />
+    <Folder Include="Models\TransactionLine\" />
+    <Folder Include="Models\Transaction\" />
+    <Folder Include="Models\ServiceTask\" />
+    <Folder Include="Views\Manager\" />
+    <Folder Include="Views\Engineer\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Car\" />
+    <Folder Include="Views\TransactionLine\" />
+    <Folder Include="Views\Transaction\" />
+    <Folder Include="Views\ServiceTask\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarServiceCenter.EF\CarServiceCenter.EF.csproj" />
+  </ItemGroup>
+
 </Project>

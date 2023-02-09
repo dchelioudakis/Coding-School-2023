@@ -1,7 +1,12 @@
+using CarSercviceCenter.Orm.Repositories;
+using CarServiceCenter.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddScoped(<ManagerRepo>, _managerRepo);
 
 var app = builder.Build();
 

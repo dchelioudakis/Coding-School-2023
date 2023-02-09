@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Session_23.Controllers {
     public class CustomerController : Controller {
+
+
+
         // GET: CustomerController
         public ActionResult Index() {
             return View();

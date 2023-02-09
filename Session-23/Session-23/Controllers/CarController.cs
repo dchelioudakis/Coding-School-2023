@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarSercviceCenter.Orm.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Session_23.Controllers {
     public class CarController : Controller {
+
+        private readonly IEntityRepo<CarRepo> _carRepo;
+        private readonly IEntityRepo<TransactionRepo> _transactionRepo;
+        private readonly IEntityRepo<TransactionLineRepo> _transactionLineRepo;
+
         // GET: CarController
         public ActionResult Index() {
             return View();
