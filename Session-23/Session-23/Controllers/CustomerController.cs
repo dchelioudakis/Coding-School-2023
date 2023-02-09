@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarSercviceCenter.Orm.Repositories;
+using CarServiceCenter.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Session_23.Controllers {
     public class CustomerController : Controller {
 
+        private readonly IEntityRepo<Customer> _customerRepo;
 
 
         // GET: CustomerController

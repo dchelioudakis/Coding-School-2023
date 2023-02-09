@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarSercviceCenter.Orm.Repositories;
+using CarServiceCenter.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Session_23.Models.Manager;
 
 namespace Session_23.Controllers {
     public class ManagerController : Controller {
+
+        private readonly IEntityRepo<Manager> _managerRepo;
+        //private readonly IEntityRepo<Engineer> _engineerRepo;
+        //private readonly IEntityRepo<Transaction> _transactionRepo;
+
+        public ManagerController(IEntityRepo<Manager> managerRepo) {
+            _managerRepo = managerRepo;
+        }
+
+
+
+
         // GET: ManagerController
         public ActionResult Index() {
-            return View();
+            var managers = _managerRepo.GetAll();
+            
+            return View(model: managers);
         }
 
         // GET: ManagerController/Details/5
@@ -21,9 +38,15 @@ namespace Session_23.Controllers {
         // POST: ManagerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
+        public ActionResult Create(ManagerCreateDto manager) {
             try {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid) {
+                    return View();
+                }
+
+                var dbManager = new Manager(manager.Name, manager.Surname, manager.SalaryPerMonth);
+                _managerRepo.Add(dbManager);
+                return RedirectToAction("Index");
             }
             catch {
                 return View();

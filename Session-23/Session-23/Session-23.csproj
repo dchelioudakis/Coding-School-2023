@@ -15,17 +15,16 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Manager\" />
     <Folder Include="Models\Engineer\" />
     <Folder Include="Models\Customer\" />
     <Folder Include="Models\Car\" />
     <Folder Include="Models\TransactionLine\" />
     <Folder Include="Models\Transaction\" />
     <Folder Include="Models\ServiceTask\" />
-    <Folder Include="Views\Manager\" />
     <Folder Include="Views\Engineer\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Car\" />
