@@ -23,6 +23,7 @@ namespace Session_23.Controllers {
         public ActionResult Index() {
             var managers = _managerRepo.GetAll();
             
+            
             return View(model: managers);
         }
 
@@ -45,6 +46,8 @@ namespace Session_23.Controllers {
                 Engineers = dbManager.Engineers,
                 Transactions = dbManager.Transactions,
             };
+
+            
 
             return View(model: viewManager);
         }
@@ -120,6 +123,21 @@ namespace Session_23.Controllers {
 
         // GET: ManagerController/Delete/5
         public ActionResult Delete(int id) {
+
+            var dbManager = _managerRepo.GetById(id);
+            if (dbManager == null) {
+                return NotFound();
+            }
+
+            var viewManager = new ManagerDeleteDto {
+                Id = dbManager.Id,
+                Name = dbManager.Name,
+                Surname = dbManager.Surname,
+                SalaryPerMonth = dbManager.SalaryPerMonth,
+            };
+
+
+
             return View();
         }
 
@@ -128,11 +146,13 @@ namespace Session_23.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection) {
             try {
+                _managerRepo.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch {
                 return View();
             }
+
         }
     }
 }
