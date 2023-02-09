@@ -6,7 +6,7 @@
         {
             Hours = hours;
             PricePerHour = pricePerHour;
-            Price = price;
+            Price = Hours * PricePerHour;
         }
 
         public int Id { get; set; }

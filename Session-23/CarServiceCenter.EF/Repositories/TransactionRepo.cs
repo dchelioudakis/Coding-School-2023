@@ -31,7 +31,7 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public Transaction? GetById(int id) {
             using var context = new CarServiceCenterDbContext();
-            return context.Transactions.Where(user => user.Id == id)
+            return context.Transactions.Where(transaction => transaction.Id == id)
                 .Include(transaction => transaction.TransactionLines)
                 .Include(transaction => transaction.Manager)
                 .Include(transaction => transaction.Customer)
