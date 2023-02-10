@@ -1,7 +1,8 @@
-﻿using CarServiceCenter.Model;
+﻿
+using CarServiceCenter.Model;
 using System.ComponentModel.DataAnnotations;
 
-namespace Session_23.Models.Manager {
+namespace Session_23.Models.ManagerModel {
     public class ManagerDetailsDto {
 
         public int Id { get; set; }

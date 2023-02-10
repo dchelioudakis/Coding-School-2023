@@ -1,4 +1,4 @@
-﻿namespace Session_23.Models.Manager {
+﻿namespace Session_23.Models.ManagerModel {
     public class ManagerDeleteDto {
 
         public int Id { get; set; }

@@ -44,8 +44,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbManager.Transactions = entity.Transactions;
             dbManager.Engineers = entity.Engineers;
             dbManager.SalaryPerMonth = entity.SalaryPerMonth;
-            //dbManager.UserId = entity.UserId;
-            //dbManager.User = entity.User;
             context.SaveChanges();
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Session_23.Models.Manager {
+namespace Session_23.Models.ManagerModel {
     public class ManagerEditDto {
         public int Id { get; set; }
         [MaxLength(20, ErrorMessage = "Too long value")]

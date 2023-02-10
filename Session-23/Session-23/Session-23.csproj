@@ -19,12 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Customer\" />
-    <Folder Include="Models\Car\" />
-    <Folder Include="Models\TransactionLine\" />
-    <Folder Include="Models\Transaction\" />
-    <Folder Include="Models\ServiceTask\" />
-    <Folder Include="Views\Engineer\" />
+    <Folder Include="Models\TransactionLineModel\" />
+    <Folder Include="Models\TransactionModel\" />
+    <Folder Include="Models\ServiceTaskModel\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Car\" />
     <Folder Include="Views\TransactionLine\" />

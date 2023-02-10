@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CarServiceCenter.Model.Manager>
+﻿@model IEnumerable<CarServiceCenter.Model.Engineer>
 
 @{
-    ViewData["Title"] = "Managers";
+    ViewData["Title"] = "Engineers";
 }
 
-<h1>Managers</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.SalaryPerMonth)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manager)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SalaryPerMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

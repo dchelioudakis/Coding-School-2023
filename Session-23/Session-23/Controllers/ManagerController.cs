@@ -2,15 +2,13 @@
 using CarServiceCenter.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Session_23.Models.Manager;
-
+using Session_23.Models.ManagerModel;
 
 namespace Session_23.Controllers {
     public class ManagerController : Controller {
 
         private readonly IEntityRepo<Manager> _managerRepo;
-        //private readonly IEntityRepo<Engineer> _engineerRepo;
-        //private readonly IEntityRepo<Transaction> _transactionRepo;
+       
 
         public ManagerController(IEntityRepo<Manager> managerRepo) {
             _managerRepo = managerRepo;

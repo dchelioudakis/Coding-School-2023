@@ -39,8 +39,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbCustomer.Name = entity.Name;
             dbCustomer.Surname = entity.Surname;
             dbCustomer.Transactions = entity.Transactions;
-            //dbCustomer.UserId = entity.UserId;
-            //dbCustomer.User = entity.User;
             context.SaveChanges();
         }
 

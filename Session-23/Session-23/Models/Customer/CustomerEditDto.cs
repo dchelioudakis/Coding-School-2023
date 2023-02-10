@@ -1,4 +1,0 @@
-﻿namespace Session_23.Models.Customer {
-    public class CustomerEditDto {
-    }
-}
