@@ -121,7 +121,6 @@ namespace Session_23.Controllers {
 
         // GET: ManagerController/Delete/5
         public ActionResult Delete(int id) {
-
             var dbManager = _managerRepo.GetById(id);
             if (dbManager == null) {
                 return NotFound();

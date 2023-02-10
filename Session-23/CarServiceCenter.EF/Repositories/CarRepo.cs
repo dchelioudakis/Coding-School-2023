@@ -1,5 +1,6 @@
 ﻿using CarServiceCenter.EF.Context;
 using CarServiceCenter.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarSercviceCenter.Orm.Repositories {
     public class CarRepo : IEntityRepo<Car> {
@@ -20,12 +21,14 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public IList<Car> GetAll() {
             using var context = new CarServiceCenterDbContext();
-            return context.Cars.ToList();
+            return context.Cars
+                .Include(car => car.Transactions).ToList();
         }
 
         public Car? GetById(int id) {
             using var context = new CarServiceCenterDbContext();
-            return context.Cars.Where(car => car.Id == id).SingleOrDefault();
+            return context.Cars.Where(car => car.Id == id)
+                .Include(car => car.Transactions).SingleOrDefault();
         }
 
         public void Update(int id, Car entity) {

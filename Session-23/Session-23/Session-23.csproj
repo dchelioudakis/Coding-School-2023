@@ -23,7 +23,6 @@
     <Folder Include="Models\TransactionModel\" />
     <Folder Include="Models\ServiceTaskModel\" />
     <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Car\" />
     <Folder Include="Views\TransactionLine\" />
     <Folder Include="Views\Transaction\" />
     <Folder Include="Views\ServiceTask\" />

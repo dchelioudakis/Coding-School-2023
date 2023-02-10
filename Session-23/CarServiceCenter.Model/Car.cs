@@ -1,4 +1,6 @@
-﻿namespace CarServiceCenter.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarServiceCenter.Model
 {
     public class Car
     {
@@ -14,6 +16,7 @@
         public int Id { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
+        [Display(Name = "Registration Number")]
         public string CarRegistrationNumber { get; set; }
 
         // Relations
