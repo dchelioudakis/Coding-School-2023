@@ -114,48 +114,32 @@ namespace Session_23.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EngineerEditDto engineerDto) {
-            //try {
-            //    if (!ModelState.IsValid) {
-            //        return View();
-            //    }
+            try {
+                if (!ModelState.IsValid) {
+                    return View();
+                }
 
-            //    var dbEngineer = _engineerRepo.GetById(id);
-            //    if (dbEngineer == null) {
-            //        return NotFound();
-            //    }
+                var dbEngineer = _engineerRepo.GetById(id);
+                if (dbEngineer == null) {
+                    return NotFound();
+                }
 
-            //    dbEngineer.Name = engineerDto.Name;
-            //    dbEngineer.Surname = engineerDto.Surname;
-            //    dbEngineer.SalaryPerMonth = engineerDto.SalaryPerMonth;
-            //    dbEngineer.ManagerId = engineerDto.ManagerId;
 
-            //    _engineerRepo.Update(id, dbEngineer);
+                dbEngineer.Name = engineerDto.Name;
+                dbEngineer.Surname = engineerDto.Surname;
+                dbEngineer.SalaryPerMonth = engineerDto.SalaryPerMonth;
+                dbEngineer.ManagerId = engineerDto.ManagerId;
 
-            //    return RedirectToAction(nameof(Index));
+                _engineerRepo.Update(id, dbEngineer);
 
-            //}
-            //catch {
-            //    return View();
-            //}
+                return RedirectToAction(nameof(Index));
 
-            if (!ModelState.IsValid) {
+            }
+            catch {
                 return View();
             }
 
-            var dbEngineer = _engineerRepo.GetById(id);
-            if (dbEngineer == null) {
-                return NotFound();
-            }
 
-            
-            dbEngineer.Name = engineerDto.Name;
-            dbEngineer.Surname = engineerDto.Surname;
-            dbEngineer.SalaryPerMonth = engineerDto.SalaryPerMonth;
-            dbEngineer.ManagerId = engineerDto.ManagerId;
-
-            _engineerRepo.Update(id, dbEngineer);
-
-            return RedirectToAction(nameof(Index));
         }
 
         // GET: EngineerController/Delete/5

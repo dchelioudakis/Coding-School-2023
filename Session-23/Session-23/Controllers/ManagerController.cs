@@ -58,13 +58,13 @@ namespace Session_23.Controllers {
         // POST: ManagerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ManagerCreateDto manager) {
+        public ActionResult Create(ManagerCreateDto managerCreateDto) {
             try {
                 if (!ModelState.IsValid) {
                     return View();
                 }
 
-                var dbManager = new Manager(manager.Name, manager.Surname, manager.SalaryPerMonth);
+                var dbManager = new Manager(managerCreateDto.Name, managerCreateDto.Surname, managerCreateDto.SalaryPerMonth);
                 _managerRepo.Add(dbManager);
                 return RedirectToAction(nameof(Index));
             }
@@ -94,7 +94,7 @@ namespace Session_23.Controllers {
         // POST: ManagerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ManagerEditDto manager) {
+        public ActionResult Edit(int id, ManagerEditDto managerEditDto) {
             try {
                 if (!ModelState.IsValid) {
                     return View();
@@ -105,9 +105,9 @@ namespace Session_23.Controllers {
                     return NotFound();
                 }
 
-                dbManager.Name = manager.Name;
-                dbManager.Surname = manager.Surname;
-                dbManager.SalaryPerMonth = manager.SalaryPerMonth;
+                dbManager.Name = managerEditDto.Name;
+                dbManager.Surname = managerEditDto.Surname;
+                dbManager.SalaryPerMonth = managerEditDto.SalaryPerMonth;
 
                 _managerRepo.Update(id, dbManager);
 
@@ -135,7 +135,7 @@ namespace Session_23.Controllers {
 
 
 
-            return View();
+            return View(model: viewManager);
         }
 
         // POST: ManagerController/Delete/5

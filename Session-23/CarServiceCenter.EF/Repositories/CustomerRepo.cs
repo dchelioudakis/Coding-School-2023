@@ -38,6 +38,8 @@ namespace CarSercviceCenter.Orm.Repositories {
                 return;
             dbCustomer.Name = entity.Name;
             dbCustomer.Surname = entity.Surname;
+            dbCustomer.Phone = entity.Phone;
+            dbCustomer.Tin = entity.Tin;
             dbCustomer.Transactions = entity.Transactions;
             context.SaveChanges();
         }
