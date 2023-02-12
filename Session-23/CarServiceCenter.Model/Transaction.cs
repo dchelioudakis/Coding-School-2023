@@ -2,9 +2,9 @@
 {
     public class Transaction
     {
-        public Transaction(decimal totalPrice)
+        public Transaction(DateTime date, decimal totalPrice)
         {
-            Date = DateTime.Now;
+            Date = date;
             TotalPrice = totalPrice;
 
             TransactionLines = new List<TransactionLine>();

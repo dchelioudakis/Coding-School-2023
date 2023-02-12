@@ -48,9 +48,6 @@ namespace CarSercviceCenter.Orm.Repositories {
             dbTransaction.CustomerId = entity.CustomerId;
             dbTransaction.CarId = entity.CarId;
             dbTransaction.TransactionLines = entity.TransactionLines;
-            dbTransaction.Manager = entity.Manager;
-            dbTransaction.Customer = entity.Customer;
-            dbTransaction.Car = entity.Car;
 
             context.SaveChanges();
         }

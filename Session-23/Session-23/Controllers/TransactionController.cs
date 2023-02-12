@@ -1,28 +1,98 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarSercviceCenter.Orm.Repositories;
+using CarServiceCenter.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Session_23.Models.ManagerModel;
+using Session_23.Models.TransactionModel;
 
 namespace Session_23.Controllers {
     public class TransactionController : Controller {
+
+        private readonly IEntityRepo<Transaction> _transactionRepo;
+        private readonly IEntityRepo<Customer> _customerRepo;
+        private readonly IEntityRepo<Car> _carRepo;
+        private readonly IEntityRepo<Manager> _managerRepo;
+
+        public TransactionController(IEntityRepo<Transaction> transactionRepo, IEntityRepo<Customer> customerRepo, IEntityRepo<Car> carRepo, IEntityRepo<Manager> managerRepo) {
+            _transactionRepo = transactionRepo;
+            _customerRepo = customerRepo;
+            _carRepo = carRepo;
+            _managerRepo = managerRepo;
+        }
+
+
+
         // GET: TransactionController
         public ActionResult Index() {
-            return View();
+            var transactions = _transactionRepo.GetAll();
+            return View(model : transactions);
         }
 
         // GET: TransactionController/Details/5
         public ActionResult Details(int id) {
-            return View();
+            if (id == null) {
+                return NotFound();
+            }
+
+            var dbTransaction = _transactionRepo.GetById(id);
+            if (dbTransaction == null) {
+                return NotFound();
+            }
+
+            var viewTransaction = new TransactionDetailsDto {
+                Id = dbTransaction.Id,
+                Date = dbTransaction.Date,
+                TotalPrice = dbTransaction.TotalPrice,
+                Manager = dbTransaction.Manager,
+                Customer = dbTransaction.Customer,
+                Car = dbTransaction.Car,
+                TransactionLines = dbTransaction.TransactionLines,
+            };
+
+
+
+            return View(model: viewTransaction);
         }
 
         // GET: TransactionController/Create
         public ActionResult Create() {
-            return View();
+            var transactionCreateDto = new TransactionCreateDto();
+            var managers = _managerRepo.GetAll();
+            var customers = _customerRepo.GetAll();
+            var cars = _carRepo.GetAll();
+
+
+            foreach (var manager in managers) {
+                transactionCreateDto.Managers.Add(new SelectListItem(manager.Surname + " " + manager.Name, manager.Id.ToString()));
+            }
+            foreach (var customer in customers) {
+                transactionCreateDto.Customers.Add(new SelectListItem(customer.Surname + " " + customer.Name, customer.Id.ToString()));
+            }
+            foreach (var car in cars) {
+                transactionCreateDto.Cars.Add(new SelectListItem(car.CarRegistrationNumber + " " + car.Brand + " " + car.Model, car.Id.ToString()));
+            }
+
+
+            return View(model : transactionCreateDto);
         }
 
         // POST: TransactionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
+        public ActionResult Create(TransactionCreateDto transactionCreateDto) {
             try {
+                if (!ModelState.IsValid) {
+                    return View();
+                }
+
+                var dbTransaction = new Transaction(transactionCreateDto.Date, transactionCreateDto.TotalPrice) {
+                    ManagerId = transactionCreateDto.ManagerId,
+                    CustomerId = transactionCreateDto.CustomerId,
+                    CarId = transactionCreateDto.CarId,
+                };
+
+                _transactionRepo.Add(dbTransaction);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -32,24 +102,91 @@ namespace Session_23.Controllers {
 
         // GET: TransactionController/Edit/5
         public ActionResult Edit(int id) {
-            return View();
+            var dbTransaction = _transactionRepo.GetById(id);
+            if (dbTransaction == null) {
+                return NotFound();
+            }
+
+            var viewTransaction = new TransactionEditDto {
+                Id = dbTransaction.Id,
+                Date = dbTransaction.Date,
+                TotalPrice = dbTransaction.TotalPrice,
+                ManagerId = dbTransaction.ManagerId,
+                CustomerId = dbTransaction.CustomerId,
+                CarId = dbTransaction.CarId,
+                //TransactionLines = dbTransaction.TransactionLines,
+            };
+
+            var managers = _managerRepo.GetAll();
+            var customers = _customerRepo.GetAll();
+            var cars = _carRepo.GetAll();
+
+
+            foreach (var manager in managers) {
+                viewTransaction.Managers.Add(new SelectListItem(manager.Surname + " " + manager.Name, manager.Id.ToString()));
+            }
+            foreach (var customer in customers) {
+                viewTransaction.Customers.Add(new SelectListItem(customer.Surname + " " + customer.Name, customer.Id.ToString()));
+            }
+            foreach (var car in cars) {
+                viewTransaction.Cars.Add(new SelectListItem(car.CarRegistrationNumber + " " + car.Brand + " " + car.Model, car.Id.ToString()));
+            }
+
+
+            return View(model: viewTransaction);
         }
 
         // POST: TransactionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
+        public ActionResult Edit(int id, TransactionEditDto transactionEditDto) {
+            //try {
+                
+            //}
+            //catch {
+            //    return View();
+            //}
+            if (!ModelState.IsValid) {
                 return View();
             }
+
+            var dbTransaction = _transactionRepo.GetById(id);
+            if (dbTransaction == null) {
+                return NotFound();
+            }
+
+            dbTransaction.Date = transactionEditDto.Date;
+            dbTransaction.TotalPrice = transactionEditDto.TotalPrice;
+            dbTransaction.ManagerId = transactionEditDto.ManagerId;
+            dbTransaction.CarId = transactionEditDto.CarId;
+            dbTransaction.CustomerId = transactionEditDto.CustomerId;
+            //dbTransaction.TransactionLines = transactionEditDto.TransactionLines;
+
+            _transactionRepo.Update(id, dbTransaction);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: TransactionController/Delete/5
         public ActionResult Delete(int id) {
-            return View();
+            var dbTransaction = _transactionRepo.GetById(id);
+            if (dbTransaction == null) {
+                return NotFound();
+            }
+
+            var viewTransaction = new TransactionDeleteDto {
+                Id = dbTransaction.Id,
+                Date = dbTransaction.Date,
+                TotalPrice = dbTransaction.TotalPrice,
+                Manager = dbTransaction.Manager,
+                Customer = dbTransaction.Customer,
+                Car = dbTransaction.Car,
+                TransactionLines = dbTransaction.TransactionLines,
+            };
+
+
+
+            return View(model: viewTransaction);
         }
 
         // POST: TransactionController/Delete/5
@@ -57,6 +194,7 @@ namespace Session_23.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection) {
             try {
+                _transactionRepo.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch {

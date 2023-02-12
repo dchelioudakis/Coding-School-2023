@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Models\TransactionLineModel\" />
     <Folder Include="Views\TransactionLine\" />
-    <Folder Include="Views\Transaction\" />
   </ItemGroup>
 
   <ItemGroup>
