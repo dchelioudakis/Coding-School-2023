@@ -20,11 +20,8 @@
 
   <ItemGroup>
     <Folder Include="Models\TransactionLineModel\" />
-    <Folder Include="Models\TransactionModel\" />
-    <Folder Include="Models\ServiceTaskModel\" />
     <Folder Include="Views\TransactionLine\" />
     <Folder Include="Views\Transaction\" />
-    <Folder Include="Views\ServiceTask\" />
   </ItemGroup>
 
   <ItemGroup>
