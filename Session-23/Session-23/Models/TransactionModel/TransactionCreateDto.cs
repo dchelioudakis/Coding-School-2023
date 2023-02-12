@@ -15,5 +15,6 @@ namespace Session_23.Models.TransactionModel {
 
         public int CarId { get; set; }
         public List<SelectListItem> Cars { get; } = new List<SelectListItem>();
+
     }
 }

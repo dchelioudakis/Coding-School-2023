@@ -10,15 +10,19 @@ namespace Session_23.Controllers {
     public class TransactionController : Controller {
 
         private readonly IEntityRepo<Transaction> _transactionRepo;
+        private readonly IEntityRepo<ServiceTask> _serviceTaskRepo;
         private readonly IEntityRepo<Customer> _customerRepo;
         private readonly IEntityRepo<Car> _carRepo;
         private readonly IEntityRepo<Manager> _managerRepo;
+        private readonly IEntityRepo<Engineer> _engineerRepo;
 
-        public TransactionController(IEntityRepo<Transaction> transactionRepo, IEntityRepo<Customer> customerRepo, IEntityRepo<Car> carRepo, IEntityRepo<Manager> managerRepo) {
+        public TransactionController(IEntityRepo<Transaction> transactionRepo, IEntityRepo<Customer> customerRepo, IEntityRepo<Car> carRepo, IEntityRepo<Manager> managerRepo, IEntityRepo<ServiceTask> serviceTaskRepo, IEntityRepo<Engineer> engineerRepo) {
             _transactionRepo = transactionRepo;
             _customerRepo = customerRepo;
             _carRepo = carRepo;
             _managerRepo = managerRepo;
+            _serviceTaskRepo = serviceTaskRepo;
+            _engineerRepo = engineerRepo;
         }
 
 
@@ -40,6 +44,13 @@ namespace Session_23.Controllers {
                 return NotFound();
             }
 
+            //Bring related to transaction engineers and ServiceTasks to view
+            foreach (var line in dbTransaction.TransactionLines) {
+                line.ServiceTask = _serviceTaskRepo.GetById(line.ServiceTaskId);
+                line.Engineer = _engineerRepo.GetById(line.EngineerId);
+            }
+
+            
             var viewTransaction = new TransactionDetailsDto {
                 Id = dbTransaction.Id,
                 Date = dbTransaction.Date,
@@ -72,6 +83,8 @@ namespace Session_23.Controllers {
             foreach (var car in cars) {
                 transactionCreateDto.Cars.Add(new SelectListItem(car.CarRegistrationNumber + " " + car.Brand + " " + car.Model, car.Id.ToString()));
             }
+
+            //transactionCreateDto.TransactionLines;
 
 
             return View(model : transactionCreateDto);

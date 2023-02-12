@@ -1,8 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarSercviceCenter.Orm.Repositories;
+using CarServiceCenter.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Session_23.Models.TransactionLineModel;
+using Session_23.Models.TransactionModel;
 
 namespace Session_23.Controllers {
     public class TransactionLineController : Controller {
+
+        private readonly IEntityRepo<TransactionLine> _transactionLineRepo;
+        private readonly IEntityRepo<Engineer> _engineerRepo;
+        private readonly IEntityRepo<ServiceTask> _serviceTaskRepo;
+
+        public TransactionLineController(IEntityRepo<TransactionLine> transactionLineRepo, IEntityRepo<Engineer> engineerRepo, IEntityRepo<ServiceTask> serviceTaskRepo) {
+            _transactionLineRepo = transactionLineRepo;
+            _engineerRepo = engineerRepo;
+            _serviceTaskRepo = serviceTaskRepo;
+        }
+
+
+
+
+
         // GET: TransactionLineController
         public ActionResult Index() {
             return View();
@@ -14,16 +34,43 @@ namespace Session_23.Controllers {
         }
 
         // GET: TransactionLineController/Create
-        public ActionResult Create() {
-            return View();
+        public ActionResult Create(int id) {
+            var transactionLineCreateDto = new TransactionLineCreateDto();
+            var engineers = _engineerRepo.GetAll();
+            var serviceTasks = _serviceTaskRepo.GetAll();
+
+            transactionLineCreateDto.TransactionId = id;
+
+            foreach (var engineer in engineers) {
+                transactionLineCreateDto.Engineers.Add(new SelectListItem(engineer.Surname + " " + engineer.Name, engineer.Id.ToString()));
+            }
+            foreach (var serviceTask in serviceTasks) {
+                transactionLineCreateDto.ServiceTasks.Add(new SelectListItem(serviceTask.Code, serviceTask.Id.ToString()));
+            }
+
+            //transactionCreateDto.TransactionLines;
+
+
+            return View(model: transactionLineCreateDto);
         }
 
         // POST: TransactionLineController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
+        public ActionResult Create(int id, TransactionLineCreateDto transactionLineCreateDto) {
             try {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid) {
+                    return View();
+                }
+
+                var dbTransactionLine = new TransactionLine(transactionLineCreateDto.Hours, transactionLineCreateDto.PricePerHour, transactionLineCreateDto.Price) {
+                    EngineerId = transactionLineCreateDto.EngineerId,
+                    ServiceTaskId = transactionLineCreateDto.ServiceTaskId,
+                    TransactionId = transactionLineCreateDto.TransactionId,
+                };
+
+                _transactionLineRepo.Add(dbTransactionLine);
+                return RedirectToAction("Details", "Transaction", new {id = transactionLineCreateDto.TransactionId });
             }
             catch {
                 return View();
