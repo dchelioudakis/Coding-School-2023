@@ -118,7 +118,7 @@ namespace Session_23.Controllers {
                 Id = dbTransactionLine.Id,
                 Hours = dbTransactionLine.Hours,
                 PricePerHour = dbTransactionLine.PricePerHour,
-                Price = dbTransactionLine.PricePerHour,
+                Price = dbTransactionLine.Price,
                 TransactionId = dbTransactionLine.TransactionId,
                 ServiceTaskId = dbTransactionLine.ServiceTaskId,
                 EngineerId = dbTransactionLine.EngineerId,
@@ -132,7 +132,7 @@ namespace Session_23.Controllers {
                 viewTransactionLine.Engineers.Add(new SelectListItem(engineer.Surname + " " + engineer.Name, engineer.Id.ToString()));
             }
             foreach (var serviceTask in serviceTasks) {
-                viewTransactionLine.ServiceTasks.Add(new SelectListItem(serviceTask.Code, serviceTask.Id.ToString()));
+                viewTransactionLine.ServiceTasks.Add(new SelectListItem(serviceTask.Code + " " + serviceTask.Hours, serviceTask.Id.ToString()));
             }
 
             return View(model: viewTransactionLine);
