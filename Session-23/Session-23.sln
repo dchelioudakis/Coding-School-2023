@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCenter.Model", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCenter.EF", "CarServiceCenter.EF\CarServiceCenter.EF.csproj", "{4ED7FAFE-951F-4999-B53A-CC454CE5130A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLib", "BusinessLib\BusinessLib.csproj", "{3D67B861-8F4F-4682-B5CB-25BA6429B1BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{4ED7FAFE-951F-4999-B53A-CC454CE5130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ED7FAFE-951F-4999-B53A-CC454CE5130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ED7FAFE-951F-4999-B53A-CC454CE5130A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D67B861-8F4F-4682-B5CB-25BA6429B1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D67B861-8F4F-4682-B5CB-25BA6429B1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D67B861-8F4F-4682-B5CB-25BA6429B1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D67B861-8F4F-4682-B5CB-25BA6429B1BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

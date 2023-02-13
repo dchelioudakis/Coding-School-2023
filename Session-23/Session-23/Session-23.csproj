@@ -19,7 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLib\BusinessLib.csproj" />
     <ProjectReference Include="..\CarServiceCenter.EF\CarServiceCenter.EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\MonthlyLedger\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
