@@ -22,12 +22,20 @@ namespace CarSercviceCenter.Orm.Repositories {
 
         public IList<TransactionLine> GetAll() {
             using var context = new CarServiceCenterDbContext();
-            return context.TransactionLines.ToList();
+            return context.TransactionLines
+                .Include(transactionLine => transactionLine.Engineer)
+                .Include(transactionLine => transactionLine.ServiceTask)
+                .Include(transactionLine => transactionLine.Transaction)
+                .ToList();
         }
 
         public TransactionLine? GetById(int id) {
             using var context = new CarServiceCenterDbContext();
-            return context.TransactionLines.Where(transactionLine => transactionLine.Id == id).SingleOrDefault();
+            return context.TransactionLines.Where(transactionLine => transactionLine.Id == id)
+                .Include(transactionLine => transactionLine.Engineer)
+                .Include(transactionLine => transactionLine.ServiceTask)
+                .Include(transactionLine => transactionLine.Transaction)
+                .SingleOrDefault();
         }
 
         public void Update(int id, TransactionLine entity) {

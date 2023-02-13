@@ -50,7 +50,7 @@ namespace Session_23.Controllers {
                 line.Engineer = _engineerRepo.GetById(line.EngineerId);
             }
 
-            
+
             var viewTransaction = new TransactionDetailsDto {
                 Id = dbTransaction.Id,
                 Date = dbTransaction.Date,
@@ -153,31 +153,30 @@ namespace Session_23.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, TransactionEditDto transactionEditDto) {
-            //try {
-                
-            //}
-            //catch {
-            //    return View();
-            //}
-            if (!ModelState.IsValid) {
+            try {
+                if (!ModelState.IsValid) {
+                    return View();
+                }
+
+                var dbTransaction = _transactionRepo.GetById(id);
+                if (dbTransaction == null) {
+                    return NotFound();
+                }
+
+                dbTransaction.Date = transactionEditDto.Date;
+                dbTransaction.TotalPrice = transactionEditDto.TotalPrice;
+                dbTransaction.ManagerId = transactionEditDto.ManagerId;
+                dbTransaction.CarId = transactionEditDto.CarId;
+                dbTransaction.CustomerId = transactionEditDto.CustomerId;
+
+                _transactionRepo.Update(id, dbTransaction);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch {
                 return View();
             }
 
-            var dbTransaction = _transactionRepo.GetById(id);
-            if (dbTransaction == null) {
-                return NotFound();
-            }
-
-            dbTransaction.Date = transactionEditDto.Date;
-            dbTransaction.TotalPrice = transactionEditDto.TotalPrice;
-            dbTransaction.ManagerId = transactionEditDto.ManagerId;
-            dbTransaction.CarId = transactionEditDto.CarId;
-            dbTransaction.CustomerId = transactionEditDto.CustomerId;
-            //dbTransaction.TransactionLines = transactionEditDto.TransactionLines;
-
-            _transactionRepo.Update(id, dbTransaction);
-
-            return RedirectToAction(nameof(Index));
         }
 
         // GET: TransactionController/Delete/5

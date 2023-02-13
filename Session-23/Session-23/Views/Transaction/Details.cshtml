@@ -42,7 +42,10 @@
             @Html.DisplayFor(model => model.Car.Brand)
         </dd>
     </dl>
-    <h5>Transaction Lines</h5>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+    <br><br>
+    <h4>Transaction Lines</h4>
     <p>
         <a asp-controller="TransactionLine" asp-action="Create" asp-route-id="@Model?.Id">Add Line</a>
     </p>
@@ -92,9 +95,9 @@
                         @Html.DisplayFor(modelItem => item.Engineer.Surname)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-controller="TransactionLine" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="TransactionLine" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="TransactionLine" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }
@@ -102,6 +105,5 @@
     </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
 </div>
