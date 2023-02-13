@@ -78,7 +78,7 @@ namespace Session_23.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int id, TransactionLineCreateDto transactionLineCreateDto) {
-            try {
+            //try {
                 if (!ModelState.IsValid) {
                     return View();
                 }
@@ -91,10 +91,10 @@ namespace Session_23.Controllers {
 
                 _transactionLineRepo.Add(dbTransactionLine);
                 return RedirectToAction("Details", "Transaction", new {id = transactionLineCreateDto.TransactionId });
-            }
-            catch {
-                return View();
-            }
+            //}
+            //catch {
+            //    return View();
+            //}
         }
 
         // GET: TransactionLineController/Edit/5
@@ -160,15 +160,32 @@ namespace Session_23.Controllers {
 
         // GET: TransactionLineController/Delete/5
         public ActionResult Delete(int id) {
-            return View();
+            var dbTransactionLine = _transactionLineRepo.GetById(id);
+            if (dbTransactionLine == null) {
+                return NotFound();
+            }
+
+            var viewTransactionLine = new TransactionLineDeleteDto {
+                Id = dbTransactionLine.Id,
+                Hours = dbTransactionLine.Hours,
+                PricePerHour = dbTransactionLine.PricePerHour,
+                Price = dbTransactionLine.Price,
+                Transaction = dbTransactionLine.Transaction,
+                TransactionId = dbTransactionLine.TransactionId,
+                Engineer = dbTransactionLine.Engineer,
+                ServiceTask = dbTransactionLine.ServiceTask,
+            };
+
+            return View(model: viewTransactionLine);
         }
 
         // POST: TransactionLineController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
+        public ActionResult Delete(int id, int TransactionId) {
             try {
-                return RedirectToAction(nameof(Index));
+                _transactionLineRepo.Delete(id);
+                return RedirectToAction("Details", "Transaction", new { id = TransactionId });
             }
             catch {
                 return View();
