@@ -13,11 +13,13 @@ namespace Session_23.Controllers {
         private readonly IEntityRepo<TransactionLine> _transactionLineRepo;
         private readonly IEntityRepo<Engineer> _engineerRepo;
         private readonly IEntityRepo<ServiceTask> _serviceTaskRepo;
+        private readonly IEntityRepo<Transaction> _transactionRepo;
 
-        public TransactionLineController(IEntityRepo<TransactionLine> transactionLineRepo, IEntityRepo<Engineer> engineerRepo, IEntityRepo<ServiceTask> serviceTaskRepo) {
+        public TransactionLineController(IEntityRepo<TransactionLine> transactionLineRepo, IEntityRepo<Engineer> engineerRepo, IEntityRepo<ServiceTask> serviceTaskRepo, IEntityRepo<Transaction> transactionRepo) {
             _transactionLineRepo = transactionLineRepo;
             _engineerRepo = engineerRepo;
             _serviceTaskRepo = serviceTaskRepo;
+            _transactionRepo = transactionRepo;
         }
 
 
@@ -78,23 +80,31 @@ namespace Session_23.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int id, TransactionLineCreateDto transactionLineCreateDto) {
-            //try {
+            try {
                 if (!ModelState.IsValid) {
                     return View();
                 }
 
-                var dbTransactionLine = new TransactionLine(transactionLineCreateDto.Hours, transactionLineCreateDto.PricePerHour, transactionLineCreateDto.Price) {
+                var selectedServiceTask = _serviceTaskRepo.GetById(transactionLineCreateDto.ServiceTaskId);
+                decimal pricePerHour = 45.0M; //Normally should come from settings object... not implemented yet
+
+                var dbTransactionLine = new TransactionLine(selectedServiceTask.Hours, pricePerHour, selectedServiceTask.Hours * pricePerHour) {
                     EngineerId = transactionLineCreateDto.EngineerId,
                     ServiceTaskId = transactionLineCreateDto.ServiceTaskId,
                     TransactionId = transactionLineCreateDto.TransactionId,
                 };
 
                 _transactionLineRepo.Add(dbTransactionLine);
+
+                var currentTransaction = _transactionRepo.GetById(transactionLineCreateDto.TransactionId);
+                currentTransaction.TotalPrice += dbTransactionLine.Price;
+                _transactionRepo.Update(transactionLineCreateDto.TransactionId, currentTransaction);
+
                 return RedirectToAction("Details", "Transaction", new {id = transactionLineCreateDto.TransactionId });
-            //}
-            //catch {
-            //    return View();
-            //}
+            }
+            catch {
+                return View();
+            }
         }
 
         // GET: TransactionLineController/Edit/5
@@ -182,14 +192,25 @@ namespace Session_23.Controllers {
         // POST: TransactionLineController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, int TransactionId) {
-            try {
+        public ActionResult Delete(int id, int transactionId) {
+            //try {
+                var currentTransaction = _transactionRepo.GetById(transactionId);
+                var dbTransactionLine = _transactionLineRepo.GetById(id);
+
+                currentTransaction.TotalPrice -= dbTransactionLine.Price;
+
+                _transactionRepo.Update(transactionId, currentTransaction);
+
                 _transactionLineRepo.Delete(id);
-                return RedirectToAction("Details", "Transaction", new { id = TransactionId });
-            }
-            catch {
-                return View();
-            }
+
+                
+                
+   
+                return RedirectToAction("Details", "Transaction", new { id = transactionId });
+            //}
+            //catch {
+            //    return View();
+            //}
         }
     }
 }

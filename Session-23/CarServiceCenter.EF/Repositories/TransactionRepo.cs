@@ -44,6 +44,7 @@ namespace CarSercviceCenter.Orm.Repositories {
             if (dbTransaction is null)
                 return;
             dbTransaction.Date = entity.Date;
+            dbTransaction.TotalPrice = entity.TotalPrice;
             dbTransaction.ManagerId = entity.ManagerId;
             dbTransaction.CustomerId = entity.CustomerId;
             dbTransaction.CarId = entity.CarId;
