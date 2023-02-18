@@ -16,6 +16,9 @@ namespace FuelStation.Model {
         public decimal SalaryPerMonth { get; set; }
         public EmployeeType Type { get; set; }
 
+        //Relations
+        public List<Transaction> Transactions { get; set; }
+
         public Employee(string name, string surname, EmployeeType type) {
             Name = name;
             Surname = surname;
