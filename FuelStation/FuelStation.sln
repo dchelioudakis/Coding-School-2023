@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStationDesktop", "FuelS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Model", "FuelStation.Model\FuelStation.Model.csproj", "{8164A5B2-7B85-44E5-81FB-C4485173B54E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.EF", "FuelStation.EF\FuelStation.EF.csproj", "{9B2AD150-E987-470E-BB97-E63395AD1C7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8164A5B2-7B85-44E5-81FB-C4485173B54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8164A5B2-7B85-44E5-81FB-C4485173B54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8164A5B2-7B85-44E5-81FB-C4485173B54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
