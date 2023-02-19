@@ -3,23 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStationAPI", "FuelStationAPI\FuelStationAPI.csproj", "{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStationWeb", "FuelStationWeb\FuelStationWeb.csproj", "{70FA0692-A6D8-4AAE-90FD-EE3C1A1C4BB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStationAPI", "FuelStationAPI\FuelStationAPI.csproj", "{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E} = {50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}
+		{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F} = {084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}
+		{3329D184-9557-4799-A752-E16AED990F37} = {3329D184-9557-4799-A752-E16AED990F37}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStationDesktop", "FuelStationDesktop\FuelStationDesktop.csproj", "{3329D184-9557-4799-A752-E16AED990F37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStationDesktop", "FuelStationDesktop\FuelStationDesktop.csproj", "{3329D184-9557-4799-A752-E16AED990F37}"
 	ProjectSection(ProjectDependencies) = postProject
-		{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E} = {50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}
+		{8164A5B2-7B85-44E5-81FB-C4485173B54E} = {8164A5B2-7B85-44E5-81FB-C4485173B54E}
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C} = {9B2AD150-E987-470E-BB97-E63395AD1C7C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Model", "FuelStation.Model\FuelStation.Model.csproj", "{8164A5B2-7B85-44E5-81FB-C4485173B54E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.Model", "FuelStation.Model\FuelStation.Model.csproj", "{8164A5B2-7B85-44E5-81FB-C4485173B54E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.EF", "FuelStation.EF\FuelStation.EF.csproj", "{9B2AD150-E987-470E-BB97-E63395AD1C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.EF", "FuelStation.EF\FuelStation.EF.csproj", "{9B2AD150-E987-470E-BB97-E63395AD1C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.DTOs", "FuelStation.DTOs\FuelStation.DTOs.csproj", "{38334B4C-817C-4801-BB59-1670ECD17043}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStationWebClient", "FuelStationWebClient\FuelStationWebClient.csproj", "{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8164A5B2-7B85-44E5-81FB-C4485173B54E} = {8164A5B2-7B85-44E5-81FB-C4485173B54E}
+		{9B2AD150-E987-470E-BB97-E63395AD1C7C} = {9B2AD150-E987-470E-BB97-E63395AD1C7C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +35,6 @@ Global
 		{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50E82D1D-E5D4-4FFC-8BB5-04A8F356431E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70FA0692-A6D8-4AAE-90FD-EE3C1A1C4BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70FA0692-A6D8-4AAE-90FD-EE3C1A1C4BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70FA0692-A6D8-4AAE-90FD-EE3C1A1C4BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70FA0692-A6D8-4AAE-90FD-EE3C1A1C4BB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3329D184-9557-4799-A752-E16AED990F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3329D184-9557-4799-A752-E16AED990F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3329D184-9557-4799-A752-E16AED990F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +47,10 @@ Global
 		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B2AD150-E987-470E-BB97-E63395AD1C7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38334B4C-817C-4801-BB59-1670ECD17043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38334B4C-817C-4801-BB59-1670ECD17043}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38334B4C-817C-4801-BB59-1670ECD17043}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38334B4C-817C-4801-BB59-1670ECD17043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084155FC-2EE7-4EC8-B36F-D2BA562DAD6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

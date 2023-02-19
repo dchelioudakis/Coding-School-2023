@@ -1,4 +1,4 @@
-﻿using CoffeeShop.EF.Context;
+﻿using FuelStation.EF.Context;
 using FuelStation.Model;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -2,7 +2,7 @@
 using FuelStation.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoffeeShop.EF.Context {
+namespace FuelStation.EF.Context {
     public class FuelStationDbContext : DbContext {
         public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;

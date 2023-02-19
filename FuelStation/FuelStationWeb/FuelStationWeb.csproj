@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FuelStation.DTOs\FuelStation.DTOs.csproj" />
+    <ProjectReference Include="..\FuelStation.EF\FuelStation.EF.csproj" />
+    <ProjectReference Include="..\FuelStationAPI\FuelStationAPI.csproj" />
+  </ItemGroup>
+
 </Project>
