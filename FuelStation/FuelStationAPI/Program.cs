@@ -19,7 +19,9 @@ builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 builder.Services.AddCors(options => {
     options.AddDefaultPolicy(
         policy => {
-            policy.AllowAnyOrigin();  //set the allowed origin  
+            policy.AllowAnyOrigin();
+            policy.AllowAnyMethod();
+            policy.AllowAnyHeader();  //set   
         });
 });
 

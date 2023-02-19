@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FuelStationWebClient.DTO.Customer {
-    public class CustomerListDto {
+    public class CustomerEditDto {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

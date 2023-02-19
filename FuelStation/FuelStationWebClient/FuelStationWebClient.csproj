@@ -16,4 +16,10 @@
     <ProjectReference Include="..\FuelStation.Model\FuelStation.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Item\" />
+    <Folder Include="Pages\Employee\" />
+    <Folder Include="Pages\MonthlyLedger\" />
+  </ItemGroup>
+
 </Project>
