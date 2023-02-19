@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuelStation.DTOs.Customer {
+namespace FuelStation.DTO.Customer {
     public class CustomerListDto {
         public int Id { get; set; }
         public string Name { get; set; }

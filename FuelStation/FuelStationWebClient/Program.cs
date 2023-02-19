@@ -12,12 +12,5 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7099/") });
 
 
-
-builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
-builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
-builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
-
-
-
 await builder.Build().RunAsync();
 

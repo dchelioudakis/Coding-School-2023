@@ -1,4 +1,4 @@
-﻿using FuelStation.DTOs.Customer;
+﻿using FuelStationAPI.DTO.Customer;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using Microsoft.AspNetCore.Cors;
@@ -23,9 +23,8 @@ namespace FuelStationAPI.Controllers {
             _errorMessage = String.Empty;
         }
 
-        // GET: /<CustomersController>
-        [EnableCors]
-        [HttpGet(Name = "CustomerList")]
+        // GET: /<EmployeeController>
+        [HttpGet]
         public async Task<IEnumerable<CustomerListDto>> Get() {
             var result = await Task.Run(() => { return _customerRepo.GetAll(); });
             var selectCustomerList = result.Select(customer => new CustomerListDto {
@@ -37,7 +36,7 @@ namespace FuelStationAPI.Controllers {
             return selectCustomerList;
         }
 
-        // GET: /<CustomersController>/5
+        // GET: /<EmployeeController>/5
         [HttpGet("{id}")]
         public async Task<CustomerEditDto?> GetById(int id) {
             var result = await Task.Run(() => { return _customerRepo.GetById(id); });
@@ -53,7 +52,7 @@ namespace FuelStationAPI.Controllers {
             return customer;
         }
 
-        // POST /<CustomersController>
+        // POST /<EmployeeController>
         [HttpPost]
         public async Task<ActionResult> Post(CustomerEditDto customer) {
             var newCustomer = new Customer(customer.Name, customer.Surname, customer.CardNumber);
@@ -73,7 +72,7 @@ namespace FuelStationAPI.Controllers {
             //}
         }
 
-        // PUT /<CustomersController>/5
+        // PUT /<EmployeeController>
         [HttpPut]
         public async Task Put(CustomerEditDto customer) {
             var dbCustomer = await Task.Run(() => { return _customerRepo.GetById(customer.Id); });
@@ -87,7 +86,7 @@ namespace FuelStationAPI.Controllers {
             _customerRepo.Update(customer.Id, dbCustomer);
         }
 
-        // DELETE /<CustomersController>/5
+        // DELETE /<EmployeeController>/5
         [HttpDelete("{id}")]
         public async Task Delete(int id) {
             await Task.Run(() => {
