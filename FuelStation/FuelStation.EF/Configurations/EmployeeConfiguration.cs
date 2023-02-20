@@ -22,7 +22,7 @@ namespace FuelStation.EF.Configurations {
             builder.Property(t => t.Surname).HasMaxLength(100).IsRequired();
             builder.Property(t => t.SalaryPerMonth).HasPrecision(10, 2).IsRequired();
             builder.Property(t => t.HireDateStart).IsRequired();
-            builder.Property(t => t.HireDateEnd).IsRequired();
+            builder.Property(t => t.HireDateEnd);
             builder.Property(t => t.Type).IsRequired();
 
             // Relations
