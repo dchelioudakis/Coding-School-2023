@@ -4,13 +4,8 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<PageTitle>Customer Edit</PageTitle>
-@if (Id is null) {
-    <h3>Create Customer</h3>
-} else {
-
-    <h3>Customer Edit</h3>
-}
+<PageTitle>Customer Details</PageTitle>
+<h3>Customer Details</h3>
 
 @if (Customer == null) {
 <div class="spinner-border text-secondary" role="status">
