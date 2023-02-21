@@ -1,19 +1,20 @@
 ﻿using FuelStation.Model;
 using System;
+using System.Collections.Generic;
 
 namespace FuelStation.Blazor.Server.Business {
     public class MonthlyLedgerCalculator {
-        public decimal CalculateMonthlySalaries(IList<Employee> employees, int month, int year) {
+        public decimal CalculateMonthlySalaries(int year, int month, IList<Employee> employees) {
             decimal expensesSum = 0;
             foreach (var employee in employees) {
 
 
-                if (WorkedInMonth(employee, year, month)) {
-                    if (WorkedWholeMonth(employee, year, month)) {
+                if (WorkedInMonth(year, month, employee)) {
+                    if (WorkedWholeMonth(year, month, employee)) {
                         expensesSum += employee.SalaryPerMonth;
                     }
                     else {
-                        expensesSum += PartOfMonthWorked(employee, year, month) * employee.SalaryPerMonth;
+                        expensesSum += PartOfMonthWorked(year, month, employee) * employee.SalaryPerMonth;
                     }
                 }
                 else {
@@ -26,58 +27,83 @@ namespace FuelStation.Blazor.Server.Business {
         }
 
         // method: calc incomes
-        public decimal CalculateMonthlyNetSales(DateTime date, IList<Transaction> transactions) {
-            int month = date.Month;
-            int year = date.Year;
-            decimal incomeSum = 0;
+        public decimal CalculateMonthlyGrossSales(int year, int month, List<Transaction> transactions) {
+            decimal grossSales = 0;
 
-            List<Transaction> transactionsList = transactions as List<Transaction>;
+            List<Transaction> transactionsThisMonth = transactions.FindAll(c => c.Date.Month == month).FindAll(c => c.Date.Year == year).ToList();
 
-            List<Transaction> transactionsThisMonth = transactionsList.FindAll(c => c.Date.Month == month).FindAll(c => c.Date.Year == year).ToList();
-
-            decimal netSales = 0;
             foreach (var transaction in transactionsThisMonth) {
                 foreach (var line in transaction.TransactionLines) {
-                    netSales += line.TotalValue - line.Quantity * line.Item.Cost;
+                    grossSales += line.TotalValue;
                 }
             }
 
-            return netSales;
+            return grossSales;
         }
 
 
-        //public List<MonthlyLedger> GetAllMonthlyLedgers(IList<Engineer> engineers, IList<Manager> managers, IList<Transaction> transactions) {
-        //    int year = 2016;
-        //    int month = 1;
+        public decimal CalculateMonthlyItemsCost(int year, int month, List<Transaction> transactions) {
+            decimal itemsCost = 0;
 
-        //    int monthNow = DateTime.Now.Month;
-        //    int yearNow = DateTime.Now.Year;
+            List<Transaction> transactionsThisMonth = transactions.FindAll(c => c.Date.Month == month).FindAll(c => c.Date.Year == year).ToList();
 
-        //    decimal monthIncome;
-        //    decimal monthExpenses;
+            foreach (var transaction in transactionsThisMonth) {
+                foreach (var line in transaction.TransactionLines) {
+                    itemsCost += line.Quantity * line.Item.Cost;
+                }
+            }
 
-        //    List<MonthlyLedger> monthlyLedgerList = new List<MonthlyLedger>();
-
-        //    for (int i = year; i <= yearNow; i++) {
-
-        //        for (int j = 1; j <= 12; j++) {
-        //            if (i == yearNow && j > monthNow) {
-        //                break;
-        //            }
-        //            DateTime date = new DateTime(i, j, 1);
-        //            MonthlyLedger monthlyLedger = new MonthlyLedger(date);
-        //            monthIncome = CalculateMonthlyIncome(date, transactions);
-        //            monthExpenses = CalculateMonthlySalaries(engineers, managers);
-        //            monthlyLedger.UpdateLedger(monthIncome, monthExpenses);
-        //            monthlyLedgerList.Add(monthlyLedger);
-        //        }
-        //    }
-
-        //    return monthlyLedgerList;
-        //}
+            return itemsCost;
+        }
 
 
-        public bool WorkedInMonth(Employee employee, int year, int month) {
+        public decimal CalculateOtherExpenses() {
+            decimal total = 0;
+
+            //TODO: settings
+            total += 5000; //Rental
+
+            return total;
+        }
+
+
+        public List<MonthlyLedger> GetAllMonthlyLedgers(IList<Employee> employees, IList<Transaction> dbTransactions) {
+            List<Transaction> transactions = dbTransactions as List<Transaction>;
+            //TODO: settings
+            int businessStartYear = 2016;
+            int businessStartMonth = 1;
+
+            int monthNow = DateTime.Now.Month;
+            int yearNow = DateTime.Now.Year;
+
+            decimal monthIncome;
+            decimal monthExpenses;
+
+            List<MonthlyLedger> monthlyLedgerList = new List<MonthlyLedger>();
+
+            for (int culcYear = businessStartYear; culcYear <= yearNow; culcYear++) {
+
+                for (int culcMonth = 1; culcMonth <= 12; culcMonth++) {
+                    if (culcYear == yearNow && culcMonth > monthNow) {
+                        break;
+                    }
+                    
+
+                    monthIncome = CalculateMonthlyGrossSales(culcYear, culcMonth, transactions);
+                    monthExpenses = CalculateMonthlySalaries(culcYear, culcMonth, employees) +
+                        CalculateMonthlyItemsCost(culcYear, culcMonth, transactions) +
+                        CalculateOtherExpenses();
+
+                    MonthlyLedger monthlyLedger = new MonthlyLedger(culcYear, culcMonth, monthIncome, monthExpenses);
+                    monthlyLedgerList.Add(monthlyLedger);
+                }
+            }
+
+            return monthlyLedgerList;
+        }
+
+
+        public bool WorkedInMonth(int year, int month, Employee employee) {
             if (DateTime.Compare(new DateTime(year, month, 1), employee.HireDateStart) < 0) {
                 return false;
             }
@@ -85,7 +111,7 @@ namespace FuelStation.Blazor.Server.Business {
             return true;
         }
 
-        public bool WorkedWholeMonth(Employee employee, int year, int month) {
+        public bool WorkedWholeMonth(int year, int month, Employee employee) {
             int monthDaysCount = DateTime.DaysInMonth(month, year);
             DateTime monthLastDayDate = new DateTime(year, month, monthDaysCount);
 
@@ -102,7 +128,7 @@ namespace FuelStation.Blazor.Server.Business {
             }
         }
 
-        public decimal PartOfMonthWorked(Employee employee, int year, int month) {
+        public decimal PartOfMonthWorked(int year, int month, Employee employee) {
             int monthDaysCount = DateTime.DaysInMonth(month, year);
             DateTime monthLastDayDate = new DateTime(year, month, monthDaysCount);
 
