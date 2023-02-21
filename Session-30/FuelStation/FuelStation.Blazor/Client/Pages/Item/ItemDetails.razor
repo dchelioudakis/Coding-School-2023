@@ -1,0 +1,87 @@
+﻿@page "/itemlist/details/{Id:int?}"
+@using FuelStation.Blazor.Shared.DTO.Item;
+@using FuelStation.Model.Enums;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@inject IJSRuntime jsRuntime
+
+
+
+<h3>Item Details</h3>
+<PageTitle>Item Details</PageTitle>
+
+
+@if (Item == null) {
+    <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+} else {
+        <div class="row">
+            <div class="col-md-2">
+                <label class="form-label">Name</label>
+            <InputText class="form-control" @bind-Value="@Item.Code" disabled />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Surname</label>
+            <InputText class="form-control" @bind-Value="@Item.Description" disabled />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Item Type</label>
+                <InputSelect class="form-control" @bind-Value="@Item.Type" disabled>
+                    @foreach (var itemtype in Enum.GetValues<ItemType>()) {
+                        <option value="@itemtype">@itemtype</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Salary</label>
+            <InputNumber class="form-control" @bind-Value="@Item.Price" disabled />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Hire Start Date</label>
+            <InputNumber class="form-control" @bind-Value="@Item.Cost" disabled />
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col">
+                    <BootstrapButton ButtonType="BootstrapButtonType.Warning" OnClick="()=> EditItem(ItemListDto)">Edit</BootstrapButton>
+                    <BootstrapButton ButtonType="BootstrapButtonType.Danger" OnClick="OnCancel">Back</BootstrapButton>
+                </div>
+            </div>
+        </div>
+}
+
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    ItemEditDto? Item { get; set; }
+    ItemListDto ItemListDto { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        if (Id == null) {
+            Item = new();
+        } else {
+            Item = await httpClient.GetFromJsonAsync<ItemEditDto>($"item/{Id}");
+            if (Item is null) {
+                //TODO: If item is null
+            }
+            ItemListDto = new ItemListDto {
+                    Id = Item.Id,
+                    Code = Item.Code,
+                    Description = Item.Description,
+                    Type = Item.Type,
+                    Price = Item.Price,
+                    Cost = Item.Cost,
+            };
+        }
+    }
+
+    private void OnCancel() {
+        navigationManager.NavigateTo("itemlist");
+    }
+
+    private void EditItem(ItemListDto customer) {
+        navigationManager.NavigateTo($"itemlist/edit/{customer.Id}");
+    }
+}
+
