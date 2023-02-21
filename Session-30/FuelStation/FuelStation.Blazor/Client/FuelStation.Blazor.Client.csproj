@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Shared\FuelStation.Blazor.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\MonthlyLedger\" />
-  </ItemGroup>
-
 </Project>

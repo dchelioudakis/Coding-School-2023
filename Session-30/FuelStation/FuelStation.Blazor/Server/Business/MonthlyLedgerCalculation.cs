@@ -4,6 +4,46 @@ using System.Collections.Generic;
 
 namespace FuelStation.Blazor.Server.Business {
     public class MonthlyLedgerCalculator {
+
+        public List<MonthlyLedger> GetAllMonthlyLedgers(IList<Employee> employees, IList<Transaction> dbTransactions) {
+            List<Transaction> transactions = dbTransactions as List<Transaction>;
+            //TODO: settings
+            int businessStartYear = 2016;
+            int businessStartMonth = 1;
+
+            int monthNow = DateTime.Now.Month;
+            int yearNow = DateTime.Now.Year;
+
+            decimal monthIncome, monthExpenses;
+
+            List<MonthlyLedger> monthlyLedgerList = new List<MonthlyLedger>();
+
+            for (int culcYear = businessStartYear; culcYear <= yearNow; culcYear++) {
+
+                for (int culcMonth = 1; culcMonth <= 12; culcMonth++) {
+
+                    if(culcYear == businessStartYear && businessStartMonth > 1) {
+                        culcMonth = businessStartMonth;
+                    }
+
+                    if (culcYear == yearNow && culcMonth > monthNow) {
+                        break;
+                    }
+
+
+                    monthIncome = CalculateMonthlyGrossSales(culcYear, culcMonth, transactions);
+                    monthExpenses = CalculateMonthlySalaries(culcYear, culcMonth, employees) +
+                        CalculateMonthlyItemsCost(culcYear, culcMonth, transactions) +
+                        CalculateOtherExpenses();
+
+                    MonthlyLedger monthlyLedger = new MonthlyLedger(culcYear, culcMonth, monthIncome, monthExpenses);
+                    monthlyLedgerList.Add(monthlyLedger);
+                }
+            }
+
+            return monthlyLedgerList;
+        }
+
         public decimal CalculateMonthlySalaries(int year, int month, IList<Employee> employees) {
             decimal expensesSum = 0;
             foreach (var employee in employees) {
@@ -64,42 +104,6 @@ namespace FuelStation.Blazor.Server.Business {
             total += 5000; //Rental
 
             return total;
-        }
-
-
-        public List<MonthlyLedger> GetAllMonthlyLedgers(IList<Employee> employees, IList<Transaction> dbTransactions) {
-            List<Transaction> transactions = dbTransactions as List<Transaction>;
-            //TODO: settings
-            int businessStartYear = 2016;
-            int businessStartMonth = 1;
-
-            int monthNow = DateTime.Now.Month;
-            int yearNow = DateTime.Now.Year;
-
-            decimal monthIncome;
-            decimal monthExpenses;
-
-            List<MonthlyLedger> monthlyLedgerList = new List<MonthlyLedger>();
-
-            for (int culcYear = businessStartYear; culcYear <= yearNow; culcYear++) {
-
-                for (int culcMonth = 1; culcMonth <= 12; culcMonth++) {
-                    if (culcYear == yearNow && culcMonth > monthNow) {
-                        break;
-                    }
-                    
-
-                    monthIncome = CalculateMonthlyGrossSales(culcYear, culcMonth, transactions);
-                    monthExpenses = CalculateMonthlySalaries(culcYear, culcMonth, employees) +
-                        CalculateMonthlyItemsCost(culcYear, culcMonth, transactions) +
-                        CalculateOtherExpenses();
-
-                    MonthlyLedger monthlyLedger = new MonthlyLedger(culcYear, culcMonth, monthIncome, monthExpenses);
-                    monthlyLedgerList.Add(monthlyLedger);
-                }
-            }
-
-            return monthlyLedgerList;
         }
 
 
