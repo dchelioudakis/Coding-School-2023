@@ -31,25 +31,21 @@ namespace WindowsClient {
         }
 
         private async void btnNewCustomerSave_Click(object sender, EventArgs e) {
-            //var newCustomer = JsonConvert.SerializeObject(_newCustomer);
             await PostAsJsonAsync(sharedClient, _newCustomer);
             this.Close();
         }
 
-        static async Task PostAsJsonAsync(HttpClient httpClient, CustomerEditDto customer) {
-            using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-                "Customer",
-                customer);
+        private async Task PostAsJsonAsync(HttpClient httpClient, CustomerEditDto customer) {
+            using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Customer", customer);
 
             response.EnsureSuccessStatusCode();
-                
+
+            
+            if (Application.OpenForms["managerForm"] != null) {
+                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
+            }
 
             //var todo = await response.Content.ReadFromJsonAsync<CustomerEditDto>();
-            //WriteLine($"{todo}\n");
-
-            // Expected output:
-            //   POST https://jsonplaceholder.typicode.com/todos HTTP/1.1
-            //   Todo { UserId = 9, Id = 201, Title = Show extensions, Completed = False }
         }
     }
 }
