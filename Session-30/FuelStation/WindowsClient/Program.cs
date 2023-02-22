@@ -1,3 +1,5 @@
+using System.Net.Http;
+
 namespace WindowsClient {
     internal static class Program {
         /// <summary>
@@ -9,6 +11,10 @@ namespace WindowsClient {
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new LoginForm());
+
+
+            
         }
+    
     }
 }

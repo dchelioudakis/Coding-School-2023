@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraPivotGrid.Data;
+using DevExpress.XtraRichEdit.Import.Html;
 using FuelStation.Blazor.Shared.DTO.Customer;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
@@ -11,6 +12,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -18,26 +20,23 @@ using System.Windows.Forms;
 
 namespace WindowsClient {
     public partial class ManagerForm : Form {
-        private List<CustomerListDto> _customerList; 
-        public ManagerForm() {
+        private List<CustomerListDto> _customerList;
+        public HttpClient sharedClient;
+        public ManagerForm(HttpClient sharedClient) {
             InitializeComponent();
+            this.sharedClient = sharedClient;
         }
 
-        private void ManagerForm_Load(object sender, EventArgs e) {
-            LoadDataFromDb();
-            LoadDataToGrids();
+        private async void ManagerForm_Load(object sender, EventArgs e) {
+            await LoadDataFromDb();
+            await LoadDataToGrids();
         }
 
-        private void LoadDataFromDb() {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"https://localhost:7007/Customer");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            //var json = actionContext.Request.Content.ReadAsStringAsync().Result;
-            _customerList = JsonConvert.DeserializeObject<List<CustomerListDto>>(content);
-            
+        private async Task LoadDataFromDb() {
+            _customerList = await GetCustomersAsync(sharedClient);
         }
 
-        private void LoadDataToGrids() {
+        private async Task LoadDataToGrids() {
             //BindingList<CustomerListDto> customersList = new BindingList<CustomerListDto>(_customerList);
             //grdManagerCustomers.DataSource = new BindingSource() { DataSource = customersList };
             grdManagerCustomers.DataSource = _customerList;
@@ -81,8 +80,20 @@ namespace WindowsClient {
         }
 
         private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            NewCustomerForm newCustomerForm = new NewCustomerForm();
+            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient);
             newCustomerForm.ShowDialog();
+        }
+
+        static async Task<List<CustomerListDto>> GetCustomersAsync(HttpClient httpClient) {
+            using HttpResponseMessage response = await httpClient.GetAsync("Customer");
+
+            response.EnsureSuccessStatusCode();
+                
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            
+
+            return JsonConvert.DeserializeObject<List<CustomerListDto>>(jsonResponse);
         }
     }
 }
