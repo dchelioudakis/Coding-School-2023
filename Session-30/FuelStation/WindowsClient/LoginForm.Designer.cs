@@ -33,6 +33,7 @@
             this.btnManagerLogin.Size = new System.Drawing.Size(204, 94);
             this.btnManagerLogin.TabIndex = 0;
             this.btnManagerLogin.Text = "Manager";
+            this.btnManagerLogin.Click += new System.EventHandler(this.btnManagerLogin_Click);
             // 
             // LoginForm
             // 

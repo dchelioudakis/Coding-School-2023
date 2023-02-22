@@ -53,6 +53,7 @@
             this.Controls.Add(this.grdManagerCustomers);
             this.Name = "ManagerForm";
             this.Text = "Manager";
+            this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdManagerCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).EndInit();
             this.ResumeLayout(false);

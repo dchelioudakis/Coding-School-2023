@@ -15,6 +15,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(
+        policy => {
+            policy.AllowAnyOrigin();
+            policy.AllowAnyMethod();
+            policy.AllowAnyHeader();  //set   
+        });
+});
+
 
 var app = builder.Build();
 
@@ -35,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors();
 
 app.MapRazorPages();
 app.MapControllers();
