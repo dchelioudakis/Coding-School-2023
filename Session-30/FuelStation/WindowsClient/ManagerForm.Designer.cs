@@ -43,6 +43,7 @@
             this.colTransactionDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnCreateTransaction = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -150,6 +151,7 @@
             // pageTransactions
             // 
             this.pageTransactions.Caption = "Transactions";
+            this.pageTransactions.Controls.Add(this.btnCreateTransaction);
             this.pageTransactions.Controls.Add(this.grdTransactions);
             this.pageTransactions.Name = "pageTransactions";
             this.pageTransactions.Size = new System.Drawing.Size(876, 523);
@@ -256,6 +258,15 @@
             this.colTransactionTotalValue.Visible = true;
             this.colTransactionTotalValue.VisibleIndex = 4;
             // 
+            // btnCreateTransaction
+            // 
+            this.btnCreateTransaction.Location = new System.Drawing.Point(3, 3);
+            this.btnCreateTransaction.Name = "btnCreateTransaction";
+            this.btnCreateTransaction.Size = new System.Drawing.Size(104, 36);
+            this.btnCreateTransaction.TabIndex = 3;
+            this.btnCreateTransaction.Text = "Create";
+            this.btnCreateTransaction.Click += new System.EventHandler(this.btnCreateTransaction_Click);
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -306,5 +317,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTransactionDate;
         private DevExpress.XtraGrid.Columns.GridColumn colTransactionPaymentMethod;
         private DevExpress.XtraGrid.Columns.GridColumn colTransactionTotalValue;
+        private DevExpress.XtraEditors.SimpleButton btnCreateTransaction;
     }
 }

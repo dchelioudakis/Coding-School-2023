@@ -103,5 +103,10 @@ namespace WindowsClient {
 
             return JsonConvert.DeserializeObject<List<EmployeeListDto>>(jsonResponse);
         }
+
+        private void btnCreateTransaction_Click(object sender, EventArgs e) {
+            NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
+            newTransactionForm.ShowDialog();
+        }
     }
 }
