@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraPivotGrid.Data;
 using DevExpress.XtraRichEdit.Import.Html;
 using FuelStation.Blazor.Shared.DTO.Customer;
+using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.EF.Repositories;
@@ -24,6 +25,7 @@ namespace WindowsClient {
     public partial class ManagerForm : Form {
         private List<CustomerListDto> _customerList;
         private List<ItemListDto> _itemList;
+        private List<EmployeeListDto> _employeeList;
         private List<TransactionListDto> _transactionList;
         public HttpClient sharedClient;
 
@@ -46,50 +48,23 @@ namespace WindowsClient {
             _customerList = await GetCustomersAsync(sharedClient);
             _itemList = await GetItemsAsync(sharedClient);
             _transactionList = await GetTransactionsAsync(sharedClient);
+            _employeeList = await GetEmployeesAsync(sharedClient);
         }
 
         private async Task LoadDataToGrids() {
-            //BindingList<CustomerListDto> customersList = new BindingList<CustomerListDto>(_customerList);
-            //grdManagerCustomers.DataSource = new BindingSource() { DataSource = customersList };
             grdCustomers.DataSource = _customerList;
             grdItems.DataSource = _itemList;
             grdTransactions.DataSource = _transactionList;
 
-            //BindingList<Customer> customers = new BindingList<Customer>(carServiceCenter.Customers);
-            //grdCustomers.DataSource = new BindingSource() { DataSource = customers };
 
-            //BindingList<Engineer> engineers = new BindingList<Engineer>(carServiceCenter.Engineers);
-            //grdEngineers.DataSource = new BindingSource() { DataSource = engineers };
+            repEmployees.DataSource = new BindingSource() { DataSource = _employeeList };
+            repEmployees.DisplayMember = "Surname";
+            repEmployees.ValueMember = "Id";
 
-            //repManagers.DataSource = new BindingSource() { DataSource = managers };
-            //repManagers.DisplayMember = "Name";
-            //repManagers.ValueMember = "ID";
-            //repManagersView.Assign(grdManagers.MainView, false);
-
-            //BindingList<ServiceTask> serviceTasks = new BindingList<ServiceTask>(carServiceCenter.ServiceTasks);
-            //grdServiceTasks.DataSource = new BindingSource() { DataSource = serviceTasks };
-
-            //BindingList<LibCarService.Transaction> transactions = new BindingList<LibCarService.Transaction>(carServiceCenter.Transactions);
-            //grdTransactions.DataSource = new BindingSource() { DataSource = transactions };
-
-            //BindingList<Car> cars = new BindingList<Car>(carServiceCenter.Cars);
-            //repCars.DataSource = new BindingSource() { DataSource = cars };
-            //repCars.DisplayMember = "Model";
-            //repCars.ValueMember = "ID";
-
-
-            //repCustomers.DataSource = new BindingSource() { DataSource = customers };
-            //repCustomers.DisplayMember = "Surname";
-            //repCustomers.ValueMember = "ID";
-
-
-
-            //repManagers2.DataSource = new BindingSource() { DataSource = managers };
-            //repManagers2.DisplayMember = "Surname";
-            //repManagers2.ValueMember = "ID";
-            //gridView2.Assign(grdManagers.MainView, false);
-
-
+            repCustomers.DataSource = new BindingSource() { DataSource = _customerList };
+            repCustomers.DisplayMember = "CardNumber";
+            repCustomers.ValueMember = "Id";
+           
         }
 
         private void btnCustomerCreate_Click(object sender, EventArgs e) {
@@ -119,6 +94,14 @@ namespace WindowsClient {
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<TransactionListDto>>(jsonResponse);
+        }
+
+        private async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
+            using HttpResponseMessage response = await httpClient.GetAsync("Employee");
+            response.EnsureSuccessStatusCode();
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<List<EmployeeListDto>>(jsonResponse);
         }
     }
 }

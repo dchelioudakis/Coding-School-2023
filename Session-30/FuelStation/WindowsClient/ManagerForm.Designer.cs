@@ -34,6 +34,15 @@
             this.pageTransactions = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.grdTransactions = new DevExpress.XtraGrid.GridControl();
             this.grvTransactions = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colTransactionCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCustomers = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colTransactionEmployeeId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repEmployees = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colTransactionDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -45,6 +54,10 @@
             this.pageTransactions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCustomers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repEmployees)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
             this.SuspendLayout();
             // 
             // grdCustomers
@@ -143,9 +156,15 @@
             // 
             // grdTransactions
             // 
+            this.grdTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grdTransactions.Location = new System.Drawing.Point(3, 45);
             this.grdTransactions.MainView = this.grvTransactions;
             this.grdTransactions.Name = "grdTransactions";
+            this.grdTransactions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repEmployees,
+            this.repCustomers});
             this.grdTransactions.Size = new System.Drawing.Size(870, 475);
             this.grdTransactions.TabIndex = 2;
             this.grdTransactions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -153,11 +172,89 @@
             // 
             // grvTransactions
             // 
+            this.grvTransactions.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colTransactionCustomerId,
+            this.colTransactionEmployeeId,
+            this.colTransactionDate,
+            this.colTransactionPaymentMethod,
+            this.colTransactionTotalValue});
             this.grvTransactions.GridControl = this.grdTransactions;
             this.grvTransactions.Name = "grvTransactions";
             this.grvTransactions.OptionsBehavior.Editable = false;
             this.grvTransactions.OptionsBehavior.ReadOnly = true;
             this.grvTransactions.OptionsView.ShowGroupPanel = false;
+            // 
+            // colTransactionCustomerId
+            // 
+            this.colTransactionCustomerId.Caption = "Customer";
+            this.colTransactionCustomerId.ColumnEdit = this.repCustomers;
+            this.colTransactionCustomerId.FieldName = "CustomerId";
+            this.colTransactionCustomerId.Name = "colTransactionCustomerId";
+            this.colTransactionCustomerId.Visible = true;
+            this.colTransactionCustomerId.VisibleIndex = 0;
+            // 
+            // repCustomers
+            // 
+            this.repCustomers.AutoHeight = false;
+            this.repCustomers.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repCustomers.Name = "repCustomers";
+            this.repCustomers.PopupView = this.gridView1;
+            // 
+            // gridView1
+            // 
+            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // colTransactionEmployeeId
+            // 
+            this.colTransactionEmployeeId.Caption = "Employee";
+            this.colTransactionEmployeeId.ColumnEdit = this.repEmployees;
+            this.colTransactionEmployeeId.FieldName = "EmployeeId";
+            this.colTransactionEmployeeId.Name = "colTransactionEmployeeId";
+            this.colTransactionEmployeeId.Visible = true;
+            this.colTransactionEmployeeId.VisibleIndex = 1;
+            // 
+            // repEmployees
+            // 
+            this.repEmployees.AutoHeight = false;
+            this.repEmployees.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repEmployees.Name = "repEmployees";
+            this.repEmployees.PopupView = this.repositoryItemGridLookUpEdit1View;
+            // 
+            // repositoryItemGridLookUpEdit1View
+            // 
+            this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
+            this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // colTransactionDate
+            // 
+            this.colTransactionDate.Caption = "Date";
+            this.colTransactionDate.FieldName = "Date";
+            this.colTransactionDate.Name = "colTransactionDate";
+            this.colTransactionDate.Visible = true;
+            this.colTransactionDate.VisibleIndex = 2;
+            // 
+            // colTransactionPaymentMethod
+            // 
+            this.colTransactionPaymentMethod.Caption = "Payment Method";
+            this.colTransactionPaymentMethod.FieldName = "PaymentMethod";
+            this.colTransactionPaymentMethod.Name = "colTransactionPaymentMethod";
+            this.colTransactionPaymentMethod.Visible = true;
+            this.colTransactionPaymentMethod.VisibleIndex = 3;
+            // 
+            // colTransactionTotalValue
+            // 
+            this.colTransactionTotalValue.Caption = "Total";
+            this.colTransactionTotalValue.FieldName = "TotalValue";
+            this.colTransactionTotalValue.Name = "colTransactionTotalValue";
+            this.colTransactionTotalValue.Visible = true;
+            this.colTransactionTotalValue.VisibleIndex = 4;
             // 
             // ManagerForm
             // 
@@ -179,6 +276,10 @@
             this.pageTransactions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCustomers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repEmployees)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -196,5 +297,14 @@
         private DevExpress.XtraGrid.Views.Grid.GridView grvItems;
         private DevExpress.XtraGrid.GridControl grdTransactions;
         private DevExpress.XtraGrid.Views.Grid.GridView grvTransactions;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionCustomerId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repCustomers;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionEmployeeId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repEmployees;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionPaymentMethod;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionTotalValue;
     }
 }

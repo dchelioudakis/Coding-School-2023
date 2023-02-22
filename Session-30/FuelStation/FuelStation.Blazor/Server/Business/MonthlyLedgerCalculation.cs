@@ -116,7 +116,7 @@ namespace FuelStation.Blazor.Server.Business {
         }
 
         public bool WorkedWholeMonth(int year, int month, Employee employee) {
-            int monthDaysCount = DateTime.DaysInMonth(month, year);
+            int monthDaysCount = DateTime.DaysInMonth(year, month);
             DateTime monthLastDayDate = new DateTime(year, month, monthDaysCount);
 
             if (employee.HireDateEnd == null) {
