@@ -18,10 +18,6 @@ using System.Windows.Forms;
 
 namespace WindowsClient {
     public partial class ManagerForm : Form {
-
-        private readonly CustomerRepo _customerRepo = new();
-        private readonly ItemRepo _itemRepo = new();
-        private readonly TransactionRepo _transactionRepo = new();
         private List<CustomerListDto> _customerList; 
         public ManagerForm() {
             InitializeComponent();
@@ -42,8 +38,10 @@ namespace WindowsClient {
         }
 
         private void LoadDataToGrids() {
-            BindingList<CustomerListDto> customersList = new BindingList<CustomerListDto>(_customerList);
-            grdManagerCustomers.DataSource = new BindingSource() { DataSource = customersList };
+            //BindingList<CustomerListDto> customersList = new BindingList<CustomerListDto>(_customerList);
+            //grdManagerCustomers.DataSource = new BindingSource() { DataSource = customersList };
+            grdManagerCustomers.DataSource = _customerList;
+            
 
             //BindingList<Customer> customers = new BindingList<Customer>(carServiceCenter.Customers);
             //grdCustomers.DataSource = new BindingSource() { DataSource = customers };
@@ -80,6 +78,11 @@ namespace WindowsClient {
             //gridView2.Assign(grdManagers.MainView, false);
 
 
+        }
+
+        private void btnCustomerCreate_Click(object sender, EventArgs e) {
+            NewCustomerForm newCustomerForm = new NewCustomerForm();
+            newCustomerForm.ShowDialog();
         }
     }
 }

@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.grdManagerCustomers = new DevExpress.XtraGrid.GridControl();
             this.grvManagerCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.btnCustomerCreate = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             this.SuspendLayout();
@@ -43,13 +44,25 @@
             // 
             this.grvManagerCustomers.GridControl = this.grdManagerCustomers;
             this.grvManagerCustomers.Name = "grvManagerCustomers";
+            this.grvManagerCustomers.OptionsBehavior.Editable = false;
+            this.grvManagerCustomers.OptionsBehavior.ReadOnly = true;
             this.grvManagerCustomers.OptionsView.ShowGroupPanel = false;
+            // 
+            // btnCustomerCreate
+            // 
+            this.btnCustomerCreate.Location = new System.Drawing.Point(75, 361);
+            this.btnCustomerCreate.Name = "btnCustomerCreate";
+            this.btnCustomerCreate.Size = new System.Drawing.Size(104, 36);
+            this.btnCustomerCreate.TabIndex = 1;
+            this.btnCustomerCreate.Text = "Create";
+            this.btnCustomerCreate.Click += new System.EventHandler(this.btnCustomerCreate_Click);
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCustomerCreate);
             this.Controls.Add(this.grdManagerCustomers);
             this.Name = "ManagerForm";
             this.Text = "Manager";
@@ -64,5 +77,6 @@
 
         private DevExpress.XtraGrid.GridControl grdManagerCustomers;
         private DevExpress.XtraGrid.Views.Grid.GridView grvManagerCustomers;
+        private DevExpress.XtraEditors.SimpleButton btnCustomerCreate;
     }
 }
