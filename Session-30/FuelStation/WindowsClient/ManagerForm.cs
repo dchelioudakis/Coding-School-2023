@@ -96,7 +96,7 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<TransactionListDto>>(jsonResponse);
         }
 
-        public async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
+        private async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
             using HttpResponseMessage response = await httpClient.GetAsync("Employee");
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
