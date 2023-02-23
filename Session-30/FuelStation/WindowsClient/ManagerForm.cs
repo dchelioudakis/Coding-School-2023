@@ -23,9 +23,9 @@ using System.Windows.Forms;
 
 namespace WindowsClient {
     public partial class ManagerForm : Form {
-        private List<CustomerListDto> _customerList;
+        public List<CustomerListDto> customerList;
         private List<ItemListDto> _itemList;
-        private List<EmployeeListDto> _employeeList;
+        public List<EmployeeListDto> employeeList;
         private List<TransactionListDto> _transactionList;
         public HttpClient sharedClient;
 
@@ -45,23 +45,23 @@ namespace WindowsClient {
         }
 
         private async Task LoadDataFromDb() {
-            _customerList = await GetCustomersAsync(sharedClient);
+            customerList = await GetCustomersAsync(sharedClient);
             _itemList = await GetItemsAsync(sharedClient);
             _transactionList = await GetTransactionsAsync(sharedClient);
-            _employeeList = await GetEmployeesAsync(sharedClient);
+            employeeList = await GetEmployeesAsync(sharedClient);
         }
 
         private async Task LoadDataToGrids() {
-            grdCustomers.DataSource = _customerList;
+            grdCustomers.DataSource = customerList;
             grdItems.DataSource = _itemList;
             grdTransactions.DataSource = _transactionList;
 
 
-            repEmployees.DataSource = new BindingSource() { DataSource = _employeeList };
+            repEmployees.DataSource = new BindingSource() { DataSource = employeeList };
             repEmployees.DisplayMember = "Surname";
             repEmployees.ValueMember = "Id";
 
-            repCustomers.DataSource = new BindingSource() { DataSource = _customerList };
+            repCustomers.DataSource = new BindingSource() { DataSource = customerList };
             repCustomers.DisplayMember = "CardNumber";
             repCustomers.ValueMember = "Id";
            
@@ -96,7 +96,7 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<TransactionListDto>>(jsonResponse);
         }
 
-        private async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
+        public async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
             using HttpResponseMessage response = await httpClient.GetAsync("Employee");
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
