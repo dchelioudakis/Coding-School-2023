@@ -25,7 +25,7 @@ namespace WindowsClient {
         private List<TransactionLineEditDto> _transactionLines = new();
         private List<ItemListDto> _itemsList = new();
 
-        
+
         public NewTransactionForm(HttpClient httpClient) {
             InitializeComponent();
             this.sharedClient = httpClient;
@@ -85,7 +85,7 @@ namespace WindowsClient {
             grvTransactionLines.UpdateCurrentRow();
         }
 
-        private async Task<ItemListDto?> getTransactionLineItem(int id) {
+        private ItemListDto? getTransactionLineItem(int id) {
             return _itemsList.Find(item => item.Id == id);
         }
 
@@ -97,7 +97,7 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<ItemListDto>>(jsonResponse);
         }
 
-        
+
 
         private async void grvTransactionLines_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
             int rowHandle;
@@ -107,34 +107,59 @@ namespace WindowsClient {
             else {
                 rowHandle = e.RowHandle;
             }
-            int itemId;
-            if (e.Column.FieldName == "ItemId" || e.Column.FieldName == "Quantity") {
-                itemId = Int32.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemId").ToString());
-                var item = await getTransactionLineItem(itemId);
-                if (item != null) {
-                    decimal itemPrice = item.Price;
-                    decimal lineQuantity = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "Quantity").ToString());
-                    decimal netValue = itemPrice * lineQuantity;
-                    decimal lineDiscountPercentage = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "DiscountPercent").ToString());
-                    decimal discountValue = 0;
-                    if (lineDiscountPercentage > 0) {
-                        discountValue = netValue * (1 - (lineDiscountPercentage/10));
-                    }
-                    decimal totalValue = netValue - discountValue;
 
-                    grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", Math.Round(itemPrice,2));
-                    grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", Math.Round(netValue, 2));
-
-                    grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
-                    grvTransactionLines.SetRowCellValue(rowHandle, "TotalValue", Math.Round(totalValue, 2));
-
-                    grvTransactionLines.CloseEditor();
-                }
-                else {
-                    MessageBox.Show("Item Not Found");
+            if (e.Column.FieldName == "ItemId")   {
+                UpdateTransactionLineItemPrice(rowHandle);
+            }
+            else if(e.Column.FieldName == "Quantity" || e.Column.FieldName == "DiscountPercent") {
+                if(decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString()) > 0){
+                    UpdateTransactionLine(rowHandle);
                 }
             }
+        }
+
+
+        private void UpdateTransactionLineItemPrice(int rowHandle) {
+            int itemId = Int32.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemId").ToString());
+            var item = getTransactionLineItem(itemId);
+
+            if (item != null) {
+                grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", Math.Round(item.Price, 2));
+            }
+            else {
+                MessageBox.Show("Item Not Found");
+                return;
+            }
+        }
+
+        private void UpdateTransactionLine(int rowHandle) {
+            
+            decimal itemPrice = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString());
+            decimal lineQuantity = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "Quantity").ToString());
+            decimal netValue = itemPrice * lineQuantity;
+            decimal lineDiscountPercentage = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "DiscountPercent").ToString());
+            decimal discountValue = 0;
+            if (lineDiscountPercentage > 0) {
+                discountValue = netValue * (1 - (lineDiscountPercentage / 10));
+            }
+            decimal totalValue = netValue - discountValue;
+
+                
+            grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", Math.Round(netValue, 2));
+
+            grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
+            grvTransactionLines.SetRowCellValue(rowHandle, "TotalValue", Math.Round(totalValue, 2));
+
+            grvTransactionLines.CloseEditor();
+
+            UpdateTransactionTotal();
+
 
         }
+
+        private void UpdateTransactionTotal() {
+            
+        }
+
     }
 }
