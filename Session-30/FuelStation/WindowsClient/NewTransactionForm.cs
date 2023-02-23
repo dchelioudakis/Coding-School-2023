@@ -4,6 +4,7 @@ using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
 using FuelStation.Model;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,8 @@ namespace WindowsClient {
         }
 
         private async void NewTransactionForm_Load(object sender, EventArgs e) {
-            await setFormBindings();
             await LoadDataFromDb();
+            await setFormBindings();
         }
 
         private async Task setFormBindings() {
@@ -41,8 +42,10 @@ namespace WindowsClient {
             inputTransactionEmployeeId.Properties.ValueMember = "Id";
             inputTransactionEmployeeId.Properties.DisplayMember = "Surname";
 
-            //_transactionLines.Add(new TransactionLineEditDto());
-            //_transactionLines.Add(new TransactionLineEditDto());
+
+            repTransactionLineItems.DataSource = new BindingSource() { DataSource = _itemsList };
+            repTransactionLineItems.DisplayMember = "Code";
+            repTransactionLineItems.ValueMember = "Id";
 
             BindingList<TransactionLineEditDto> transactionLines = new BindingList<TransactionLineEditDto>(_transactionLines);
 
@@ -79,26 +82,11 @@ namespace WindowsClient {
 
         private void btnAddTransactionLine_Click(object sender, EventArgs e) {
             grvTransactionLines.AddNewRow();
+            grvTransactionLines.UpdateCurrentRow();
         }
 
-        private async void grvTransactionLines_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e) {
-            int rowHandle = grvTransactionLines.DataRowCount - 1;
-
-            string itemCode = grvTransactionLines.GetRowCellValue(rowHandle, "ItemId").ToString();
-            var item = await getTransactionLineItem(itemCode);
-            if (item != null) {
-                string lineQuantityStr = grvTransactionLines.GetRowCellValue(rowHandle, "Quantity").ToString();
-                decimal lineQuantity = decimal.Parse(lineQuantityStr);
-                grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", item.Price);
-                grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", item.Price * lineQuantity);
-            }
-            else {
-                MessageBox.Show("Item Not Found");
-            }
-        }
-
-        private async Task<ItemListDto?> getTransactionLineItem(string itemCode) {
-            return _itemsList.Find(item => item.Code == itemCode);
+        private async Task<ItemListDto?> getTransactionLineItem(int id) {
+            return _itemsList.Find(item => item.Id == id);
         }
 
         private async Task<List<ItemListDto>> GetItemsAsync(HttpClient httpClient) {
@@ -107,6 +95,46 @@ namespace WindowsClient {
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<ItemListDto>>(jsonResponse);
+        }
+
+        
+
+        private async void grvTransactionLines_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
+            int rowHandle;
+            if (grvTransactionLines.IsNewItemRow(e.RowHandle)) {
+                return;
+            }
+            else {
+                rowHandle = e.RowHandle;
+            }
+            int itemId;
+            if (e.Column.FieldName == "ItemId" || e.Column.FieldName == "Quantity") {
+                itemId = Int32.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemId").ToString());
+                var item = await getTransactionLineItem(itemId);
+                if (item != null) {
+                    decimal itemPrice = item.Price;
+                    decimal lineQuantity = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "Quantity").ToString());
+                    decimal netValue = itemPrice * lineQuantity;
+                    decimal lineDiscountPercentage = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "DiscountPercent").ToString());
+                    decimal discountValue = 0;
+                    if (lineDiscountPercentage > 0) {
+                        discountValue = netValue * (1 - (lineDiscountPercentage/10));
+                    }
+                    decimal totalValue = netValue - discountValue;
+
+                    grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", Math.Round(itemPrice,2));
+                    grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", Math.Round(netValue, 2));
+
+                    grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
+                    grvTransactionLines.SetRowCellValue(rowHandle, "TotalValue", Math.Round(totalValue, 2));
+
+                    grvTransactionLines.CloseEditor();
+                }
+                else {
+                    MessageBox.Show("Item Not Found");
+                }
+            }
+
         }
     }
 }
