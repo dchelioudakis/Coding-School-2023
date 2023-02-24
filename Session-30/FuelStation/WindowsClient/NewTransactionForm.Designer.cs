@@ -68,7 +68,7 @@
             // 
             // inputTransactionEmployeeId
             // 
-            this.inputTransactionEmployeeId.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.transactionEditDtoBindingSource, "EmployeeId", true));
+            this.inputTransactionEmployeeId.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "EmployeeId", true));
             this.inputTransactionEmployeeId.Location = new System.Drawing.Point(12, 30);
             this.inputTransactionEmployeeId.Name = "inputTransactionEmployeeId";
             this.inputTransactionEmployeeId.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -95,6 +95,7 @@
             // inputTransactionTotalValue
             // 
             this.inputTransactionTotalValue.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionTotalValue.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.transactionEditDtoBindingSource, "TotalValue", true));
             this.inputTransactionTotalValue.Location = new System.Drawing.Point(592, 75);
             this.inputTransactionTotalValue.Name = "inputTransactionTotalValue";
             this.inputTransactionTotalValue.Properties.ReadOnly = true;
