@@ -105,8 +105,10 @@ namespace WindowsClient {
         }
 
         private void btnCreateTransaction_Click(object sender, EventArgs e) {
-            NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
-            newTransactionForm.ShowDialog();
+            
         }
+
+        //NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
+        //newTransactionForm.ShowDialog();
     }
 }
