@@ -17,13 +17,19 @@ using System.Windows.Forms;
 namespace WindowsClient {
     public partial class NewCustomerForm : Form {
 
-        private CustomerEditDto _newCustomer = new();
+        private CustomerEditDto _customer;
         public HttpClient sharedClient;
         
-        public NewCustomerForm(HttpClient sharedClient) {
+        public NewCustomerForm(HttpClient sharedClient, CustomerEditDto? customer) {
             InitializeComponent();
             this.sharedClient = sharedClient;
-            this.customerEditDtoBindingSource.DataSource = new BindingSource() { DataSource = _newCustomer };
+            if(customer != null ) {
+                _customer = customer;
+            }
+            else {
+                _customer = new CustomerEditDto();
+            }
+            this.customerEditDtoBindingSource.DataSource = new BindingSource() { DataSource = _customer };
         }
 
         private void btnCancelNewCustomer_Click(object sender, EventArgs e) {
@@ -31,7 +37,12 @@ namespace WindowsClient {
         }
 
         private async void btnNewCustomerSave_Click(object sender, EventArgs e) {
-            await PostAsJsonAsync(sharedClient, _newCustomer);
+            if(_customer.Id == 0) {
+                await PostAsJsonAsync(sharedClient, _customer);
+            }
+            else {
+                await PutAsJsonAsync(sharedClient, _customer); 
+            }
             this.Close();
         }
 
@@ -39,12 +50,19 @@ namespace WindowsClient {
             using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Customer", customer);
 
             response.EnsureSuccessStatusCode();
-
-            
             if (Application.OpenForms["managerForm"] != null) {
                 (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
             }
+            //var todo = await response.Content.ReadFromJsonAsync<CustomerEditDto>();
+        }
 
+        private async Task PutAsJsonAsync(HttpClient httpClient, CustomerEditDto customer) {
+            using HttpResponseMessage response = await httpClient.PutAsJsonAsync("Customer", customer);
+
+            response.EnsureSuccessStatusCode();
+            if (Application.OpenForms["managerForm"] != null) {
+                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
+            }
             //var todo = await response.Content.ReadFromJsonAsync<CustomerEditDto>();
         }
     }

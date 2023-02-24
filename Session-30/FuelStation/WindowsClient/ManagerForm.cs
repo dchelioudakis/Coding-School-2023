@@ -67,10 +67,7 @@ namespace WindowsClient {
            
         }
 
-        private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient);
-            newCustomerForm.ShowDialog();
-        }
+        
 
         private async Task<List<CustomerListDto>> GetCustomersAsync(HttpClient httpClient) {
             using HttpResponseMessage response = await httpClient.GetAsync("Customer");
@@ -104,11 +101,31 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<EmployeeListDto>>(jsonResponse);
         }
 
-        private void btnCreateTransaction_Click(object sender, EventArgs e) {
-            
+        private void btnCustomerEdit_Click(object sender, EventArgs e) {
+            int rowHandle = grvManagerCustomers.FocusedRowHandle;
+            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
+            var customerListDto = customerList.Find(customer => customer.Id == customerId);
+            var customer = new CustomerEditDto() {
+                Id = customerListDto.Id,
+                Name = customerListDto.Name,
+                Surname = customerListDto.Surname,
+                CardNumber = customerListDto.CardNumber,
+            };
+
+            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient, customer);
+            newCustomerForm.ShowDialog();
         }
 
-        //NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
-        //newTransactionForm.ShowDialog();
+        private void btnCustomerCreate_Click(object sender, EventArgs e) {
+            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient, new CustomerEditDto());
+            newCustomerForm.ShowDialog();
+        }
+
+        private void btnTransactionCreate_Click(object sender, EventArgs e) {
+            NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
+            newTransactionForm.ShowDialog();
+        }
+
+
     }
 }

@@ -36,17 +36,21 @@
             this.btnCustomerDetails = new DevExpress.XtraEditors.SimpleButton();
             this.btnCustomerEdit = new DevExpress.XtraEditors.SimpleButton();
             this.pageItems = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnItemDelete = new DevExpress.XtraEditors.SimpleButton();
+            this.btnItemDetails = new DevExpress.XtraEditors.SimpleButton();
+            this.btnItemEdit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnItemCreate = new DevExpress.XtraEditors.SimpleButton();
             this.grdItems = new DevExpress.XtraGrid.GridControl();
             this.grvItems = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colItemCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colItemDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colItemPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colItemCost = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pageTransactions = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton7 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton8 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTransactionDelete = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTransactionDetails = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTransactionEdit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTransactionCreate = new DevExpress.XtraEditors.SimpleButton();
             this.grdTransactions = new DevExpress.XtraGrid.GridControl();
             this.grvTransactions = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colTransactionCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,10 +62,8 @@
             this.colTransactionDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colItemCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colItemDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colItemPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colItemCost = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.colCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -88,7 +90,7 @@
             this.grdCustomers.Location = new System.Drawing.Point(3, 45);
             this.grdCustomers.MainView = this.grvManagerCustomers;
             this.grdCustomers.Name = "grdCustomers";
-            this.grdCustomers.Size = new System.Drawing.Size(870, 475);
+            this.grdCustomers.Size = new System.Drawing.Size(1028, 475);
             this.grdCustomers.TabIndex = 0;
             this.grdCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvManagerCustomers});
@@ -96,6 +98,7 @@
             // grvManagerCustomers
             // 
             this.grvManagerCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colCustomerId,
             this.colCustomerName,
             this.colCustomerSurname,
             this.colCustomerCardNumber});
@@ -150,15 +153,17 @@
             this.navManager.Controls.Add(this.Customers);
             this.navManager.Controls.Add(this.pageItems);
             this.navManager.Controls.Add(this.pageTransactions);
+            this.navManager.Controls.Add(this.tabSettings);
             this.navManager.Location = new System.Drawing.Point(12, 1);
             this.navManager.Name = "navManager";
             this.navManager.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.Customers,
             this.pageItems,
-            this.pageTransactions});
-            this.navManager.RegularSize = new System.Drawing.Size(992, 596);
+            this.pageTransactions,
+            this.tabSettings});
+            this.navManager.RegularSize = new System.Drawing.Size(1150, 596);
             this.navManager.SelectedPage = this.Customers;
-            this.navManager.Size = new System.Drawing.Size(992, 596);
+            this.navManager.Size = new System.Drawing.Size(1150, 596);
             this.navManager.TabIndex = 2;
             this.navManager.Text = "Customers";
             // 
@@ -171,7 +176,7 @@
             this.Customers.Controls.Add(this.grdCustomers);
             this.Customers.Controls.Add(this.btnCustomerCreate);
             this.Customers.Name = "Customers";
-            this.Customers.Size = new System.Drawing.Size(876, 523);
+            this.Customers.Size = new System.Drawing.Size(1034, 523);
             // 
             // btnCustomerDelete
             // 
@@ -208,65 +213,66 @@
             this.btnCustomerEdit.Size = new System.Drawing.Size(68, 26);
             this.btnCustomerEdit.TabIndex = 2;
             this.btnCustomerEdit.Text = "Edit";
+            this.btnCustomerEdit.Click += new System.EventHandler(this.btnCustomerEdit_Click);
             // 
             // pageItems
             // 
             this.pageItems.Caption = "Items";
-            this.pageItems.Controls.Add(this.simpleButton1);
-            this.pageItems.Controls.Add(this.simpleButton2);
-            this.pageItems.Controls.Add(this.simpleButton3);
-            this.pageItems.Controls.Add(this.simpleButton4);
+            this.pageItems.Controls.Add(this.btnItemDelete);
+            this.pageItems.Controls.Add(this.btnItemDetails);
+            this.pageItems.Controls.Add(this.btnItemEdit);
+            this.pageItems.Controls.Add(this.btnItemCreate);
             this.pageItems.Controls.Add(this.grdItems);
             this.pageItems.Name = "pageItems";
-            this.pageItems.Size = new System.Drawing.Size(876, 523);
+            this.pageItems.Size = new System.Drawing.Size(1034, 523);
             // 
-            // simpleButton1
+            // btnItemDelete
             // 
-            this.simpleButton1.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton1.Appearance.Options.UseBackColor = true;
-            this.simpleButton1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
-            this.simpleButton1.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton1.Location = new System.Drawing.Point(225, 3);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton1.TabIndex = 8;
-            this.simpleButton1.Text = "Delete";
+            this.btnItemDelete.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnItemDelete.Appearance.Options.UseBackColor = true;
+            this.btnItemDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnItemDelete.ImageOptions.SvgImage")));
+            this.btnItemDelete.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnItemDelete.Location = new System.Drawing.Point(225, 3);
+            this.btnItemDelete.Name = "btnItemDelete";
+            this.btnItemDelete.Size = new System.Drawing.Size(68, 26);
+            this.btnItemDelete.TabIndex = 8;
+            this.btnItemDelete.Text = "Delete";
             // 
-            // simpleButton2
+            // btnItemDetails
             // 
-            this.simpleButton2.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton2.Appearance.Options.UseBackColor = true;
-            this.simpleButton2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton2.ImageOptions.SvgImage")));
-            this.simpleButton2.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton2.Location = new System.Drawing.Point(151, 3);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton2.TabIndex = 7;
-            this.simpleButton2.Text = "Details";
+            this.btnItemDetails.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnItemDetails.Appearance.Options.UseBackColor = true;
+            this.btnItemDetails.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnItemDetails.ImageOptions.SvgImage")));
+            this.btnItemDetails.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnItemDetails.Location = new System.Drawing.Point(151, 3);
+            this.btnItemDetails.Name = "btnItemDetails";
+            this.btnItemDetails.Size = new System.Drawing.Size(68, 26);
+            this.btnItemDetails.TabIndex = 7;
+            this.btnItemDetails.Text = "Details";
             // 
-            // simpleButton3
+            // btnItemEdit
             // 
-            this.simpleButton3.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton3.Appearance.Options.UseBackColor = true;
-            this.simpleButton3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton3.ImageOptions.SvgImage")));
-            this.simpleButton3.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton3.Location = new System.Drawing.Point(77, 3);
-            this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton3.TabIndex = 6;
-            this.simpleButton3.Text = "Edit";
+            this.btnItemEdit.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnItemEdit.Appearance.Options.UseBackColor = true;
+            this.btnItemEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnItemEdit.ImageOptions.SvgImage")));
+            this.btnItemEdit.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnItemEdit.Location = new System.Drawing.Point(77, 3);
+            this.btnItemEdit.Name = "btnItemEdit";
+            this.btnItemEdit.Size = new System.Drawing.Size(68, 26);
+            this.btnItemEdit.TabIndex = 6;
+            this.btnItemEdit.Text = "Edit";
             // 
-            // simpleButton4
+            // btnItemCreate
             // 
-            this.simpleButton4.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton4.Appearance.Options.UseBackColor = true;
-            this.simpleButton4.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton4.ImageOptions.SvgImage")));
-            this.simpleButton4.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton4.Location = new System.Drawing.Point(3, 3);
-            this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton4.TabIndex = 5;
-            this.simpleButton4.Text = "Create";
+            this.btnItemCreate.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnItemCreate.Appearance.Options.UseBackColor = true;
+            this.btnItemCreate.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnItemCreate.ImageOptions.SvgImage")));
+            this.btnItemCreate.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnItemCreate.Location = new System.Drawing.Point(3, 3);
+            this.btnItemCreate.Name = "btnItemCreate";
+            this.btnItemCreate.Size = new System.Drawing.Size(68, 26);
+            this.btnItemCreate.TabIndex = 5;
+            this.btnItemCreate.Text = "Create";
             // 
             // grdItems
             // 
@@ -276,7 +282,7 @@
             this.grdItems.Location = new System.Drawing.Point(3, 45);
             this.grdItems.MainView = this.grvItems;
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(870, 475);
+            this.grdItems.Size = new System.Drawing.Size(1028, 475);
             this.grdItems.TabIndex = 1;
             this.grdItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvItems});
@@ -294,64 +300,97 @@
             this.grvItems.OptionsBehavior.ReadOnly = true;
             this.grvItems.OptionsView.ShowGroupPanel = false;
             // 
+            // colItemCode
+            // 
+            this.colItemCode.Caption = "Code";
+            this.colItemCode.FieldName = "Code";
+            this.colItemCode.Name = "colItemCode";
+            this.colItemCode.Visible = true;
+            this.colItemCode.VisibleIndex = 0;
+            // 
+            // colItemDescription
+            // 
+            this.colItemDescription.Caption = "Description";
+            this.colItemDescription.FieldName = "Description";
+            this.colItemDescription.Name = "colItemDescription";
+            this.colItemDescription.Visible = true;
+            this.colItemDescription.VisibleIndex = 1;
+            // 
+            // colItemPrice
+            // 
+            this.colItemPrice.Caption = "Price";
+            this.colItemPrice.FieldName = "Price";
+            this.colItemPrice.Name = "colItemPrice";
+            this.colItemPrice.Visible = true;
+            this.colItemPrice.VisibleIndex = 2;
+            // 
+            // colItemCost
+            // 
+            this.colItemCost.Caption = "Cost";
+            this.colItemCost.FieldName = "Cost";
+            this.colItemCost.Name = "colItemCost";
+            this.colItemCost.Visible = true;
+            this.colItemCost.VisibleIndex = 3;
+            // 
             // pageTransactions
             // 
             this.pageTransactions.Caption = "Transactions";
-            this.pageTransactions.Controls.Add(this.simpleButton5);
-            this.pageTransactions.Controls.Add(this.simpleButton6);
-            this.pageTransactions.Controls.Add(this.simpleButton7);
-            this.pageTransactions.Controls.Add(this.simpleButton8);
+            this.pageTransactions.Controls.Add(this.btnTransactionDelete);
+            this.pageTransactions.Controls.Add(this.btnTransactionDetails);
+            this.pageTransactions.Controls.Add(this.btnTransactionEdit);
+            this.pageTransactions.Controls.Add(this.btnTransactionCreate);
             this.pageTransactions.Controls.Add(this.grdTransactions);
             this.pageTransactions.Name = "pageTransactions";
-            this.pageTransactions.Size = new System.Drawing.Size(876, 523);
+            this.pageTransactions.Size = new System.Drawing.Size(1034, 523);
             // 
-            // simpleButton5
+            // btnTransactionDelete
             // 
-            this.simpleButton5.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton5.Appearance.Options.UseBackColor = true;
-            this.simpleButton5.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton5.ImageOptions.SvgImage")));
-            this.simpleButton5.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton5.Location = new System.Drawing.Point(225, 3);
-            this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton5.TabIndex = 8;
-            this.simpleButton5.Text = "Delete";
+            this.btnTransactionDelete.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnTransactionDelete.Appearance.Options.UseBackColor = true;
+            this.btnTransactionDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTransactionDelete.ImageOptions.SvgImage")));
+            this.btnTransactionDelete.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnTransactionDelete.Location = new System.Drawing.Point(225, 3);
+            this.btnTransactionDelete.Name = "btnTransactionDelete";
+            this.btnTransactionDelete.Size = new System.Drawing.Size(68, 26);
+            this.btnTransactionDelete.TabIndex = 8;
+            this.btnTransactionDelete.Text = "Delete";
             // 
-            // simpleButton6
+            // btnTransactionDetails
             // 
-            this.simpleButton6.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton6.Appearance.Options.UseBackColor = true;
-            this.simpleButton6.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton6.ImageOptions.SvgImage")));
-            this.simpleButton6.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton6.Location = new System.Drawing.Point(151, 3);
-            this.simpleButton6.Name = "simpleButton6";
-            this.simpleButton6.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton6.TabIndex = 7;
-            this.simpleButton6.Text = "Details";
+            this.btnTransactionDetails.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnTransactionDetails.Appearance.Options.UseBackColor = true;
+            this.btnTransactionDetails.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTransactionDetails.ImageOptions.SvgImage")));
+            this.btnTransactionDetails.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnTransactionDetails.Location = new System.Drawing.Point(151, 3);
+            this.btnTransactionDetails.Name = "btnTransactionDetails";
+            this.btnTransactionDetails.Size = new System.Drawing.Size(68, 26);
+            this.btnTransactionDetails.TabIndex = 7;
+            this.btnTransactionDetails.Text = "Details";
             // 
-            // simpleButton7
+            // btnTransactionEdit
             // 
-            this.simpleButton7.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton7.Appearance.Options.UseBackColor = true;
-            this.simpleButton7.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton7.ImageOptions.SvgImage")));
-            this.simpleButton7.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton7.Location = new System.Drawing.Point(77, 3);
-            this.simpleButton7.Name = "simpleButton7";
-            this.simpleButton7.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton7.TabIndex = 6;
-            this.simpleButton7.Text = "Edit";
+            this.btnTransactionEdit.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnTransactionEdit.Appearance.Options.UseBackColor = true;
+            this.btnTransactionEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTransactionEdit.ImageOptions.SvgImage")));
+            this.btnTransactionEdit.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnTransactionEdit.Location = new System.Drawing.Point(77, 3);
+            this.btnTransactionEdit.Name = "btnTransactionEdit";
+            this.btnTransactionEdit.Size = new System.Drawing.Size(68, 26);
+            this.btnTransactionEdit.TabIndex = 6;
+            this.btnTransactionEdit.Text = "Edit";
             // 
-            // simpleButton8
+            // btnTransactionCreate
             // 
-            this.simpleButton8.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.simpleButton8.Appearance.Options.UseBackColor = true;
-            this.simpleButton8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton8.ImageOptions.SvgImage")));
-            this.simpleButton8.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
-            this.simpleButton8.Location = new System.Drawing.Point(3, 3);
-            this.simpleButton8.Name = "simpleButton8";
-            this.simpleButton8.Size = new System.Drawing.Size(68, 26);
-            this.simpleButton8.TabIndex = 5;
-            this.simpleButton8.Text = "Create";
+            this.btnTransactionCreate.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnTransactionCreate.Appearance.Options.UseBackColor = true;
+            this.btnTransactionCreate.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTransactionCreate.ImageOptions.SvgImage")));
+            this.btnTransactionCreate.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnTransactionCreate.Location = new System.Drawing.Point(3, 3);
+            this.btnTransactionCreate.Name = "btnTransactionCreate";
+            this.btnTransactionCreate.Size = new System.Drawing.Size(68, 26);
+            this.btnTransactionCreate.TabIndex = 5;
+            this.btnTransactionCreate.Text = "Create";
+            this.btnTransactionCreate.Click += new System.EventHandler(this.btnTransactionCreate_Click);
             // 
             // grdTransactions
             // 
@@ -364,7 +403,7 @@
             this.grdTransactions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repEmployees,
             this.repCustomers});
-            this.grdTransactions.Size = new System.Drawing.Size(870, 475);
+            this.grdTransactions.Size = new System.Drawing.Size(1028, 475);
             this.grdTransactions.TabIndex = 2;
             this.grdTransactions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvTransactions});
@@ -455,43 +494,23 @@
             this.colTransactionTotalValue.Visible = true;
             this.colTransactionTotalValue.VisibleIndex = 4;
             // 
-            // colItemCode
+            // tabSettings
             // 
-            this.colItemCode.Caption = "Code";
-            this.colItemCode.FieldName = "Code";
-            this.colItemCode.Name = "colItemCode";
-            this.colItemCode.Visible = true;
-            this.colItemCode.VisibleIndex = 0;
+            this.tabSettings.Caption = "Settings";
+            this.tabSettings.Name = "tabSettings";
+            this.tabSettings.Size = new System.Drawing.Size(1034, 523);
             // 
-            // colItemDescription
+            // colCustomerId
             // 
-            this.colItemDescription.Caption = "Description";
-            this.colItemDescription.FieldName = "Description";
-            this.colItemDescription.Name = "colItemDescription";
-            this.colItemDescription.Visible = true;
-            this.colItemDescription.VisibleIndex = 1;
-            // 
-            // colItemPrice
-            // 
-            this.colItemPrice.Caption = "Price";
-            this.colItemPrice.FieldName = "Price";
-            this.colItemPrice.Name = "colItemPrice";
-            this.colItemPrice.Visible = true;
-            this.colItemPrice.VisibleIndex = 2;
-            // 
-            // colItemCost
-            // 
-            this.colItemCost.Caption = "Cost";
-            this.colItemCost.FieldName = "Cost";
-            this.colItemCost.Name = "colItemCost";
-            this.colItemCost.Visible = true;
-            this.colItemCost.VisibleIndex = 3;
+            this.colCustomerId.Caption = "Id";
+            this.colCustomerId.FieldName = "Id";
+            this.colCustomerId.Name = "colCustomerId";
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 609);
+            this.ClientSize = new System.Drawing.Size(1174, 609);
             this.Controls.Add(this.navManager);
             this.Name = "ManagerForm";
             this.Text = "Manager";
@@ -543,17 +562,19 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerName;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerSurname;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerCardNumber;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton4;
-        private DevExpress.XtraEditors.SimpleButton simpleButton5;
-        private DevExpress.XtraEditors.SimpleButton simpleButton6;
-        private DevExpress.XtraEditors.SimpleButton simpleButton7;
-        private DevExpress.XtraEditors.SimpleButton simpleButton8;
+        private DevExpress.XtraEditors.SimpleButton btnItemDelete;
+        private DevExpress.XtraEditors.SimpleButton btnItemDetails;
+        private DevExpress.XtraEditors.SimpleButton btnItemEdit;
+        private DevExpress.XtraEditors.SimpleButton btnItemCreate;
+        private DevExpress.XtraEditors.SimpleButton btnTransactionDelete;
+        private DevExpress.XtraEditors.SimpleButton btnTransactionDetails;
+        private DevExpress.XtraEditors.SimpleButton btnTransactionEdit;
+        private DevExpress.XtraEditors.SimpleButton btnTransactionCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colItemCode;
         private DevExpress.XtraGrid.Columns.GridColumn colItemDescription;
         private DevExpress.XtraGrid.Columns.GridColumn colItemPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colItemCost;
+        private DevExpress.XtraBars.Navigation.NavigationPage tabSettings;
+        private DevExpress.XtraGrid.Columns.GridColumn colCustomerId;
     }
 }
