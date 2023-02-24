@@ -54,6 +54,14 @@
             this.btnAddTransactionLine = new DevExpress.XtraEditors.SimpleButton();
             this.btnCash = new DevExpress.XtraEditors.SimpleButton();
             this.btnCard = new DevExpress.XtraEditors.SimpleButton();
+            this.btnDeleteTransactionLine = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.inputTransactionTotalQuantity = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.inputTransactionNetValue = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.inputTransactionTotalDiscount = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.inputTransactionEmployeeId.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionEditDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -67,12 +75,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repTransactionLineItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionTotalQuantity.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionNetValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionTotalDiscount.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // inputTransactionEmployeeId
             // 
             this.inputTransactionEmployeeId.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "EmployeeId", true));
-            this.inputTransactionEmployeeId.Location = new System.Drawing.Point(12, 30);
+            this.inputTransactionEmployeeId.Location = new System.Drawing.Point(12, 140);
             this.inputTransactionEmployeeId.Name = "inputTransactionEmployeeId";
             this.inputTransactionEmployeeId.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -99,15 +112,18 @@
             // 
             this.inputTransactionTotalValue.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "TotalValue", true));
             this.inputTransactionTotalValue.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.transactionEditDtoBindingSource, "TotalValue", true));
-            this.inputTransactionTotalValue.Location = new System.Drawing.Point(449, 40);
+            this.inputTransactionTotalValue.Location = new System.Drawing.Point(115, 105);
             this.inputTransactionTotalValue.Name = "inputTransactionTotalValue";
+            this.inputTransactionTotalValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.inputTransactionTotalValue.Properties.Appearance.Options.UseFont = true;
+            this.inputTransactionTotalValue.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.inputTransactionTotalValue.Properties.ReadOnly = true;
-            this.inputTransactionTotalValue.Size = new System.Drawing.Size(100, 20);
+            this.inputTransactionTotalValue.Size = new System.Drawing.Size(79, 22);
             this.inputTransactionTotalValue.TabIndex = 3;
             // 
             // labelTransactionCustomerId
             // 
-            this.labelTransactionCustomerId.Location = new System.Drawing.Point(12, 56);
+            this.labelTransactionCustomerId.Location = new System.Drawing.Point(12, 11);
             this.labelTransactionCustomerId.Name = "labelTransactionCustomerId";
             this.labelTransactionCustomerId.Size = new System.Drawing.Size(112, 13);
             this.labelTransactionCustomerId.TabIndex = 5;
@@ -115,7 +131,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(12, 11);
+            this.labelControl2.Location = new System.Drawing.Point(12, 121);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(46, 13);
             this.labelControl2.TabIndex = 6;
@@ -123,15 +139,17 @@
             // 
             // labelTransactionTotalValue
             // 
-            this.labelTransactionTotalValue.Location = new System.Drawing.Point(419, 43);
+            this.labelTransactionTotalValue.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelTransactionTotalValue.Appearance.Options.UseFont = true;
+            this.labelTransactionTotalValue.Location = new System.Drawing.Point(8, 107);
             this.labelTransactionTotalValue.Name = "labelTransactionTotalValue";
-            this.labelTransactionTotalValue.Size = new System.Drawing.Size(24, 13);
+            this.labelTransactionTotalValue.Size = new System.Drawing.Size(67, 18);
             this.labelTransactionTotalValue.TabIndex = 9;
-            this.labelTransactionTotalValue.Text = "Total";
+            this.labelTransactionTotalValue.Text = "Total(€):";
             // 
             // inputTransactionCustomerId
             // 
-            this.inputTransactionCustomerId.Location = new System.Drawing.Point(12, 75);
+            this.inputTransactionCustomerId.Location = new System.Drawing.Point(12, 30);
             this.inputTransactionCustomerId.Name = "inputTransactionCustomerId";
             this.inputTransactionCustomerId.Size = new System.Drawing.Size(161, 20);
             this.inputTransactionCustomerId.TabIndex = 10;
@@ -144,7 +162,7 @@
             // inputTransactionCustomerName
             // 
             this.inputTransactionCustomerName.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.transactionEditDtoBindingSource, "CustomerId", true));
-            this.inputTransactionCustomerName.Location = new System.Drawing.Point(12, 120);
+            this.inputTransactionCustomerName.Location = new System.Drawing.Point(12, 75);
             this.inputTransactionCustomerName.Name = "inputTransactionCustomerName";
             this.inputTransactionCustomerName.Properties.ReadOnly = true;
             this.inputTransactionCustomerName.Size = new System.Drawing.Size(161, 20);
@@ -152,7 +170,7 @@
             // 
             // labelTransactionCustomerName
             // 
-            this.labelTransactionCustomerName.Location = new System.Drawing.Point(12, 101);
+            this.labelTransactionCustomerName.Location = new System.Drawing.Point(12, 56);
             this.labelTransactionCustomerName.Name = "labelTransactionCustomerName";
             this.labelTransactionCustomerName.Size = new System.Drawing.Size(76, 13);
             this.labelTransactionCustomerName.TabIndex = 12;
@@ -160,7 +178,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(185, 101);
+            this.labelControl1.Location = new System.Drawing.Point(185, 56);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(91, 13);
             this.labelControl1.TabIndex = 13;
@@ -169,7 +187,7 @@
             // inputTransactionCustomerSurname
             // 
             this.inputTransactionCustomerSurname.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.transactionEditDtoBindingSource, "CustomerId", true));
-            this.inputTransactionCustomerSurname.Location = new System.Drawing.Point(185, 120);
+            this.inputTransactionCustomerSurname.Location = new System.Drawing.Point(185, 75);
             this.inputTransactionCustomerSurname.Name = "inputTransactionCustomerSurname";
             this.inputTransactionCustomerSurname.Properties.ReadOnly = true;
             this.inputTransactionCustomerSurname.Size = new System.Drawing.Size(162, 20);
@@ -317,11 +335,15 @@
             // 
             // btnAddTransactionLine
             // 
-            this.btnAddTransactionLine.Location = new System.Drawing.Point(168, 177);
+            this.btnAddTransactionLine.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAddTransactionLine.Appearance.Options.UseBackColor = true;
+            this.btnAddTransactionLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnAddTransactionLine.ImageOptions.SvgImage")));
+            this.btnAddTransactionLine.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnAddTransactionLine.Location = new System.Drawing.Point(173, 177);
             this.btnAddTransactionLine.Name = "btnAddTransactionLine";
             this.btnAddTransactionLine.Size = new System.Drawing.Size(75, 23);
             this.btnAddTransactionLine.TabIndex = 17;
-            this.btnAddTransactionLine.Text = "Add Line";
+            this.btnAddTransactionLine.Text = "New Line";
             this.btnAddTransactionLine.Click += new System.EventHandler(this.btnAddTransactionLine_Click);
             // 
             // btnCash
@@ -332,7 +354,7 @@
             this.btnCash.Appearance.Options.UseFont = true;
             this.btnCash.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.TopCenter;
             this.btnCash.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCash.ImageOptions.SvgImage")));
-            this.btnCash.Location = new System.Drawing.Point(596, 33);
+            this.btnCash.Location = new System.Drawing.Point(596, 14);
             this.btnCash.Name = "btnCash";
             this.btnCash.Size = new System.Drawing.Size(103, 66);
             this.btnCash.TabIndex = 18;
@@ -347,18 +369,128 @@
             this.btnCard.Appearance.Options.UseFont = true;
             this.btnCard.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.TopCenter;
             this.btnCard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCard.ImageOptions.SvgImage")));
-            this.btnCard.Location = new System.Drawing.Point(596, 105);
+            this.btnCard.Location = new System.Drawing.Point(596, 86);
             this.btnCard.Name = "btnCard";
             this.btnCard.Size = new System.Drawing.Size(103, 66);
             this.btnCard.TabIndex = 19;
             this.btnCard.Text = "Card";
             this.btnCard.Click += new System.EventHandler(this.btnCard_Click);
             // 
+            // btnDeleteTransactionLine
+            // 
+            this.btnDeleteTransactionLine.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnDeleteTransactionLine.Appearance.Options.UseBackColor = true;
+            this.btnDeleteTransactionLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.btnDeleteTransactionLine.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
+            this.btnDeleteTransactionLine.Location = new System.Drawing.Point(254, 177);
+            this.btnDeleteTransactionLine.Name = "btnDeleteTransactionLine";
+            this.btnDeleteTransactionLine.Size = new System.Drawing.Size(93, 23);
+            this.btnDeleteTransactionLine.TabIndex = 20;
+            this.btnDeleteTransactionLine.Text = "Delete Line";
+            this.btnDeleteTransactionLine.Click += new System.EventHandler(this.btnDeleteTransactionLine_Click);
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl1.Appearance.BorderColor = System.Drawing.Color.Transparent;
+            this.panelControl1.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.panelControl1.Appearance.Options.UseBackColor = true;
+            this.panelControl1.Appearance.Options.UseBorderColor = true;
+            this.panelControl1.Appearance.Options.UseForeColor = true;
+            this.panelControl1.Controls.Add(this.labelControl5);
+            this.panelControl1.Controls.Add(this.inputTransactionTotalQuantity);
+            this.panelControl1.Controls.Add(this.labelControl4);
+            this.panelControl1.Controls.Add(this.inputTransactionNetValue);
+            this.panelControl1.Controls.Add(this.labelControl3);
+            this.panelControl1.Controls.Add(this.inputTransactionTotalDiscount);
+            this.panelControl1.Controls.Add(this.labelTransactionTotalValue);
+            this.panelControl1.Controls.Add(this.inputTransactionTotalValue);
+            this.panelControl1.Location = new System.Drawing.Point(391, 14);
+            this.panelControl1.LookAndFeel.SkinMaskColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelControl1.LookAndFeel.SkinMaskColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.panelControl1.LookAndFeel.SkinName = "Office 2010 Blue";
+            this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(199, 138);
+            this.panelControl1.TabIndex = 21;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelControl5.Appearance.Options.UseFont = true;
+            this.labelControl5.Location = new System.Drawing.Point(8, 16);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(52, 13);
+            this.labelControl5.TabIndex = 15;
+            this.labelControl5.Text = "Quantity:";
+            // 
+            // inputTransactionTotalQuantity
+            // 
+            this.inputTransactionTotalQuantity.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionTotalQuantity.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionTotalQuantity.Location = new System.Drawing.Point(115, 14);
+            this.inputTransactionTotalQuantity.Name = "inputTransactionTotalQuantity";
+            this.inputTransactionTotalQuantity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.inputTransactionTotalQuantity.Properties.Appearance.Options.UseFont = true;
+            this.inputTransactionTotalQuantity.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.inputTransactionTotalQuantity.Properties.ReadOnly = true;
+            this.inputTransactionTotalQuantity.Size = new System.Drawing.Size(79, 18);
+            this.inputTransactionTotalQuantity.TabIndex = 14;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelControl4.Appearance.Options.UseFont = true;
+            this.labelControl4.Location = new System.Drawing.Point(8, 42);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(73, 13);
+            this.labelControl4.TabIndex = 13;
+            this.labelControl4.Text = "Net Value(€):";
+            // 
+            // inputTransactionNetValue
+            // 
+            this.inputTransactionNetValue.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionNetValue.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionNetValue.Location = new System.Drawing.Point(115, 41);
+            this.inputTransactionNetValue.Name = "inputTransactionNetValue";
+            this.inputTransactionNetValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.inputTransactionNetValue.Properties.Appearance.Options.UseFont = true;
+            this.inputTransactionNetValue.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.inputTransactionNetValue.Properties.ReadOnly = true;
+            this.inputTransactionNetValue.Size = new System.Drawing.Size(79, 18);
+            this.inputTransactionNetValue.TabIndex = 12;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Location = new System.Drawing.Point(8, 68);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(101, 13);
+            this.labelControl3.TabIndex = 11;
+            this.labelControl3.Text = "Total Discount(€):";
+            // 
+            // inputTransactionTotalDiscount
+            // 
+            this.inputTransactionTotalDiscount.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionTotalDiscount.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.transactionEditDtoBindingSource, "TotalValue", true));
+            this.inputTransactionTotalDiscount.Location = new System.Drawing.Point(115, 65);
+            this.inputTransactionTotalDiscount.Name = "inputTransactionTotalDiscount";
+            this.inputTransactionTotalDiscount.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.inputTransactionTotalDiscount.Properties.Appearance.Options.UseFont = true;
+            this.inputTransactionTotalDiscount.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.inputTransactionTotalDiscount.Properties.ReadOnly = true;
+            this.inputTransactionTotalDiscount.Size = new System.Drawing.Size(79, 18);
+            this.inputTransactionTotalDiscount.TabIndex = 10;
+            // 
             // NewTransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(711, 533);
+            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.btnDeleteTransactionLine);
             this.Controls.Add(this.btnCard);
             this.Controls.Add(this.btnCash);
             this.Controls.Add(this.btnAddTransactionLine);
@@ -369,10 +501,8 @@
             this.Controls.Add(this.labelTransactionCustomerName);
             this.Controls.Add(this.inputTransactionCustomerName);
             this.Controls.Add(this.inputTransactionCustomerId);
-            this.Controls.Add(this.labelTransactionTotalValue);
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelTransactionCustomerId);
-            this.Controls.Add(this.inputTransactionTotalValue);
             this.Controls.Add(this.inputTransactionEmployeeId);
             this.Name = "NewTransactionForm";
             this.Text = "New Transaction";
@@ -390,6 +520,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repTransactionLineItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionTotalQuantity.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionNetValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputTransactionTotalDiscount.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -426,5 +562,13 @@
         private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
         private DevExpress.XtraEditors.SimpleButton btnCash;
         private DevExpress.XtraEditors.SimpleButton btnCard;
+        private DevExpress.XtraEditors.SimpleButton btnDeleteTransactionLine;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.TextEdit inputTransactionTotalQuantity;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.TextEdit inputTransactionNetValue;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.TextEdit inputTransactionTotalDiscount;
     }
 }

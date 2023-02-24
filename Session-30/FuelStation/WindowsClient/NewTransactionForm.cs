@@ -176,10 +176,13 @@ namespace WindowsClient {
             grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
             grvTransactionLines.SetRowCellValue(rowHandle, "TotalValue", Math.Round(totalValue, 2));
 
-            grvTransactionLines.CloseEditor();
+            grvTransactionLines.UpdateCurrentRow();
 
-           
+
+            UpdateTotalQuantity();
+            UpdatePreDiscountTotalPrice();
             UpdateTransactionTotalPrice();
+            UpdateTotalDiscount();
 
         }
 
@@ -197,6 +200,7 @@ namespace WindowsClient {
             UpdateTotalQuantity();
             UpdatePreDiscountTotalPrice();
             UpdateTransactionTotalPrice();
+            UpdateTotalDiscount();
         }
 
 
@@ -205,6 +209,7 @@ namespace WindowsClient {
             foreach (var transactionLine in _transactionLines) {
                 totalQuantity += transactionLine.Quantity;
             }
+            inputTransactionTotalQuantity.Text = totalQuantity.ToString();
         }
 
         private void UpdateTransactionTotalPrice() {
@@ -222,7 +227,16 @@ namespace WindowsClient {
                 preDiscountTotalPrice += transactionLine.NetValue;
             }
             preDiscountTotalPrice = Math.Round(preDiscountTotalPrice, 2);
+            inputTransactionNetValue.Text = preDiscountTotalPrice.ToString();
+        }
 
+        private void UpdateTotalDiscount() {
+            totalDiscount = 0;
+            foreach (var transactionLine in _transactionLines) {
+                totalDiscount += transactionLine.DiscountValue;
+            }
+            totalDiscount = Math.Round(totalDiscount, 2);
+            inputTransactionTotalDiscount.Text = totalDiscount.ToString();
         }
 
 
@@ -249,10 +263,25 @@ namespace WindowsClient {
 
         private async void btnCard_Click(object sender, EventArgs e) {
             _transaction.Date = DateTime.Now;
-            _transaction.PaymentMethod = PaymentMethod.CreditCard;
+            if(_transaction.TotalValue > 50) {
+                DialogResult dialogResult = MessageBox.Show("Card is not acceptable for more than 50€. Do you agree to pay cash?", "Invalid Amount for Card", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes) {
+                    _transaction.PaymentMethod = PaymentMethod.Cash;
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                _transaction.PaymentMethod = PaymentMethod.CreditCard;
+            }
             _transaction.TransactionLines = _transactionLines;
             await PostAsJsonAsync(sharedClient, _transaction);
             this.Close();
+        }
+
+        private void btnDeleteTransactionLine_Click(object sender, EventArgs e) {
+            RemoveLine();
         }
     }
 }
