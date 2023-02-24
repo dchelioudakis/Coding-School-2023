@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -224,5 +225,34 @@ namespace WindowsClient {
 
         }
 
+
+        private async Task PostAsJsonAsync(HttpClient httpClient, TransactionEditDto transaction) {
+            using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Transaction", transaction);
+
+            response.EnsureSuccessStatusCode();
+
+
+            if (Application.OpenForms["managerForm"] != null) {
+                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
+            }
+
+            //var todo = await response.Content.ReadFromJsonAsync<CustomerEditDto>();
+        }
+
+        private async void btnCash_Click(object sender, EventArgs e) {
+            _transaction.Date = DateTime.Now;
+            _transaction.PaymentMethod = PaymentMethod.Cash;
+            _transaction.TransactionLines = _transactionLines;
+            await PostAsJsonAsync(sharedClient, _transaction);
+            this.Close();
+        }
+
+        private async void btnCard_Click(object sender, EventArgs e) {
+            _transaction.Date = DateTime.Now;
+            _transaction.PaymentMethod = PaymentMethod.CreditCard;
+            _transaction.TransactionLines = _transactionLines;
+            await PostAsJsonAsync(sharedClient, _transaction);
+            this.Close();
+        }
     }
 }
