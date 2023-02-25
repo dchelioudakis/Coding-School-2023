@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsClient {
-    public partial class NewCustomerForm : Form {
+    public partial class EditCustomerForm : Form {
 
         private CustomerEditDto _customer;
         public HttpClient sharedClient;
         
-        public NewCustomerForm(HttpClient sharedClient, CustomerEditDto? customer) {
+        public EditCustomerForm(HttpClient sharedClient, CustomerEditDto? customer) {
             InitializeComponent();
             this.sharedClient = sharedClient;
             if(customer != null ) {

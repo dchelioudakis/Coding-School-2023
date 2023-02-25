@@ -81,7 +81,7 @@ namespace WindowsClient {
                 else {
                     DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes) {
-                        NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient, new CustomerEditDto());
+                        EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, new CustomerEditDto());
                         newCustomerForm.ShowDialog();
                     }
                 }

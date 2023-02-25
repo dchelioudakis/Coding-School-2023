@@ -64,6 +64,7 @@
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.colItemType = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -245,6 +246,7 @@
             this.btnItemDelete.Size = new System.Drawing.Size(68, 26);
             this.btnItemDelete.TabIndex = 8;
             this.btnItemDelete.Text = "Delete";
+            this.btnItemDelete.Click += new System.EventHandler(this.btnItemDelete_Click);
             // 
             // btnItemDetails
             // 
@@ -257,6 +259,7 @@
             this.btnItemDetails.Size = new System.Drawing.Size(68, 26);
             this.btnItemDetails.TabIndex = 7;
             this.btnItemDetails.Text = "Details";
+            this.btnItemDetails.Click += new System.EventHandler(this.btnItemDetails_Click);
             // 
             // btnItemEdit
             // 
@@ -269,6 +272,7 @@
             this.btnItemEdit.Size = new System.Drawing.Size(68, 26);
             this.btnItemEdit.TabIndex = 6;
             this.btnItemEdit.Text = "Edit";
+            this.btnItemEdit.Click += new System.EventHandler(this.btnItemEdit_Click);
             // 
             // btnItemCreate
             // 
@@ -281,6 +285,7 @@
             this.btnItemCreate.Size = new System.Drawing.Size(68, 26);
             this.btnItemCreate.TabIndex = 5;
             this.btnItemCreate.Text = "Create";
+            this.btnItemCreate.Click += new System.EventHandler(this.btnItemCreate_Click);
             // 
             // grdItems
             // 
@@ -300,6 +305,7 @@
             this.grvItems.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colItemCode,
             this.colItemDescription,
+            this.colItemType,
             this.colItemPrice,
             this.colItemCost});
             this.grvItems.GridControl = this.grdItems;
@@ -330,7 +336,7 @@
             this.colItemPrice.FieldName = "Price";
             this.colItemPrice.Name = "colItemPrice";
             this.colItemPrice.Visible = true;
-            this.colItemPrice.VisibleIndex = 2;
+            this.colItemPrice.VisibleIndex = 3;
             // 
             // colItemCost
             // 
@@ -338,7 +344,7 @@
             this.colItemCost.FieldName = "Cost";
             this.colItemCost.Name = "colItemCost";
             this.colItemCost.Visible = true;
-            this.colItemCost.VisibleIndex = 3;
+            this.colItemCost.VisibleIndex = 4;
             // 
             // pageTransactions
             // 
@@ -508,6 +514,14 @@
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Size = new System.Drawing.Size(1034, 523);
             // 
+            // colItemType
+            // 
+            this.colItemType.Caption = "Type";
+            this.colItemType.FieldName = "Type";
+            this.colItemType.Name = "colItemType";
+            this.colItemType.Visible = true;
+            this.colItemType.VisibleIndex = 2;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -578,5 +592,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colItemCost;
         private DevExpress.XtraBars.Navigation.NavigationPage tabSettings;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerId;
+        private DevExpress.XtraGrid.Columns.GridColumn colItemType;
     }
 }

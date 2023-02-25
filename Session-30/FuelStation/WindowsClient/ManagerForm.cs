@@ -113,12 +113,12 @@ namespace WindowsClient {
                 CardNumber = customerListDto.CardNumber,
             };
 
-            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient, customer);
+            EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, customer);
             newCustomerForm.ShowDialog();
         }
 
         private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            NewCustomerForm newCustomerForm = new NewCustomerForm(sharedClient, new CustomerEditDto());
+            EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, new CustomerEditDto());
             newCustomerForm.ShowDialog();
         }
 
@@ -153,6 +153,26 @@ namespace WindowsClient {
                 return;
             }
             
+        }
+
+        private void btnItemCreate_Click(object sender, EventArgs e) {
+            EditItemForm newItemForm = new EditItemForm(sharedClient, null);
+            newItemForm.ShowDialog();
+        }
+
+        private void btnItemEdit_Click(object sender, EventArgs e) {
+            int rowHandle = grvItems.FocusedRowHandle;
+            int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
+
+            EditItemForm editItemForm = new EditItemForm(sharedClient, itemId);
+            editItemForm.ShowDialog();
+        }
+        private void btnItemDetails_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnItemDelete_Click(object sender, EventArgs e) {
+
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace WindowsClient {
-    partial class NewCustomerForm {
+    partial class EditCustomerForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
