@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.inputCustomerName = new DevExpress.XtraEditors.TextEdit();
+            this.customerDetailsDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelCustomerName = new DevExpress.XtraEditors.LabelControl();
             this.labelCustomerSurname = new DevExpress.XtraEditors.LabelControl();
             this.inputCustomerSurname = new DevExpress.XtraEditors.TextEdit();
             this.labelCardNumber = new DevExpress.XtraEditors.LabelControl();
             this.inputCustomerCardNumber = new DevExpress.XtraEditors.TextEdit();
-            this.customerDetailsDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grdTransactions = new DevExpress.XtraGrid.GridControl();
             this.grvTransactions = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colTransactionEmployeeId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -41,9 +41,9 @@
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDetailsDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerSurname.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerCardNumber.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customerDetailsDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repEmployees)).BeginInit();
@@ -54,15 +54,20 @@
             // 
             this.inputCustomerName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerDetailsDtoBindingSource, "Name", true));
             this.inputCustomerName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerDetailsDtoBindingSource, "Name", true));
+            this.inputCustomerName.Enabled = false;
             this.inputCustomerName.Location = new System.Drawing.Point(74, 19);
             this.inputCustomerName.Name = "inputCustomerName";
             this.inputCustomerName.Properties.Appearance.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputCustomerName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.inputCustomerName.Properties.Appearance.Options.UseBackColor = true;
             this.inputCustomerName.Properties.Appearance.Options.UseFont = true;
-            this.inputCustomerName.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.inputCustomerName.Size = new System.Drawing.Size(132, 20);
+            this.inputCustomerName.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.inputCustomerName.Size = new System.Drawing.Size(132, 22);
             this.inputCustomerName.TabIndex = 0;
+            // 
+            // customerDetailsDtoBindingSource
+            // 
+            this.customerDetailsDtoBindingSource.DataSource = typeof(FuelStation.Blazor.Shared.DTO.Customer.CustomerDetailsDto);
             // 
             // labelCustomerName
             // 
@@ -88,14 +93,15 @@
             // 
             this.inputCustomerSurname.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerDetailsDtoBindingSource, "Surname", true));
             this.inputCustomerSurname.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerDetailsDtoBindingSource, "Surname", true));
-            this.inputCustomerSurname.Location = new System.Drawing.Point(320, 18);
+            this.inputCustomerSurname.Enabled = false;
+            this.inputCustomerSurname.Location = new System.Drawing.Point(320, 19);
             this.inputCustomerSurname.Name = "inputCustomerSurname";
             this.inputCustomerSurname.Properties.Appearance.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputCustomerSurname.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.inputCustomerSurname.Properties.Appearance.Options.UseBackColor = true;
             this.inputCustomerSurname.Properties.Appearance.Options.UseFont = true;
-            this.inputCustomerSurname.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.inputCustomerSurname.Size = new System.Drawing.Size(143, 20);
+            this.inputCustomerSurname.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.inputCustomerSurname.Size = new System.Drawing.Size(132, 22);
             this.inputCustomerSurname.TabIndex = 2;
             // 
             // labelCardNumber
@@ -104,27 +110,25 @@
             this.labelCardNumber.Appearance.Options.UseFont = true;
             this.labelCardNumber.Location = new System.Drawing.Point(506, 20);
             this.labelCardNumber.Name = "labelCardNumber";
-            this.labelCardNumber.Size = new System.Drawing.Size(76, 16);
+            this.labelCardNumber.Size = new System.Drawing.Size(81, 16);
             this.labelCardNumber.TabIndex = 5;
-            this.labelCardNumber.Text = "Card Number";
+            this.labelCardNumber.Text = "Card Number:";
             // 
             // inputCustomerCardNumber
             // 
             this.inputCustomerCardNumber.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerDetailsDtoBindingSource, "CardNumber", true));
             this.inputCustomerCardNumber.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerDetailsDtoBindingSource, "CardNumber", true));
+            this.inputCustomerCardNumber.Enabled = false;
+            this.inputCustomerCardNumber.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.inputCustomerCardNumber.Location = new System.Drawing.Point(588, 19);
             this.inputCustomerCardNumber.Name = "inputCustomerCardNumber";
             this.inputCustomerCardNumber.Properties.Appearance.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputCustomerCardNumber.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.inputCustomerCardNumber.Properties.Appearance.Options.UseBackColor = true;
             this.inputCustomerCardNumber.Properties.Appearance.Options.UseFont = true;
-            this.inputCustomerCardNumber.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.inputCustomerCardNumber.Size = new System.Drawing.Size(161, 20);
+            this.inputCustomerCardNumber.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.inputCustomerCardNumber.Size = new System.Drawing.Size(132, 22);
             this.inputCustomerCardNumber.TabIndex = 4;
-            // 
-            // customerDetailsDtoBindingSource
-            // 
-            this.customerDetailsDtoBindingSource.DataSource = typeof(FuelStation.Blazor.Shared.DTO.Customer.CustomerDetailsDto);
             // 
             // grdTransactions
             // 
@@ -229,9 +233,9 @@
             this.Text = "Customer Details";
             this.Load += new System.EventHandler(this.CustomerDetailsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDetailsDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerSurname.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerCardNumber.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customerDetailsDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repEmployees)).EndInit();

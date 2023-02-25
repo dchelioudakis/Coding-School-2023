@@ -195,6 +195,7 @@
             this.btnCustomerDelete.Size = new System.Drawing.Size(68, 26);
             this.btnCustomerDelete.TabIndex = 4;
             this.btnCustomerDelete.Text = "Delete";
+            this.btnCustomerDelete.Click += new System.EventHandler(this.btnCustomerDelete_Click);
             // 
             // btnCustomerDetails
             // 

@@ -1,4 +1,5 @@
 ﻿using FuelStation.Blazor.Shared.DTO.Customer;
+using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace WindowsClient {
         private void CustomerDetailsForm_Load(object sender, EventArgs e) {
             customerDetailsDtoBindingSource.DataSource = _customer;
             grdTransactions.DataSource = _customer.Transactions;
+
+            List<EmployeeEditDto> customerTransactionsEmployees = new();
+            foreach (var transaction in _customer.Transactions) {
+                customerTransactionsEmployees.Add(transaction.Employee);
+            }
+            repEmployees.DataSource = new BindingSource() { DataSource = customerTransactionsEmployees };
+            repEmployees.DisplayMember = "Surname";
+            repEmployees.ValueMember = "Id";
         }
     }
 }

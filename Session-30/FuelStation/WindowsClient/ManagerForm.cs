@@ -6,6 +6,7 @@ using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
+using FuelStation.Model.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -137,6 +138,21 @@ namespace WindowsClient {
 
             CustomerDetailsForm customerDetailsForm = new CustomerDetailsForm(sharedClient, customer);
             customerDetailsForm.ShowDialog();
+        }
+
+        private async void btnCustomerDelete_Click(object sender, EventArgs e) {
+            int rowHandle = grvManagerCustomers.FocusedRowHandle;
+            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
+            DialogResult dialogResult = MessageBox.Show("Customer Delete. Are your sure?", "Customer Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                using HttpResponseMessage response = await sharedClient.DeleteAsync($"customer/{customerId}");
+                response.EnsureSuccessStatusCode();
+                await FormInit();
+            }
+            else {
+                return;
+            }
+            
         }
     }
 }
