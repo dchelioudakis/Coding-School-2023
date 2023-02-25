@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsClient {
-    public partial class NewTransactionForm : Form {
+    public partial class TransactionCreateForm : Form {
 
         public HttpClient sharedClient;
         private TransactionEditDto _transaction = new();
@@ -34,7 +34,7 @@ namespace WindowsClient {
         private int? fuelRowIndex = null;
 
 
-        public NewTransactionForm(HttpClient httpClient) {
+        public TransactionCreateForm(HttpClient httpClient) {
             InitializeComponent();
             this.sharedClient = httpClient;
             
@@ -81,7 +81,7 @@ namespace WindowsClient {
                 else {
                     DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes) {
-                        EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, new CustomerEditDto());
+                        CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
                         newCustomerForm.ShowDialog();
                     }
                 }

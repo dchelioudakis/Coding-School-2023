@@ -102,41 +102,31 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<EmployeeListDto>>(jsonResponse);
         }
 
+        private void btnCustomerCreate_Click(object sender, EventArgs e) {
+            CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
+            newCustomerForm.Text = "Create Customer";
+            newCustomerForm.ShowDialog();
+        }
+
         private void btnCustomerEdit_Click(object sender, EventArgs e) {
             int rowHandle = grvManagerCustomers.FocusedRowHandle;
             int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
-            var customerListDto = customerList.Find(customer => customer.Id == customerId);
-            var customer = new CustomerEditDto() {
-                Id = customerListDto.Id,
-                Name = customerListDto.Name,
-                Surname = customerListDto.Surname,
-                CardNumber = customerListDto.CardNumber,
-            };
-
-            EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, customer);
-            newCustomerForm.ShowDialog();
+            
+            CustomerEditForm editCustomerForm = new CustomerEditForm(sharedClient, customerId);
+            editCustomerForm.Text = "Edit Customer";
+            editCustomerForm.ShowDialog();
         }
 
-        private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            EditCustomerForm newCustomerForm = new EditCustomerForm(sharedClient, new CustomerEditDto());
-            newCustomerForm.ShowDialog();
-        }
 
         private void btnTransactionCreate_Click(object sender, EventArgs e) {
-            NewTransactionForm newTransactionForm = new NewTransactionForm(sharedClient);
+            TransactionCreateForm newTransactionForm = new TransactionCreateForm(sharedClient);
             newTransactionForm.ShowDialog();
         }
 
         private async void btnCustomerDetails_Click(object sender, EventArgs e) {
             int rowHandle = grvManagerCustomers.FocusedRowHandle;
             int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
-            using HttpResponseMessage response = await sharedClient.GetAsync($"customerlist/details/{customerId}");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            var customer = JsonConvert.DeserializeObject<CustomerDetailsDto>(jsonResponse);
-
-            CustomerDetailsForm customerDetailsForm = new CustomerDetailsForm(sharedClient, customer);
+            CustomerDetailsForm customerDetailsForm = new CustomerDetailsForm(sharedClient, customerId);
             customerDetailsForm.ShowDialog();
         }
 
@@ -152,27 +142,42 @@ namespace WindowsClient {
             else {
                 return;
             }
-            
         }
 
         private void btnItemCreate_Click(object sender, EventArgs e) {
-            EditItemForm newItemForm = new EditItemForm(sharedClient, null);
+            ItemEditForm newItemForm = new ItemEditForm(sharedClient, null);
+            newItemForm.Text = "Create Item";
             newItemForm.ShowDialog();
         }
 
-        private void btnItemEdit_Click(object sender, EventArgs e) {
+        private async void btnItemEdit_Click(object sender, EventArgs e) {
             int rowHandle = grvItems.FocusedRowHandle;
             int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
 
-            EditItemForm editItemForm = new EditItemForm(sharedClient, itemId);
+            ItemEditForm editItemForm = new ItemEditForm(sharedClient, itemId);
+            editItemForm.Text = "Edit Item";
             editItemForm.ShowDialog();
         }
-        private void btnItemDetails_Click(object sender, EventArgs e) {
+        private async void btnItemDetails_Click(object sender, EventArgs e) {
+            int rowHandle = grvItems.FocusedRowHandle;
+            int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
 
+            ItemDetailsForm itemDetailsForm = new ItemDetailsForm(sharedClient, itemId);
+            itemDetailsForm.ShowDialog();
         }
 
-        private void btnItemDelete_Click(object sender, EventArgs e) {
-
+        private async void btnItemDelete_Click(object sender, EventArgs e) {
+            int rowHandle = grvItems.FocusedRowHandle;
+            int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
+            DialogResult dialogResult = MessageBox.Show("Item Delete. Are your sure?", "Item Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                using HttpResponseMessage response = await sharedClient.DeleteAsync($"item/{itemId}");
+                response.EnsureSuccessStatusCode();
+                await FormInit();
+            }
+            else {
+                return;
+            }
         }
     }
 }

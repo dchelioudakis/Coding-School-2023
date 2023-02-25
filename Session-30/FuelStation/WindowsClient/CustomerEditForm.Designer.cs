@@ -1,5 +1,5 @@
 ﻿namespace WindowsClient {
-    partial class EditCustomerForm {
+    partial class CustomerEditForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -113,7 +113,7 @@
             this.labelControl3.TabIndex = 7;
             this.labelControl3.Text = "Card Number";
             // 
-            // NewCustomerForm
+            // EditCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -129,9 +129,10 @@
             this.Controls.Add(this.btnNewCustomerSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "NewCustomerForm";
+            this.Name = "EditCustomerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Customer";
+            this.Load += new System.EventHandler(this.EditCustomerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerEditDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCustomerSurname.Properties)).EndInit();
