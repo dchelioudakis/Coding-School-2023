@@ -26,6 +26,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             this.grdCustomers = new DevExpress.XtraGrid.GridControl();
             this.grvManagerCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerSurname = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerCardNumber = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -63,7 +64,6 @@
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.colCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -107,6 +107,12 @@
             this.grvManagerCustomers.OptionsBehavior.Editable = false;
             this.grvManagerCustomers.OptionsBehavior.ReadOnly = true;
             this.grvManagerCustomers.OptionsView.ShowGroupPanel = false;
+            // 
+            // colCustomerId
+            // 
+            this.colCustomerId.Caption = "Id";
+            this.colCustomerId.FieldName = "Id";
+            this.colCustomerId.Name = "colCustomerId";
             // 
             // colCustomerName
             // 
@@ -201,6 +207,7 @@
             this.btnCustomerDetails.Size = new System.Drawing.Size(68, 26);
             this.btnCustomerDetails.TabIndex = 3;
             this.btnCustomerDetails.Text = "Details";
+            this.btnCustomerDetails.Click += new System.EventHandler(this.btnCustomerDetails_Click);
             // 
             // btnCustomerEdit
             // 
@@ -499,12 +506,6 @@
             this.tabSettings.Caption = "Settings";
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Size = new System.Drawing.Size(1034, 523);
-            // 
-            // colCustomerId
-            // 
-            this.colCustomerId.Caption = "Id";
-            this.colCustomerId.FieldName = "Id";
-            this.colCustomerId.Name = "colCustomerId";
             // 
             // ManagerForm
             // 

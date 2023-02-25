@@ -29,7 +29,8 @@ namespace FuelStation.EF.Repositories {
         public Customer? GetById(int id) {
             using var context = new FuelStationDbContext();
             return context.Customers.Where(customer => customer.Id == id)
-                .Include(customer => customer.Transactions).SingleOrDefault();
+                .Include(customer => customer.Transactions)
+                .ThenInclude(transaction => transaction.Employee).SingleOrDefault();
         }
 
         public void Update(int id, Customer entity) {

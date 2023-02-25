@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Common;
 using FuelStation.Blazor.Shared.DTO.Customer;
+using FuelStation.Blazor.Shared.DTO.TransactionLine;
+using FuelStation.Blazor.Shared.DTO.Transaction;
 
 namespace FuelStation.Blazor.Server.Controllers {
     [Route("[controller]")]
@@ -48,6 +50,32 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Name = result.Name,
                 Surname = result.Surname,
                 CardNumber = result.CardNumber,
+            };
+            return customer;
+        }
+
+        [Route("/customerlist/details/{id}")]
+        [HttpGet]
+        public async Task<CustomerDetailsDto?> GetDetailsById(int id) {
+            var dbCustomer = await Task.Run(() => { return _customerRepo.GetById(id); });
+            if (dbCustomer == null) {
+                return null;
+            }
+            CustomerDetailsDto customer = new CustomerDetailsDto {
+                Id = id,
+                Name = dbCustomer.Name,
+                Surname = dbCustomer.Surname,
+                CardNumber = dbCustomer.CardNumber,
+                Transactions = dbCustomer.Transactions.Select(transaction => new TransactionListDto {
+                    Id = transaction.Id,
+                    Date = transaction.Date,
+                    PaymentMethod = transaction.PaymentMethod,
+                    TotalValue = transaction.TotalValue,
+                    Employee = new Shared.DTO.Employee.EmployeeEditDto {
+                        Name = transaction.Employee.Name,
+                        Surname = transaction.Employee.Surname,
+                    },
+                }).ToList()
             };
             return customer;
         }

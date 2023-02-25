@@ -36,13 +36,42 @@
             <BootstrapButton ButtonType="BootstrapButtonType.Secondary" OnClick="OnCancel">Back</BootstrapButton>
         </div>
     </div>
+
+    <br /><br />
+    @if (Customer.Transactions.Count() > 0)
+    {
+        <h4>Customer Transactions</h4>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Payment Method</th>
+                    <th>TotalValue</th>
+                    <th>Employee</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in Customer.Transactions)
+                {
+                    <tr>
+                        <td>@transaction.Date</td>
+                        <td>@transaction.PaymentMethod</td>
+                        <td>@transaction.TotalValue</td>
+                        <td>@transaction.Employee.Surname @transaction.Employee.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
     
 }
 
 
 @code {
     [Parameter] public int? Id { get; set; }
-    CustomerEditDto? Customer { get; set; }
+    CustomerDetailsDto? Customer { get; set; }
     CustomerListDto? CustomerListDto { get; set; }
 
 
@@ -50,7 +79,7 @@
         if (Id == null) {
 
         } else {
-            Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+            Customer = await httpClient.GetFromJsonAsync<CustomerDetailsDto>($"customerlist/details/{Id}");
             if (Customer is null) {
                 //TODO: Handle if customer is null
             }

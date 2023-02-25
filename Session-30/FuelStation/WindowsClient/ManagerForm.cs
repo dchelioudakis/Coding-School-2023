@@ -126,6 +126,17 @@ namespace WindowsClient {
             newTransactionForm.ShowDialog();
         }
 
+        private async void btnCustomerDetails_Click(object sender, EventArgs e) {
+            int rowHandle = grvManagerCustomers.FocusedRowHandle;
+            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
+            using HttpResponseMessage response = await sharedClient.GetAsync($"customerlist/details/{customerId}");
+            response.EnsureSuccessStatusCode();
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
+            var customer = JsonConvert.DeserializeObject<CustomerDetailsDto>(jsonResponse);
+
+            CustomerDetailsForm customerDetailsForm = new CustomerDetailsForm(sharedClient, customer);
+            customerDetailsForm.ShowDialog();
+        }
     }
 }
