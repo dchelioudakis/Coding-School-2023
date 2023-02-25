@@ -118,11 +118,6 @@ namespace WindowsClient {
         }
 
 
-        private void btnTransactionCreate_Click(object sender, EventArgs e) {
-            TransactionCreateForm newTransactionForm = new TransactionCreateForm(sharedClient);
-            newTransactionForm.ShowDialog();
-        }
-
         private async void btnCustomerDetails_Click(object sender, EventArgs e) {
             int rowHandle = grvManagerCustomers.FocusedRowHandle;
             int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
@@ -178,6 +173,19 @@ namespace WindowsClient {
             else {
                 return;
             }
+        }
+
+
+        private void btnTransactionCreate_Click(object sender, EventArgs e) {
+            TransactionCreateForm transactionCreateForm = new TransactionCreateForm(sharedClient);
+            transactionCreateForm.ShowDialog();
+        }
+
+        private void btnTransactionEdit_Click(object sender, EventArgs e) {
+            int rowHandle = grvTransactions.FocusedRowHandle;
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(rowHandle, "Id").ToString());
+            TransactionEditForm transactionEditForm = new TransactionEditForm(sharedClient, transactionId);
+            transactionEditForm.ShowDialog();
         }
     }
 }

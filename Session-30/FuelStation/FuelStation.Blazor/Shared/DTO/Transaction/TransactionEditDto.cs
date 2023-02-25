@@ -1,6 +1,7 @@
 ﻿using FuelStation.Model.Enums;
 using FuelStation.Model;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
+using FuelStation.Blazor.Shared.DTO.Customer;
 
 namespace FuelStation.Blazor.Shared.DTO.Transaction {
     public class TransactionEditDto {
@@ -12,6 +13,7 @@ namespace FuelStation.Blazor.Shared.DTO.Transaction {
         //Relations
         public int EmployeeId { get; set; }
         public int CustomerId { get; set; }
+        public CustomerEditDto Customer { get; set; }
         
         public List<TransactionLineEditDto> TransactionLines { get; set; }
     }

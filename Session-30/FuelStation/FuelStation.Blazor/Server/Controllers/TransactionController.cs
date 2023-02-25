@@ -51,13 +51,18 @@ namespace FuelStation.Blazor.Server.Controllers {
             if (dbTransaction == null) {
                 return null;
             }
-            TransactionEditDto item = new TransactionEditDto {
+            TransactionEditDto transaction = new TransactionEditDto {
                 Id = id,
                 Date = dbTransaction.Date,
                 PaymentMethod = dbTransaction.PaymentMethod,
                 TotalValue = dbTransaction.TotalValue,
                 EmployeeId = dbTransaction.EmployeeId,
                 CustomerId = dbTransaction.CustomerId,
+                Customer = new CustomerEditDto() {
+                    Name = dbTransaction.Customer.Name,
+                    Surname = dbTransaction.Customer.Surname,
+                    CardNumber = dbTransaction.Customer.CardNumber,
+                },
                 TransactionLines = dbTransaction.TransactionLines.Select(transactionLine => new TransactionLineEditDto {
                     Id = transactionLine.Id,
                     Quantity = transactionLine.Quantity,
@@ -70,7 +75,7 @@ namespace FuelStation.Blazor.Server.Controllers {
                     ItemId = transactionLine.ItemId,
                 }).ToList()
             };
-            return item;
+            return transaction;
         }
 
         // POST /<CustomersController>

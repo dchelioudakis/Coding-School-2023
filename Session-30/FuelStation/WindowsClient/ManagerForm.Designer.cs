@@ -45,6 +45,7 @@
             this.grvItems = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colItemCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colItemDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colItemType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colItemPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colItemCost = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pageTransactions = new DevExpress.XtraBars.Navigation.NavigationPage();
@@ -64,7 +65,6 @@
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.colItemType = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -330,6 +330,14 @@
             this.colItemDescription.Visible = true;
             this.colItemDescription.VisibleIndex = 1;
             // 
+            // colItemType
+            // 
+            this.colItemType.Caption = "Type";
+            this.colItemType.FieldName = "Type";
+            this.colItemType.Name = "colItemType";
+            this.colItemType.Visible = true;
+            this.colItemType.VisibleIndex = 2;
+            // 
             // colItemPrice
             // 
             this.colItemPrice.Caption = "Price";
@@ -392,6 +400,7 @@
             this.btnTransactionEdit.Size = new System.Drawing.Size(68, 26);
             this.btnTransactionEdit.TabIndex = 6;
             this.btnTransactionEdit.Text = "Edit";
+            this.btnTransactionEdit.Click += new System.EventHandler(this.btnTransactionEdit_Click);
             // 
             // btnTransactionCreate
             // 
@@ -513,14 +522,6 @@
             this.tabSettings.Caption = "Settings";
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Size = new System.Drawing.Size(1034, 523);
-            // 
-            // colItemType
-            // 
-            this.colItemType.Caption = "Type";
-            this.colItemType.FieldName = "Type";
-            this.colItemType.Name = "colItemType";
-            this.colItemType.Visible = true;
-            this.colItemType.VisibleIndex = 2;
             // 
             // ManagerForm
             // 

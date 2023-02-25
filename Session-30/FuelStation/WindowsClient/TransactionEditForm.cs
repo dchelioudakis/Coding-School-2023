@@ -1,11 +1,9 @@
-﻿using DevExpress.XtraEditors;
-using FuelStation.Blazor.Shared.DTO.Customer;
+﻿using DevExpress.XtraScheduler.Outlook.Interop;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
 using FuelStation.Model;
 using FuelStation.Model.Enums;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +11,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -21,12 +18,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsClient {
-    public partial class TransactionCreateForm : Form {
-
+    public partial class TransactionEditForm : Form {
         public HttpClient sharedClient;
         private TransactionEditDto _transaction = new();
         private List<TransactionLineEditDto> _transactionLines = new();
         private List<ItemListDto> _itemsList = new();
+        private int? _transactionId;
         private decimal totalQuantity;
         private decimal totalDiscount;
         private decimal preDiscountTotalPrice;
@@ -34,31 +31,45 @@ namespace WindowsClient {
         private int? fuelRowIndex = null;
 
 
-        public TransactionCreateForm(HttpClient httpClient) {
+        public TransactionEditForm(HttpClient httpClient, int? transactionId) {
             InitializeComponent();
             this.sharedClient = httpClient;
-            
+            _transactionId = transactionId;
         }
 
-        private async void NewTransactionForm_Load(object sender, EventArgs e) {
+        private async void TransactionEditForm_Load(object sender, EventArgs e) {
             await LoadDataFromDb();
             await setFormBindings();
         }
 
         private async Task setFormBindings() {
+            if (_transactionId != null) {
+                using HttpResponseMessage response = await sharedClient.GetAsync($"transaction/{_transactionId}");
+                response.EnsureSuccessStatusCode();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            this.transactionEditDtoBindingSource.DataSource = new BindingSource() { DataSource = _transaction };
+                _transaction = JsonConvert.DeserializeObject<TransactionEditDto>(jsonResponse);
 
-            inputTransactionEmployeeId.Properties.DataSource = new BindingSource() { DataSource = (Application.OpenForms["managerForm"] as ManagerForm).employeeList };
-            inputTransactionEmployeeId.Properties.ValueMember = "Id";
-            inputTransactionEmployeeId.Properties.DisplayMember = "Surname";
+                this.transactionEditDtoBindingSource.DataSource = new BindingSource() { DataSource = _transaction };
+
+                inputTransactionEmployeeId.Properties.DataSource = new BindingSource() { DataSource = (Application.OpenForms["managerForm"] as ManagerForm).employeeList };
+                inputTransactionEmployeeId.Properties.ValueMember = "Id";
+                inputTransactionEmployeeId.Properties.DisplayMember = "Surname";
 
 
-            repTransactionLineItems.DataSource = new BindingSource() { DataSource = _itemsList };
-            repTransactionLineItems.DisplayMember = "Code";
-            repTransactionLineItems.ValueMember = "Id";
+                repTransactionLineItems.DataSource = new BindingSource() { DataSource = _itemsList };
+                repTransactionLineItems.DisplayMember = "Code";
+                repTransactionLineItems.ValueMember = "Id";
 
-            grdTransactionLines.DataSource = new BindingSource() { DataSource = _transactionLines };
+                _transactionLines = _transaction.TransactionLines;
+                grdTransactionLines.DataSource = new BindingSource() { DataSource = _transactionLines };
+
+                comboBoxPaymentMethod.Properties.Items.AddRange(typeof(PaymentMethod).GetEnumValues());
+
+                inputTransactionCustomerCard.Text = _transaction.Customer.CardNumber;
+                inputTransactionCustomerName.Text = _transaction.Customer.Name;
+                inputTransactionCustomerSurname.Text = _transaction.Customer.Surname;
+            }
         }
 
         private async Task LoadDataFromDb() {
@@ -67,23 +78,9 @@ namespace WindowsClient {
 
         private void inputTransactionCustomerId_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyValue == 13) {
-                var askedCustomer = (Application.OpenForms["managerForm"] as ManagerForm).customerList.Find(customer => customer.CardNumber == inputTransactionCustomerId.Text);
-
-                if (askedCustomer != null) {
-                    inputTransactionCustomerName.Text = askedCustomer.Name;
-                    inputTransactionCustomerSurname.Text = askedCustomer.Surname;
-                    _transaction.CustomerId = askedCustomer.Id;
-                }
-                else {
-                    DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes) {
-                        CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
-                        newCustomerForm.ShowDialog();
-                    }
-                }
+                FindCustomer();
             }
         }
-
 
         private async Task<List<ItemListDto>> GetItemsAsync(HttpClient httpClient) {
             using HttpResponseMessage response = await httpClient.GetAsync("Item");
@@ -93,9 +90,7 @@ namespace WindowsClient {
             return JsonConvert.DeserializeObject<List<ItemListDto>>(jsonResponse);
         }
 
-
-
-        private async void grvTransactionLines_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
+        private void grvTransactionLines_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
             int rowHandle;
             if (grvTransactionLines.IsNewItemRow(e.RowHandle)) {
                 return;
@@ -104,11 +99,11 @@ namespace WindowsClient {
                 rowHandle = e.RowHandle;
             }
 
-            if (e.Column.FieldName == "ItemId")   {
+            if (e.Column.FieldName == "ItemId") {
                 UpdateTransactionLineItemPrice(rowHandle);
             }
-            else if(e.Column.FieldName == "Quantity") {
-                if(decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString()) > 0){
+            else if (e.Column.FieldName == "Quantity") {
+                if (decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString()) > 0) {
                     UpdateTransactionLine(rowHandle);
                 }
             }
@@ -126,16 +121,15 @@ namespace WindowsClient {
                         return;
                     }
                 }
-                
+
                 grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", Math.Round(item.Price, 2));
-               
+
             }
             else {
                 MessageBox.Show("Item Not Found");
                 return;
             }
         }
-
 
         private bool checkFuelItemsConstraint() {
             if (fuelProductInTransaction) {
@@ -166,7 +160,7 @@ namespace WindowsClient {
             }
             decimal totalValue = netValue - discountValue;
 
-                
+
             grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", Math.Round(netValue, 2));
 
             grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
@@ -236,38 +230,33 @@ namespace WindowsClient {
         }
 
 
-        private async Task PostAsJsonAsync(HttpClient httpClient, TransactionEditDto transaction) {
-            using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Transaction", transaction);
+        private void FindCustomer() {
+            var askedCustomer = (Application.OpenForms["managerForm"] as ManagerForm).customerList.Find(customer => customer.CardNumber == inputTransactionCustomerCard.Text);
+
+            if (askedCustomer != null) {
+                inputTransactionCustomerName.Text = askedCustomer.Name;
+                inputTransactionCustomerSurname.Text = askedCustomer.Surname;
+                _transaction.CustomerId = askedCustomer.Id;
+            }
+            else {
+                DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes) {
+                    CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
+                    newCustomerForm.ShowDialog();
+                }
+            }
+        }
+
+        private async Task PutAsJsonAsync(HttpClient httpClient, TransactionEditDto transaction) {
+            using HttpResponseMessage response = await httpClient.PutAsJsonAsync("Transaction", transaction);
             response.EnsureSuccessStatusCode();
             if (Application.OpenForms["managerForm"] != null) {
                 (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
             }
         }
 
-        private async void btnCash_Click(object sender, EventArgs e) {
-            _transaction.Date = DateTime.Now;
-            _transaction.PaymentMethod = PaymentMethod.Cash;
-            _transaction.TransactionLines = _transactionLines;
-            await PostAsJsonAsync(sharedClient, _transaction);
-            this.Close();
-        }
-
-        private async void btnCard_Click(object sender, EventArgs e) {
-            _transaction.Date = DateTime.Now;
-            if(_transaction.TotalValue > 50) {
-                DialogResult dialogResult = MessageBox.Show("Card is not acceptable for more than 50€. Do you agree to pay cash?", "Invalid Amount for Card", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes) {
-                    _transaction.PaymentMethod = PaymentMethod.Cash;
-                }
-                else {
-                    return;
-                }
-            }
-            else {
-                _transaction.PaymentMethod = PaymentMethod.CreditCard;
-            }
-            _transaction.TransactionLines = _transactionLines;
-            await PostAsJsonAsync(sharedClient, _transaction);
+        private async void btnSaveChanges_Click(object sender, EventArgs e) {
+            await PutAsJsonAsync(sharedClient, _transaction);
             this.Close();
         }
 
