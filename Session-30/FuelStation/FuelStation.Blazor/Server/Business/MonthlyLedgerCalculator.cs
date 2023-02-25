@@ -73,9 +73,7 @@ namespace FuelStation.Blazor.Server.Business {
             List<Transaction> transactionsThisMonth = transactions.FindAll(c => c.Date.Month == month).FindAll(c => c.Date.Year == year).ToList();
 
             foreach (var transaction in transactionsThisMonth) {
-                foreach (var line in transaction.TransactionLines) {
-                    grossSales += line.TotalValue;
-                }
+                grossSales += transaction.TotalValue;
             }
 
             return grossSales;

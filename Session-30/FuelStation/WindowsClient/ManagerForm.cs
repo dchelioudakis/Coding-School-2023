@@ -187,5 +187,26 @@ namespace WindowsClient {
             TransactionEditForm transactionEditForm = new TransactionEditForm(sharedClient, transactionId);
             transactionEditForm.ShowDialog();
         }
+
+        private void btnTransactionDetails_Click(object sender, EventArgs e) {
+            int rowHandle = grvTransactions.FocusedRowHandle;
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(rowHandle, "Id").ToString());
+            TransactionDetailsForm transactionDetailsForm = new TransactionDetailsForm(sharedClient, transactionId);
+            transactionDetailsForm.ShowDialog();
+        }
+
+        private async void btnTransactionDelete_Click(object sender, EventArgs e) {
+            int rowHandle = grvTransactions.FocusedRowHandle;
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(rowHandle, "Id").ToString());
+            DialogResult dialogResult = MessageBox.Show("Transaction Delete. This action will delete all the dependent transaction lines. Are your sure?", "Transaction Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                using HttpResponseMessage response = await sharedClient.DeleteAsync($"transaction/{transactionId}");
+                response.EnsureSuccessStatusCode();
+                await FormInit();
+            }
+            else {
+                return;
+            }
+        }
     }
 }

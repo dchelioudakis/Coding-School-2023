@@ -123,6 +123,7 @@ namespace WindowsClient {
                 if (item.Type == ItemType.Fuel) {
                     if (!checkFuelItemsConstraint()) {
                         MessageBox.Show("You already have a Fuel Type Item in the transaction");
+                        RemoveLine();
                         return;
                     }
                 }
@@ -272,6 +273,16 @@ namespace WindowsClient {
         }
 
         private void btnDeleteTransactionLine_Click(object sender, EventArgs e) {
+            int itemId = Int32.Parse(grvTransactionLines.GetRowCellValue(grvTransactionLines.FocusedRowHandle, "ItemId").ToString());
+            var item = _itemsList.Find(item => item.Id == itemId);
+
+            if (item != null) {
+                if (item.Type == ItemType.Fuel) {
+                    fuelProductInTransaction = false;
+                    fuelRowIndex = null;
+                }
+            }
+
             RemoveLine();
         }
     }

@@ -28,9 +28,10 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
 
             var transactions = context.Transactions
-               .Include(Transaction => Transaction.TransactionLines)
                .Include(transaction => transaction.Customer)
                .Include(transaction => transaction.Employee)
+               .Include(Transaction => Transaction.TransactionLines)
+               .ThenInclude(transactionLine => transactionLine.Item)
                .ToList();
 
             return transactions;

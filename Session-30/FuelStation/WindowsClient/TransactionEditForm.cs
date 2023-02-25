@@ -20,13 +20,10 @@ using System.Windows.Forms;
 namespace WindowsClient {
     public partial class TransactionEditForm : Form {
         public HttpClient sharedClient;
-        private TransactionEditDto _transaction = new();
-        private List<TransactionLineEditDto> _transactionLines = new();
-        private List<ItemListDto> _itemsList = new();
+        private TransactionEditDto _transaction;
+        private List<TransactionLineEditDto> _transactionLines;
+        private List<ItemListDto> _itemsList;
         private int? _transactionId;
-        private decimal totalQuantity;
-        private decimal totalDiscount;
-        private decimal preDiscountTotalPrice;
         private bool fuelProductInTransaction = false;
         private int? fuelRowIndex = null;
 
@@ -168,11 +165,7 @@ namespace WindowsClient {
 
             grvTransactionLines.UpdateCurrentRow();
 
-
-            UpdateTotalQuantity();
-            UpdatePreDiscountTotalPrice();
             UpdateTransactionTotalPrice();
-            UpdateTotalDiscount();
 
         }
 
@@ -187,20 +180,11 @@ namespace WindowsClient {
 
         private void RemoveLine() {
             grvTransactionLines.DeleteRow(grvTransactionLines.FocusedRowHandle);
-            UpdateTotalQuantity();
-            UpdatePreDiscountTotalPrice();
             UpdateTransactionTotalPrice();
-            UpdateTotalDiscount();
         }
 
 
-        private void UpdateTotalQuantity() {
-            totalQuantity = 0;
-            foreach (var transactionLine in _transactionLines) {
-                totalQuantity += transactionLine.Quantity;
-            }
-            inputTransactionTotalQuantity.Text = totalQuantity.ToString();
-        }
+  
 
         private void UpdateTransactionTotalPrice() {
             _transaction.TotalValue = 0;
@@ -209,24 +193,6 @@ namespace WindowsClient {
             }
             _transaction.TotalValue = Math.Round(_transaction.TotalValue, 2);
             inputTransactionTotalValue.Text = _transaction.TotalValue.ToString();
-        }
-
-        private void UpdatePreDiscountTotalPrice() {
-            preDiscountTotalPrice = 0;
-            foreach (var transactionLine in _transactionLines) {
-                preDiscountTotalPrice += transactionLine.NetValue;
-            }
-            preDiscountTotalPrice = Math.Round(preDiscountTotalPrice, 2);
-            inputTransactionNetValue.Text = preDiscountTotalPrice.ToString();
-        }
-
-        private void UpdateTotalDiscount() {
-            totalDiscount = 0;
-            foreach (var transactionLine in _transactionLines) {
-                totalDiscount += transactionLine.DiscountValue;
-            }
-            totalDiscount = Math.Round(totalDiscount, 2);
-            inputTransactionTotalDiscount.Text = totalDiscount.ToString();
         }
 
 

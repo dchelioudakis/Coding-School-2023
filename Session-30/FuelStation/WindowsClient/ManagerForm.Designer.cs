@@ -376,6 +376,7 @@
             this.btnTransactionDelete.Size = new System.Drawing.Size(68, 26);
             this.btnTransactionDelete.TabIndex = 8;
             this.btnTransactionDelete.Text = "Delete";
+            this.btnTransactionDelete.Click += new System.EventHandler(this.btnTransactionDelete_Click);
             // 
             // btnTransactionDetails
             // 
@@ -388,6 +389,7 @@
             this.btnTransactionDetails.Size = new System.Drawing.Size(68, 26);
             this.btnTransactionDetails.TabIndex = 7;
             this.btnTransactionDetails.Text = "Details";
+            this.btnTransactionDetails.Click += new System.EventHandler(this.btnTransactionDetails_Click);
             // 
             // btnTransactionEdit
             // 
