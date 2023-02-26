@@ -17,10 +17,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Printing;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsClient.WindowsApiCalls;
+using WindowsClient.WindowsFormsOperations;
 
 namespace WindowsClient {
     public partial class ManagerForm : Form {
@@ -29,6 +32,9 @@ namespace WindowsClient {
         public List<EmployeeListDto> employeeList;
         private List<TransactionListDto> _transactionList;
         public HttpClient sharedClient;
+        private CustomerFormsHandler _customerFormsHandler = new();
+        private ItemFormsHandler _itemFormsHandler = new(); 
+        private TransactionFormsHandler _transactionFormsHandler = new();
 
         public ManagerForm(HttpClient sharedClient) {
             InitializeComponent();
@@ -46,10 +52,17 @@ namespace WindowsClient {
         }
 
         private async Task LoadDataFromDb() {
-            customerList = await GetCustomersAsync(sharedClient);
-            _itemList = await GetItemsAsync(sharedClient);
-            _transactionList = await GetTransactionsAsync(sharedClient);
-            employeeList = await GetEmployeesAsync(sharedClient);
+            CustomerCaller customerCaller = new CustomerCaller();
+            customerList = await customerCaller.GetCustomersAsync(sharedClient);
+
+            ItemCaller itemCaller = new ItemCaller();
+            _itemList = await itemCaller.GetItemsAsync(sharedClient);
+
+            TransactionCaller transactionCaller = new TransactionCaller();
+            _transactionList = await transactionCaller.GetTransactionsAsync(sharedClient);
+
+            EmployeeCaller employeeCaller = new EmployeeCaller();
+            employeeList = await employeeCaller.GetEmployeesAsync(sharedClient);
         }
 
         private async Task LoadDataToGrids() {
@@ -68,61 +81,19 @@ namespace WindowsClient {
            
         }
 
-        
-
-        private async Task<List<CustomerListDto>> GetCustomersAsync(HttpClient httpClient) {
-            using HttpResponseMessage response = await httpClient.GetAsync("Customer");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<CustomerListDto>>(jsonResponse);
+        private async void btnCustomerCreate_Click(object sender, EventArgs e) {
+            await _customerFormsHandler.Create(sharedClient);
         }
 
-        private async Task<List<ItemListDto>> GetItemsAsync(HttpClient httpClient) {
-            using HttpResponseMessage response = await httpClient.GetAsync("Item");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<ItemListDto>>(jsonResponse);
-        }
-
-        private async Task<List<TransactionListDto>> GetTransactionsAsync(HttpClient httpClient) {
-            using HttpResponseMessage response = await httpClient.GetAsync("Transaction");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<TransactionListDto>>(jsonResponse);
-        }
-
-        private async Task<List<EmployeeListDto>> GetEmployeesAsync(HttpClient httpClient) {
-            using HttpResponseMessage response = await httpClient.GetAsync("Employee");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<EmployeeListDto>>(jsonResponse);
-        }
-
-        private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
-            newCustomerForm.Text = "Create Customer";
-            newCustomerForm.ShowDialog();
-        }
-
-        private void btnCustomerEdit_Click(object sender, EventArgs e) {
-            int rowHandle = grvManagerCustomers.FocusedRowHandle;
-            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
-            
-            CustomerEditForm editCustomerForm = new CustomerEditForm(sharedClient, customerId);
-            editCustomerForm.Text = "Edit Customer";
-            editCustomerForm.ShowDialog();
+        private async void btnCustomerEdit_Click(object sender, EventArgs e) {
+            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(grvManagerCustomers.FocusedRowHandle, "Id").ToString());
+            await _customerFormsHandler.Edit(sharedClient, customerId);
         }
 
 
         private async void btnCustomerDetails_Click(object sender, EventArgs e) {
-            int rowHandle = grvManagerCustomers.FocusedRowHandle;
-            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(rowHandle, "Id").ToString());
-            CustomerDetailsForm customerDetailsForm = new CustomerDetailsForm(sharedClient, customerId);
-            customerDetailsForm.ShowDialog();
+            int customerId = Int32.Parse(grvManagerCustomers.GetRowCellValue(grvManagerCustomers.FocusedRowHandle, "Id").ToString());
+            await _customerFormsHandler.Details(sharedClient, customerId);
         }
 
         private async void btnCustomerDelete_Click(object sender, EventArgs e) {
@@ -139,26 +110,17 @@ namespace WindowsClient {
             }
         }
 
-        private void btnItemCreate_Click(object sender, EventArgs e) {
-            ItemEditForm newItemForm = new ItemEditForm(sharedClient, null);
-            newItemForm.Text = "Create Item";
-            newItemForm.ShowDialog();
+        private async void btnItemCreate_Click(object sender, EventArgs e) {
+            await _itemFormsHandler.Create(sharedClient);
         }
 
         private async void btnItemEdit_Click(object sender, EventArgs e) {
-            int rowHandle = grvItems.FocusedRowHandle;
-            int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
-
-            ItemEditForm editItemForm = new ItemEditForm(sharedClient, itemId);
-            editItemForm.Text = "Edit Item";
-            editItemForm.ShowDialog();
+            int itemId = Int32.Parse(grvItems.GetRowCellValue(grvItems.FocusedRowHandle, "Id").ToString());
+            await _itemFormsHandler.Edit(sharedClient, itemId);
         }
         private async void btnItemDetails_Click(object sender, EventArgs e) {
-            int rowHandle = grvItems.FocusedRowHandle;
-            int itemId = Int32.Parse(grvItems.GetRowCellValue(rowHandle, "Id").ToString());
-
-            ItemDetailsForm itemDetailsForm = new ItemDetailsForm(sharedClient, itemId);
-            itemDetailsForm.ShowDialog();
+            int itemId = Int32.Parse(grvItems.GetRowCellValue(grvItems.FocusedRowHandle, "Id").ToString());
+            await _itemFormsHandler.Details(sharedClient, itemId);
         }
 
         private async void btnItemDelete_Click(object sender, EventArgs e) {
@@ -175,24 +137,18 @@ namespace WindowsClient {
             }
         }
 
-
-        private void btnTransactionCreate_Click(object sender, EventArgs e) {
-            TransactionCreateForm transactionCreateForm = new TransactionCreateForm(sharedClient);
-            transactionCreateForm.ShowDialog();
+        private async void btnTransactionCreate_Click(object sender, EventArgs e) {
+            await _transactionFormsHandler.Create(sharedClient);
         }
 
-        private void btnTransactionEdit_Click(object sender, EventArgs e) {
-            int rowHandle = grvTransactions.FocusedRowHandle;
-            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(rowHandle, "Id").ToString());
-            TransactionEditForm transactionEditForm = new TransactionEditForm(sharedClient, transactionId);
-            transactionEditForm.ShowDialog();
+        private async void btnTransactionEdit_Click(object sender, EventArgs e) {
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
+            await _transactionFormsHandler.Edit(sharedClient, transactionId);
         }
 
-        private void btnTransactionDetails_Click(object sender, EventArgs e) {
-            int rowHandle = grvTransactions.FocusedRowHandle;
-            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(rowHandle, "Id").ToString());
-            TransactionDetailsForm transactionDetailsForm = new TransactionDetailsForm(sharedClient, transactionId);
-            transactionDetailsForm.ShowDialog();
+        private async void btnTransactionDetails_Click(object sender, EventArgs e) {
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
+            await _transactionFormsHandler.Details(sharedClient, transactionId);
         }
 
         private async void btnTransactionDelete_Click(object sender, EventArgs e) {
