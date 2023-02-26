@@ -24,8 +24,8 @@ namespace FuelStation.EF.Configurations {
             builder.Property(t => t.HireDateStart).IsRequired();
             builder.Property(t => t.HireDateEnd);
             builder.Property(t => t.Type).IsRequired();
-
-            // Relations
+            builder.Property(t => t.Username).HasMaxLength(20).IsRequired();
+            builder.Property(t => t.Password).HasMaxLength(20).IsRequired();
         }
     }
 }
