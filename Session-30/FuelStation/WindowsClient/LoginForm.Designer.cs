@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.btnManagerLogin = new DevExpress.XtraEditors.SimpleButton();
             this.btnCashier = new DevExpress.XtraEditors.SimpleButton();
+            this.brnStaff = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // btnManagerLogin
@@ -45,11 +46,21 @@
             this.btnCashier.Text = "Cashier";
             this.btnCashier.Click += new System.EventHandler(this.btnCashier_Click);
             // 
+            // brnStaff
+            // 
+            this.brnStaff.Location = new System.Drawing.Point(486, 150);
+            this.brnStaff.Name = "brnStaff";
+            this.brnStaff.Size = new System.Drawing.Size(204, 94);
+            this.brnStaff.TabIndex = 2;
+            this.brnStaff.Text = "Staff";
+            this.brnStaff.Click += new System.EventHandler(this.brnStaff_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.brnStaff);
             this.Controls.Add(this.btnCashier);
             this.Controls.Add(this.btnManagerLogin);
             this.Name = "LoginForm";
@@ -62,5 +73,6 @@
 
         private DevExpress.XtraEditors.SimpleButton btnManagerLogin;
         private DevExpress.XtraEditors.SimpleButton btnCashier;
+        private DevExpress.XtraEditors.SimpleButton brnStaff;
     }
 }

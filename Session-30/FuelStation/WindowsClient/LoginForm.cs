@@ -20,5 +20,10 @@ namespace WindowsClient {
             CashierForm cashierForm = new CashierForm(sharedClient);
             cashierForm.ShowDialog();
         }
+
+        private void brnStaff_Click(object sender, EventArgs e) {
+            StaffForm staffForm = new StaffForm(sharedClient);
+            staffForm.ShowDialog();
+        }
     }
 }

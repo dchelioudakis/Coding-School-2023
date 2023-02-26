@@ -276,12 +276,12 @@ namespace WindowsClient {
         private async Task ReloadParentForm(EmployeeType employeeType) {
             if(employeeType == EmployeeType.Manager) {
                 if (Application.OpenForms["managerForm"] != null) {
-                    (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
+                    await (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
                 }
             }
             else if(employeeType == EmployeeType.Cashier) {
                 if (Application.OpenForms["cashierForm"] != null) {
-                    (Application.OpenForms["cashierForm"] as CashierForm).FormInit();
+                    await (Application.OpenForms["cashierForm"] as CashierForm).FormInit();
                 }
             }
         }
