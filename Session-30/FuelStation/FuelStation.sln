@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.EF", "FuelStati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsClient", "WindowsClient\WindowsClient.csproj", "{FE45FAAB-4F9A-49DE-ACBF-478B06D27431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializeLib", "SerializeLib\SerializeLib.csproj", "{35765A4A-A160-4BD8-B266-7A6815722CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerializeLib", "SerializeLib\SerializeLib.csproj", "{35765A4A-A160-4BD8-B266-7A6815722CF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

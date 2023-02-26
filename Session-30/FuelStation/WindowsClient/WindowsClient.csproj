@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.SessionStorage" Version="2.3.0" />
+    <PackageReference Include="Blazored.SessionStorage.TestExtensions" Version="2.3.0" />
     <PackageReference Include="DevExpress.Win.Design" Version="22.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
