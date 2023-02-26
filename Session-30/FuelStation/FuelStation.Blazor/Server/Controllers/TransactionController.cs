@@ -80,7 +80,7 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // POST /<CustomersController>
         [HttpPost]
-        public async Task<ActionResult> Post(TransactionEditDto transaction) {
+        public async Task<ActionResult> Post(TransactionCreateDto transaction) {
             var newTransaction = new Transaction(transaction.Date, transaction.EmployeeId, transaction.CustomerId, transaction.PaymentMethod, transaction.TotalValue) {
                 TransactionLines = transaction.TransactionLines.Select(transactionLine => new TransactionLine(transactionLine.TransactionId, transactionLine.ItemId) {
                     Id = transactionLine.Id,

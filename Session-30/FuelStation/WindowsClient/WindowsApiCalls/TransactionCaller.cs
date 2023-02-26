@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,11 @@ namespace WindowsClient.WindowsApiCalls {
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<TransactionListDto>>(jsonResponse);
+        }
+
+        public async Task PostAsJsonAsync(HttpClient httpClient, TransactionCreateDto transaction) {
+            using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Transaction", transaction);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

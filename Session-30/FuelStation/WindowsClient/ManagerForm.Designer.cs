@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             this.grdCustomers = new DevExpress.XtraGrid.GridControl();
-            this.grvManagerCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.grvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCustomerId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCustomerSurname = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,7 +66,7 @@
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
             this.navManager.SuspendLayout();
             this.Customers.SuspendLayout();
@@ -89,25 +89,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grdCustomers.EmbeddedNavigator.AllowHtmlTextInToolTip = DevExpress.Utils.DefaultBoolean.False;
             this.grdCustomers.Location = new System.Drawing.Point(3, 45);
-            this.grdCustomers.MainView = this.grvManagerCustomers;
+            this.grdCustomers.MainView = this.grvCustomers;
             this.grdCustomers.Name = "grdCustomers";
             this.grdCustomers.Size = new System.Drawing.Size(1028, 475);
             this.grdCustomers.TabIndex = 0;
             this.grdCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grvManagerCustomers});
+            this.grvCustomers});
             // 
-            // grvManagerCustomers
+            // grvCustomers
             // 
-            this.grvManagerCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.grvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colCustomerId,
             this.colCustomerName,
             this.colCustomerSurname,
             this.colCustomerCardNumber});
-            this.grvManagerCustomers.GridControl = this.grdCustomers;
-            this.grvManagerCustomers.Name = "grvManagerCustomers";
-            this.grvManagerCustomers.OptionsBehavior.Editable = false;
-            this.grvManagerCustomers.OptionsBehavior.ReadOnly = true;
-            this.grvManagerCustomers.OptionsView.ShowGroupPanel = false;
+            this.grvCustomers.GridControl = this.grdCustomers;
+            this.grvCustomers.Name = "grvCustomers";
+            this.grvCustomers.OptionsBehavior.Editable = false;
+            this.grvCustomers.OptionsBehavior.ReadOnly = true;
+            this.grvCustomers.OptionsView.ShowGroupPanel = false;
             // 
             // colCustomerId
             // 
@@ -535,7 +535,7 @@
             this.Text = "Manager";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grvManagerCustomers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).EndInit();
             this.navManager.ResumeLayout(false);
             this.Customers.ResumeLayout(false);
@@ -556,7 +556,7 @@
         #endregion
 
         private DevExpress.XtraGrid.GridControl grdCustomers;
-        private DevExpress.XtraGrid.Views.Grid.GridView grvManagerCustomers;
+        private DevExpress.XtraGrid.Views.Grid.GridView grvCustomers;
         private DevExpress.XtraEditors.SimpleButton btnCustomerCreate;
         private DevExpress.XtraBars.Navigation.NavigationPane navManager;
         private DevExpress.XtraBars.Navigation.NavigationPage Customers;

@@ -13,9 +13,11 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsClient.WindowsApiCalls;
 
 namespace WindowsClient {
     public partial class TransactionEditForm : Form {
@@ -23,6 +25,7 @@ namespace WindowsClient {
         private TransactionEditDto _transaction;
         private List<TransactionLineEditDto> _transactionLines;
         private List<ItemListDto> _itemsList;
+        private EmployeeCaller _employeeCaller = new();
         private int? _transactionId;
         private bool fuelProductInTransaction = false;
         private int? fuelRowIndex = null;
@@ -49,7 +52,7 @@ namespace WindowsClient {
 
                 this.transactionEditDtoBindingSource.DataSource = new BindingSource() { DataSource = _transaction };
 
-                inputTransactionEmployeeId.Properties.DataSource = new BindingSource() { DataSource = (Application.OpenForms["managerForm"] as ManagerForm).employeeList };
+                inputTransactionEmployeeId.Properties.DataSource = new BindingSource() { DataSource = await _employeeCaller.GetEmployeesAsync(sharedClient) };
                 inputTransactionEmployeeId.Properties.ValueMember = "Id";
                 inputTransactionEmployeeId.Properties.DisplayMember = "Surname";
 

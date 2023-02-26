@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsClient.WindowsApiCalls;
+using WindowsClient.WindowsFormsOperations;
 
 namespace WindowsClient {
     public partial class CashierForm : Form {
@@ -22,15 +23,11 @@ namespace WindowsClient {
         public List<EmployeeListDto> employeeList;
         private List<TransactionListDto> _transactionList;
         public HttpClient sharedClient;
+        private CustomerFormsHandler _customerFormsHandler = new();
+        private TransactionFormsHandler _transactionFormsHandler = new();
         public CashierForm(HttpClient sharedClient) {
             InitializeComponent();
             this.sharedClient = sharedClient;
-        }
-
-        private void btnCustomerCreate_Click(object sender, EventArgs e) {
-            CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
-            newCustomerForm.Text = "Create Customer";
-            newCustomerForm.ShowDialog();
         }
 
         private async void CashierForm_Load(object sender, EventArgs e) {
@@ -71,32 +68,58 @@ namespace WindowsClient {
 
         }
 
-        private void btnCustomerEdit_Click(object sender, EventArgs e) {
-
+        private async void btnCustomerCreate_Click(object sender, EventArgs e) {
+            await _customerFormsHandler.Create(sharedClient);
         }
 
-        private void btnCustomerDetails_Click(object sender, EventArgs e) {
-
+        private async void btnCustomerEdit_Click(object sender, EventArgs e) {
+            int customerId = Int32.Parse(grvCustomers.GetRowCellValue(grvCustomers.FocusedRowHandle, "Id").ToString());
+            await _customerFormsHandler.Edit(sharedClient, customerId);
         }
 
-        private void btnCustomerDelete_Click(object sender, EventArgs e) {
-
+        private async void btnCustomerDetails_Click(object sender, EventArgs e) {
+            int customerId = Int32.Parse(grvCustomers.GetRowCellValue(grvCustomers.FocusedRowHandle, "Id").ToString());
+            await _customerFormsHandler.Details(sharedClient, customerId);
         }
 
-        private void btnTransactionCreate_Click(object sender, EventArgs e) {
-
+        private async void btnCustomerDelete_Click(object sender, EventArgs e) {
+            int customerId = Int32.Parse(grvCustomers.GetRowCellValue(grvCustomers.FocusedRowHandle, "Id").ToString());
+            DialogResult dialogResult = MessageBox.Show("Customer Delete. Are your sure?", "Customer Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                using HttpResponseMessage response = await sharedClient.DeleteAsync($"customer/{customerId}");
+                response.EnsureSuccessStatusCode();
+                await FormInit();
+            }
+            else {
+                return;
+            }
         }
 
-        private void btnTransactionEdit_Click(object sender, EventArgs e) {
-
+        private async void btnTransactionCreate_Click(object sender, EventArgs e) {
+            await _transactionFormsHandler.Create(sharedClient);
         }
 
-        private void btnTransactionDetails_Click(object sender, EventArgs e) {
-
+        private async void btnTransactionEdit_Click(object sender, EventArgs e) {
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
+            await _transactionFormsHandler.Edit(sharedClient, transactionId);
         }
 
-        private void btnTransactionDelete_Click(object sender, EventArgs e) {
+        private async void btnTransactionDetails_Click(object sender, EventArgs e) {
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
+            await _transactionFormsHandler.Details(sharedClient, transactionId);
+        }
 
+        private async void btnTransactionDelete_Click(object sender, EventArgs e) {
+            int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
+            DialogResult dialogResult = MessageBox.Show("Transaction Delete. This action will delete all the dependent transaction lines. Are your sure?", "Transaction Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                using HttpResponseMessage response = await sharedClient.DeleteAsync($"transaction/{transactionId}");
+                response.EnsureSuccessStatusCode();
+                await FormInit();
+            }
+            else {
+                return;
+            }
         }
 
         
