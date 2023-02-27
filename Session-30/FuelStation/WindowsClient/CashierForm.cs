@@ -25,9 +25,12 @@ namespace WindowsClient {
         public HttpClient sharedClient;
         private CustomerFormsHandler _customerFormsHandler = new();
         private TransactionFormsHandler _transactionFormsHandler = new();
-        public CashierForm(HttpClient sharedClient) {
+        private EmployeeListDto _sessionEmployee;
+
+        public CashierForm(HttpClient sharedClient, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = sharedClient;
+            _sessionEmployee = sessionEmployee;
         }
 
         private async void CashierForm_Load(object sender, EventArgs e) {
@@ -69,12 +72,12 @@ namespace WindowsClient {
         }
 
         private async void btnCustomerCreate_Click(object sender, EventArgs e) {
-            await _customerFormsHandler.Create(sharedClient);
+            await _customerFormsHandler.Create(sharedClient, _sessionEmployee);
         }
 
         private async void btnCustomerEdit_Click(object sender, EventArgs e) {
             int customerId = Int32.Parse(grvCustomers.GetRowCellValue(grvCustomers.FocusedRowHandle, "Id").ToString());
-            await _customerFormsHandler.Edit(sharedClient, customerId);
+            await _customerFormsHandler.Edit(sharedClient, customerId, _sessionEmployee);
         }
 
         private async void btnCustomerDetails_Click(object sender, EventArgs e) {
@@ -96,12 +99,12 @@ namespace WindowsClient {
         }
 
         private async void btnTransactionCreate_Click(object sender, EventArgs e) {
-            await _transactionFormsHandler.Create(sharedClient);
+            await _transactionFormsHandler.Create(sharedClient, _sessionEmployee);
         }
 
         private async void btnTransactionEdit_Click(object sender, EventArgs e) {
             int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
-            await _transactionFormsHandler.Edit(sharedClient, transactionId);
+            await _transactionFormsHandler.Edit(sharedClient, transactionId, _sessionEmployee);
         }
 
         private async void btnTransactionDetails_Click(object sender, EventArgs e) {

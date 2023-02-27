@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraScheduler.Outlook.Interop;
+using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
@@ -29,12 +30,14 @@ namespace WindowsClient {
         private int? _transactionId;
         private bool fuelProductInTransaction = false;
         private int? fuelRowIndex = null;
+        private EmployeeListDto _sessionEmployee;
 
 
-        public TransactionEditForm(HttpClient httpClient, int? transactionId) {
+        public TransactionEditForm(HttpClient httpClient, int? transactionId, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = httpClient;
             _transactionId = transactionId;
+            _sessionEmployee = sessionEmployee;
         }
 
         private async void TransactionEditForm_Load(object sender, EventArgs e) {
@@ -55,7 +58,6 @@ namespace WindowsClient {
                 inputTransactionEmployeeId.Properties.DataSource = new BindingSource() { DataSource = await _employeeCaller.GetEmployeesAsync(sharedClient) };
                 inputTransactionEmployeeId.Properties.ValueMember = "Id";
                 inputTransactionEmployeeId.Properties.DisplayMember = "Surname";
-
 
                 repTransactionLineItems.DataSource = new BindingSource() { DataSource = _itemsList };
                 repTransactionLineItems.DisplayMember = "Code";
@@ -143,7 +145,6 @@ namespace WindowsClient {
         }
 
         private void UpdateTransactionLine(int rowHandle) {
-            var asdas = grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString();
             decimal itemPrice = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "ItemPrice").ToString());
             decimal lineQuantity = decimal.Parse(grvTransactionLines.GetRowCellValue(rowHandle, "Quantity").ToString());
             decimal netValue = itemPrice * lineQuantity;
@@ -159,17 +160,11 @@ namespace WindowsClient {
                 discountValue = netValue * (lineDiscountPercentage / 100);
             }
             decimal totalValue = netValue - discountValue;
-
-
             grvTransactionLines.SetRowCellValue(rowHandle, "NetValue", Math.Round(netValue, 2));
-
             grvTransactionLines.SetRowCellValue(rowHandle, "DiscountValue", Math.Round(discountValue, 2));
             grvTransactionLines.SetRowCellValue(rowHandle, "TotalValue", Math.Round(totalValue, 2));
-
             grvTransactionLines.UpdateCurrentRow();
-
             UpdateTransactionTotalPrice();
-
         }
 
         private void btnAddTransactionLine_Click(object sender, EventArgs e) {
@@ -210,7 +205,7 @@ namespace WindowsClient {
             else {
                 DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes) {
-                    CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
+                    CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null, _sessionEmployee);
                     newCustomerForm.ShowDialog();
                 }
             }

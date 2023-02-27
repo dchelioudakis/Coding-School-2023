@@ -56,6 +56,9 @@ namespace FuelStation.Blazor.Server.Authentication {
             /* Returning the User Session object */
             var userSession = new UserSession {
                 UserName = askedEmployee.Username,
+                Name = askedEmployee.Name,
+                Surname = askedEmployee.Surname,
+                EmployeeId = askedEmployee.Id,
                 Role = askedEmployee.Type.ToString(),
                 Token = token,
                 ExpiresIn = (int)tokenExpiryTimeStamp.Subtract(DateTime.Now).TotalSeconds

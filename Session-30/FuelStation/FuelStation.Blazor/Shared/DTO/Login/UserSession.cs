@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace FuelStation.Blazor.Shared.DTO.Login {
     public class UserSession {
         public string UserName { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public int EmployeeId { get; set; }
         public string Token { get; set; }
         public string Role { get; set; }
         public int ExpiresIn { get; set; }

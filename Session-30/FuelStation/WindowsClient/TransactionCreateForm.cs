@@ -1,25 +1,10 @@
-﻿using DevExpress.XtraCharts.Designer.Native;
-using DevExpress.XtraEditors;
-using FuelStation.Blazor.Shared.DTO.Customer;
+﻿using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
-using FuelStation.Model;
 using FuelStation.Model.Enums;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WindowsClient.WindowsApiCalls;
 
 namespace WindowsClient {
@@ -32,6 +17,7 @@ namespace WindowsClient {
         private EmployeeCaller _employeeCaller = new();
         private CustomerCaller _customerCaller = new();
         private TransactionCaller _transactionCaller = new();
+        private EmployeeListDto _sessionEmployee;
         private decimal totalQuantity;
         private decimal totalDiscount;
         private decimal preDiscountTotalPrice;
@@ -39,10 +25,10 @@ namespace WindowsClient {
         private int? fuelRowIndex = null;
 
 
-        public TransactionCreateForm(HttpClient httpClient) {
+        public TransactionCreateForm(HttpClient httpClient, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = httpClient;
-            
+            this._sessionEmployee = sessionEmployee;
         }
 
         private async void NewTransactionForm_Load(object sender, EventArgs e) {
@@ -82,7 +68,7 @@ namespace WindowsClient {
                 else {
                     DialogResult dialogResult = MessageBox.Show("Customer not found. Would you like to create them?", "Customer Not Found", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes) {
-                        CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null);
+                        CustomerEditForm newCustomerForm = new CustomerEditForm(sharedClient, null, _sessionEmployee);
                         newCustomerForm.ShowDialog();
                     }
                 }

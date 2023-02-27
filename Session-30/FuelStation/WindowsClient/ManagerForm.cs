@@ -1,27 +1,8 @@
-﻿using DevExpress.XtraPivotGrid.Data;
-using DevExpress.XtraRichEdit.Import.Html;
-using FuelStation.Blazor.Shared.DTO.Customer;
+﻿using FuelStation.Blazor.Shared.DTO.Customer;
 using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
-using FuelStation.EF.Repositories;
-using FuelStation.Model;
-using FuelStation.Model.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Printing;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WindowsClient.WindowsApiCalls;
 using WindowsClient.WindowsFormsOperations;
 
@@ -35,10 +16,12 @@ namespace WindowsClient {
         private CustomerFormsHandler _customerFormsHandler = new();
         private ItemFormsHandler _itemFormsHandler = new(); 
         private TransactionFormsHandler _transactionFormsHandler = new();
+        private EmployeeListDto _sessionEmployee;
 
-        public ManagerForm(HttpClient sharedClient) {
+        public ManagerForm(HttpClient sharedClient, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = sharedClient;
+            this._sessionEmployee = sessionEmployee;
         }
 
         private async void ManagerForm_Load(object sender, EventArgs e) {
@@ -82,12 +65,12 @@ namespace WindowsClient {
         }
 
         private async void btnCustomerCreate_Click(object sender, EventArgs e) {
-            await _customerFormsHandler.Create(sharedClient);
+            await _customerFormsHandler.Create(sharedClient, _sessionEmployee);
         }
 
         private async void btnCustomerEdit_Click(object sender, EventArgs e) {
             int customerId = Int32.Parse(grvCustomers.GetRowCellValue(grvCustomers.FocusedRowHandle, "Id").ToString());
-            await _customerFormsHandler.Edit(sharedClient, customerId);
+            await _customerFormsHandler.Edit(sharedClient, customerId, _sessionEmployee);
         }
 
 
@@ -137,12 +120,12 @@ namespace WindowsClient {
         }
 
         private async void btnTransactionCreate_Click(object sender, EventArgs e) {
-            await _transactionFormsHandler.Create(sharedClient);
+            await _transactionFormsHandler.Create(sharedClient, _sessionEmployee);
         }
 
         private async void btnTransactionEdit_Click(object sender, EventArgs e) {
             int transactionId = Int32.Parse(grvTransactions.GetRowCellValue(grvTransactions.FocusedRowHandle, "Id").ToString());
-            await _transactionFormsHandler.Edit(sharedClient, transactionId);
+            await _transactionFormsHandler.Edit(sharedClient, transactionId, _sessionEmployee);
         }
 
         private async void btnTransactionDetails_Click(object sender, EventArgs e) {

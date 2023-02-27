@@ -20,13 +20,19 @@ namespace WindowsClient {
         private List<ItemListDto> _itemList;
         public HttpClient sharedClient;
         private ItemFormsHandler _itemFormsHandler = new();
+        private EmployeeListDto _sessionEmployee;
 
-        public StaffForm(HttpClient sharedClient) {
+        public StaffForm(HttpClient sharedClient, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = sharedClient;
+            _sessionEmployee = sessionEmployee;
         }
 
         private async void StaffForm_Load(object sender, EventArgs e) {
+            await FormInit();
+        }
+
+        public async Task FormInit() {
             await LoadDataFromDb();
             await LoadDataToGrids();
         }
