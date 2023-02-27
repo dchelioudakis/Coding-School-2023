@@ -30,6 +30,7 @@
             this.inputPassword = new DevExpress.XtraEditors.TextEdit();
             this.labelPassword = new DevExpress.XtraEditors.LabelControl();
             this.labelUsername = new DevExpress.XtraEditors.LabelControl();
+            this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.inputUsername.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputPassword.Properties)).BeginInit();
             this.SuspendLayout();
@@ -70,14 +71,14 @@
             // 
             // inputPassword
             // 
-            this.inputPassword.Location = new System.Drawing.Point(291, 259);
+            this.inputPassword.Location = new System.Drawing.Point(291, 250);
             this.inputPassword.Name = "inputPassword";
             this.inputPassword.Size = new System.Drawing.Size(207, 20);
             this.inputPassword.TabIndex = 4;
             // 
             // labelPassword
             // 
-            this.labelPassword.Location = new System.Drawing.Point(294, 240);
+            this.labelPassword.Location = new System.Drawing.Point(294, 231);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(46, 13);
             this.labelPassword.TabIndex = 6;
@@ -91,11 +92,21 @@
             this.labelUsername.TabIndex = 7;
             this.labelUsername.Text = "Username";
             // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(291, 295);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(72, 26);
+            this.btnLogin.TabIndex = 8;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.labelUsername);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.inputPassword);
@@ -121,5 +132,6 @@
         private DevExpress.XtraEditors.TextEdit inputPassword;
         private DevExpress.XtraEditors.LabelControl labelPassword;
         private DevExpress.XtraEditors.LabelControl labelUsername;
+        private DevExpress.XtraEditors.SimpleButton btnLogin;
     }
 }
