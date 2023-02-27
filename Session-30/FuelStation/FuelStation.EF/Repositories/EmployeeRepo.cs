@@ -17,10 +17,10 @@ namespace FuelStation.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new FuelStationDbContext();
-            var dbCoffeShop = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
-            if (dbCoffeShop is null)
+            var dbEmployee = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
+            if (dbEmployee is null)
                 return;
-            context.Remove(dbCoffeShop);
+            context.Remove(dbEmployee);
             context.SaveChanges();
         }
 
@@ -38,15 +38,17 @@ namespace FuelStation.EF.Repositories {
 
         public void Update(int id, Employee entity) {
             using var context = new FuelStationDbContext();
-            var dbCoffeShop = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
-            if (dbCoffeShop is null)
+            var dbEmployee = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
+            if (dbEmployee is null)
                 return;
-            dbCoffeShop.Name = entity.Name;
-            dbCoffeShop.Surname = entity.Surname;
-            dbCoffeShop.SalaryPerMonth = entity.SalaryPerMonth;
-            dbCoffeShop.Type = entity.Type;
-            dbCoffeShop.HireDateStart = entity.HireDateStart;
-            dbCoffeShop.HireDateEnd = entity.HireDateEnd;
+            dbEmployee.Name = entity.Name;
+            dbEmployee.Surname = entity.Surname;
+            dbEmployee.SalaryPerMonth = entity.SalaryPerMonth;
+            dbEmployee.Type = entity.Type;
+            dbEmployee.HireDateStart = entity.HireDateStart;
+            dbEmployee.HireDateEnd = entity.HireDateEnd;
+            dbEmployee.Username = entity.Username;
+            dbEmployee.Password = entity.Password;
             context.SaveChanges();
         }
     }

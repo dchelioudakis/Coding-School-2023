@@ -17,10 +17,10 @@ namespace FuelStation.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new FuelStationDbContext();
-            var dbCoffeShop = context.Transactions.Where(transaction => transaction.Id == id).SingleOrDefault();
-            if (dbCoffeShop is null)
+            var dbTransaction = context.Transactions.Where(transaction => transaction.Id == id).SingleOrDefault();
+            if (dbTransaction is null)
                 return;
-            context.Remove(dbCoffeShop);
+            context.Remove(dbTransaction);
             context.SaveChanges();
         }
 
@@ -49,16 +49,16 @@ namespace FuelStation.EF.Repositories {
 
         public void Update(int id, Transaction entity) {
             using var context = new FuelStationDbContext();
-            var dbCoffeShop = context.Transactions.Where(transaction => transaction.Id == id)
+            var dbTransaction = context.Transactions.Where(transaction => transaction.Id == id)
                 .Include(Transaction => Transaction.TransactionLines).SingleOrDefault();
-            if (dbCoffeShop is null)
+            if (dbTransaction is null)
                 return;
-            dbCoffeShop.Date = entity.Date;
-            dbCoffeShop.TotalValue = entity.TotalValue;
-            dbCoffeShop.PaymentMethod = entity.PaymentMethod;
-            dbCoffeShop.CustomerId = entity.CustomerId;
-            dbCoffeShop.EmployeeId = entity.EmployeeId;
-            dbCoffeShop.TransactionLines = entity.TransactionLines;
+            dbTransaction.Date = entity.Date;
+            dbTransaction.TotalValue = entity.TotalValue;
+            dbTransaction.PaymentMethod = entity.PaymentMethod;
+            dbTransaction.CustomerId = entity.CustomerId;
+            dbTransaction.EmployeeId = entity.EmployeeId;
+            dbTransaction.TransactionLines = entity.TransactionLines;
             context.SaveChanges();
         }
     }

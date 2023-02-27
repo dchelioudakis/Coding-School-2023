@@ -1,10 +1,11 @@
 ﻿@page "/employeelist/edit/{Id:int?}"
 @using FuelStation.Blazor.Shared.DTO.Employee;
 @using FuelStation.Model.Enums;
+@using Microsoft.AspNetCore.Authorization;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
-
+@attribute [Authorize(Roles = "Manager")]
 
 
 @if (Id == null) {
@@ -54,12 +55,21 @@ else {
                 <label class="form-label">Hire End Date</label>
                 <InputDate class="form-control" @bind-Value="@Employee.HireDateEnd" />
             </div>
-            
-            <div class="row mt-2">
-                <div class="col">
-                    <BootstrapButton ButtonType="BootstrapButtonType.Success" IsSubmit="true">Save</BootstrapButton>
-                    <BootstrapButton ButtonType="BootstrapButtonType.Danger" OnClick="OnCancel">Back</BootstrapButton>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="form-label">Username</label>
+                <InputText class="form-control" @bind-Value="@Employee.Username" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Password</label>
+                <InputText class="form-control" type="password" @bind-Value="@Employee.Password" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <BootstrapButton ButtonType="BootstrapButtonType.Success" IsSubmit="true">Save</BootstrapButton>
+                <BootstrapButton ButtonType="BootstrapButtonType.Danger" OnClick="OnCancel">Back</BootstrapButton>
             </div>
         </div>
     </EditForm>

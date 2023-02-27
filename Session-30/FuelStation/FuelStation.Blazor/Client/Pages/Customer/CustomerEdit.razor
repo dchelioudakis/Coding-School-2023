@@ -1,8 +1,10 @@
 ﻿@page "/customerlist/edit/{Id:int?}"
 @using FuelStation.Blazor.Shared.DTO.Customer;
+@using Microsoft.AspNetCore.Authorization;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
+@attribute [Authorize(Roles = "Manager, Cashier")]
 
 <PageTitle>Customer Edit</PageTitle>
 @if (Id is null) {

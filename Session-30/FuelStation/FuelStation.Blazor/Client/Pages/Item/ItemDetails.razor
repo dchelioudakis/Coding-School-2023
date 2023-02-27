@@ -1,10 +1,11 @@
 ﻿@page "/itemlist/details/{Id:int?}"
 @using FuelStation.Blazor.Shared.DTO.Item;
 @using FuelStation.Model.Enums;
+@using Microsoft.AspNetCore.Authorization;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
-
+@attribute [Authorize(Roles = "Manager, Staff")]
 
 
 <h3>Item Details</h3>

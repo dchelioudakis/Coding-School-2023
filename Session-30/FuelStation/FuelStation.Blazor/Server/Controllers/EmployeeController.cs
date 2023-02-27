@@ -56,6 +56,8 @@ namespace FuelStation.Blazor.Server.Controllers {
                 HireDateEnd = result.HireDateEnd,
                 SalaryPerMonth = result.SalaryPerMonth,
                 Type = result.Type,
+                Username = result.Username,
+                Password = result.Password,
             };
             return employee;
         }
@@ -67,6 +69,8 @@ namespace FuelStation.Blazor.Server.Controllers {
                 HireDateStart = employee.HireDateStart,
                 HireDateEnd = employee.HireDateEnd,
                 SalaryPerMonth = employee.SalaryPerMonth,
+                Username = employee.Username,
+                Password = employee.Password,
             };
             await Task.Run(() => { _employeeRepo.Add(newEmployee); });
             return Ok();
@@ -98,6 +102,8 @@ namespace FuelStation.Blazor.Server.Controllers {
             dbEmployee.HireDateEnd = employee.HireDateEnd;
             dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
             dbEmployee.Type = employee.Type;
+            dbEmployee.Username = employee.Username;
+            dbEmployee.Password = employee.Password;
             _employeeRepo.Update(employee.Id, dbEmployee);
         }
 

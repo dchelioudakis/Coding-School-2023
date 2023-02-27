@@ -3,6 +3,9 @@
 @inject IJSRuntime jsRuntime
 @page "/itemlist"
 @using FuelStation.Blazor.Shared.DTO.Item;
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "Manager, Staff")]
+
 <h3>Items</h3>
 
 @if (isLoading) {

@@ -3,6 +3,10 @@
 @inject IJSRuntime jsRuntime
 @page "/employeelist"
 @using FuelStation.Blazor.Shared.DTO.Employee;
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "Manager")]
+
+
 <h3>Employees</h3>
 
 @if (isLoading) {

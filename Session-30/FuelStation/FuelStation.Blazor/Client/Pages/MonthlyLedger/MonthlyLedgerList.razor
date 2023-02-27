@@ -2,7 +2,11 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 @using FuelStation.Model
+@using Microsoft.AspNetCore.Authorization;
 @page "/monthlyLedger"
+@attribute [Authorize(Roles = "Manager")]
+
+
 <h3>Monthly Ledger</h3>
 
 @if (isLoading) {

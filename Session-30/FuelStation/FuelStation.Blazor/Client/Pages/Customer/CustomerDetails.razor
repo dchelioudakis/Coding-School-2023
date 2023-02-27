@@ -1,9 +1,10 @@
 ﻿@page "/customerlist/details/{Id:int?}"
 @using FuelStation.Blazor.Shared.DTO.Customer;
-
+@using Microsoft.AspNetCore.Authorization;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
+@attribute [Authorize(Roles = "Manager, Cashier")]
 
 <PageTitle>Customer Details</PageTitle>
 <h3>Customer Details</h3>

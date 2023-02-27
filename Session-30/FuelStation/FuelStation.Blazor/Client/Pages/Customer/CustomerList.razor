@@ -3,8 +3,11 @@
 @inject NavigationManager navigationManager
 @using System.Net.Http.Json
 @using FuelStation.Blazor.Shared.DTO.Customer;
+@using Microsoft.AspNetCore.Authorization;
 @inject IJSRuntime jsRuntime
 @page "/customerlist"
+@attribute [Authorize(Roles = "Manager, Cashier")]
+
 
 <PageTitle>Customers</PageTitle>
 
