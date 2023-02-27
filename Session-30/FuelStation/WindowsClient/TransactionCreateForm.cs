@@ -5,6 +5,7 @@ using FuelStation.Blazor.Shared.DTO.TransactionLine;
 using FuelStation.Model.Enums;
 using Newtonsoft.Json;
 using System.Net.Http;
+using WindowsClient.ParentFormReload;
 using WindowsClient.WindowsApiCalls;
 
 namespace WindowsClient {
@@ -18,6 +19,7 @@ namespace WindowsClient {
         private CustomerCaller _customerCaller = new();
         private TransactionCaller _transactionCaller = new();
         private EmployeeListDto _sessionEmployee;
+        private ParentFormReloader _parentFormReloader = new();
         private decimal totalQuantity;
         private decimal totalDiscount;
         private decimal preDiscountTotalPrice;
@@ -114,9 +116,7 @@ namespace WindowsClient {
                         return;
                     }
                 }
-                
                 grvTransactionLines.SetRowCellValue(rowHandle, "ItemPrice", Math.Round(item.Price, 2));
-               
             }
             else {
                 MessageBox.Show("Item Not Found");
@@ -251,25 +251,13 @@ namespace WindowsClient {
             RemoveLine();
         }
 
-
         private async Task CompleteTransaction() {
             _transaction.Date = DateTime.Now;
             _transaction.TransactionLines = _transactionLines;
             await _transactionCaller.PostAsJsonAsync(sharedClient, _transaction);
+            await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
             this.Close();
         }
 
-        private async Task ReloadParentForm(EmployeeType employeeType) {
-            if(employeeType == EmployeeType.Manager) {
-                if (Application.OpenForms["managerForm"] != null) {
-                    await (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
-                }
-            }
-            else if(employeeType == EmployeeType.Cashier) {
-                if (Application.OpenForms["cashierForm"] != null) {
-                    await (Application.OpenForms["cashierForm"] as CashierForm).FormInit();
-                }
-            }
-        }
     }
 }

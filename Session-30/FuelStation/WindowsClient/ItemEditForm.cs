@@ -1,14 +1,20 @@
-﻿using FuelStation.Blazor.Shared.DTO.Item;
+﻿using FuelStation.Blazor.Shared.DTO.Employee;
+using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Model.Enums;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Json;
+using WindowsClient.ParentFormReload;
+using WindowsClient.WindowsApiCalls;
 
 namespace WindowsClient {
     public partial class ItemEditForm : Form {
         private ItemEditDto _item;
         private int? _itemId;
         public HttpClient sharedClient;
+        private ItemCaller _itemCaller = new();
+        private ParentFormReloader _parentFormReloader = new();
+        private EmployeeListDto _sessionEmployee;
 
         public ItemEditForm(HttpClient sharedClient, int? itemId) {
             InitializeComponent();
@@ -34,32 +40,17 @@ namespace WindowsClient {
 
         private async void btnEditItemSave_Click(object sender, EventArgs e) {
             if (_item.Id == 0) {
-                await PostAsJsonAsync(sharedClient, _item);
+                await _itemCaller.PostAsJsonAsync(sharedClient, _item);
             }
             else {
-                await PutAsJsonAsync(sharedClient, _item);
+                await _itemCaller.PutAsJsonAsync(sharedClient, _item);
             }
+            await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
             this.Close();
         }
 
         private void btnEditItemCancel_Click(object sender, EventArgs e) {
             this.Close();
-        }
-
-        private async Task PostAsJsonAsync(HttpClient httpClient, ItemEditDto item) {
-            using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Item", item);
-            response.EnsureSuccessStatusCode();
-            if (Application.OpenForms["managerForm"] != null) {
-                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
-            }
-        }
-
-        private async Task PutAsJsonAsync(HttpClient httpClient, ItemEditDto item) {
-            using HttpResponseMessage response = await httpClient.PutAsJsonAsync("Item", item);
-            response.EnsureSuccessStatusCode();
-            if (Application.OpenForms["managerForm"] != null) {
-                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
-            }
         }
     }
 }

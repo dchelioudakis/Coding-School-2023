@@ -26,5 +26,10 @@ namespace WindowsClient.WindowsApiCalls {
             using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Transaction", transaction);
             response.EnsureSuccessStatusCode();
         }
+
+        public async Task PutAsJsonAsync(HttpClient httpClient, TransactionEditDto transaction) {
+            using HttpResponseMessage response = await httpClient.PutAsJsonAsync("Transaction", transaction);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

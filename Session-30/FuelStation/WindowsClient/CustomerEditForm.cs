@@ -48,7 +48,7 @@ namespace WindowsClient {
             else {
                 await _customerCaller.PutAsJsonAsync(sharedClient, _customer); 
             }
-            _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
+            await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
             this.Close();
         }
 

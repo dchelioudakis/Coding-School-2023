@@ -1,23 +1,12 @@
-﻿using DevExpress.XtraScheduler.Outlook.Interop;
-using FuelStation.Blazor.Shared.DTO.Employee;
+﻿using FuelStation.Blazor.Shared.DTO.Employee;
 using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
-using FuelStation.Model;
 using FuelStation.Model.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using WindowsClient.ParentFormReload;
 using WindowsClient.WindowsApiCalls;
 
 namespace WindowsClient {
@@ -27,12 +16,15 @@ namespace WindowsClient {
         private List<TransactionLineEditDto> _transactionLines;
         private List<ItemListDto> _itemsList;
         private EmployeeCaller _employeeCaller = new();
+        private ItemCaller _itemCaller = new();
+        private TransactionCaller _transactionCaller = new();
+        private EmployeeListDto _sessionEmployee;
+        private ParentFormReloader _parentFormReloader = new();
+
         private int? _transactionId;
         private bool fuelProductInTransaction = false;
         private int? fuelRowIndex = null;
-        private EmployeeListDto _sessionEmployee;
-
-
+        
         public TransactionEditForm(HttpClient httpClient, int? transactionId, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = httpClient;
@@ -75,21 +67,13 @@ namespace WindowsClient {
         }
 
         private async Task LoadDataFromDb() {
-            _itemsList = await GetItemsAsync(sharedClient);
+            _itemsList = await _itemCaller.GetItemsAsync(sharedClient);
         }
 
         private void inputTransactionCustomerId_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyValue == 13) {
                 FindCustomer();
             }
-        }
-
-        private async Task<List<ItemListDto>> GetItemsAsync(HttpClient httpClient) {
-            using HttpResponseMessage response = await httpClient.GetAsync("Item");
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<ItemListDto>>(jsonResponse);
         }
 
         private void grvTransactionLines_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e) {
@@ -211,16 +195,9 @@ namespace WindowsClient {
             }
         }
 
-        private async Task PutAsJsonAsync(HttpClient httpClient, TransactionEditDto transaction) {
-            using HttpResponseMessage response = await httpClient.PutAsJsonAsync("Transaction", transaction);
-            response.EnsureSuccessStatusCode();
-            if (Application.OpenForms["managerForm"] != null) {
-                (Application.OpenForms["managerForm"] as ManagerForm).FormInit();
-            }
-        }
-
         private async void btnSaveChanges_Click(object sender, EventArgs e) {
-            await PutAsJsonAsync(sharedClient, _transaction);
+            await _transactionCaller.PutAsJsonAsync(sharedClient, _transaction);
+            await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
             this.Close();
         }
 
