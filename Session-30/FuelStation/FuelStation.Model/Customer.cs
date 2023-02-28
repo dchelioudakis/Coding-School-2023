@@ -1,4 +1,8 @@
-﻿namespace FuelStation.Model {
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+
+namespace FuelStation.Model {
+    [Index(nameof(CardNumber), IsUnique = true)]
     public class Customer {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -8,10 +12,9 @@
         //Relations
         public List<Transaction> Transactions { get; set; }
 
-        public Customer(string name, string surname, string cardNumber) {
+        public Customer(string name, string surname) {
             Name = name;
             Surname = surname;
-            CardNumber = cardNumber;
         }
     }
 }

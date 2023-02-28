@@ -20,7 +20,7 @@ namespace FuelStation.EF.Configurations {
             // Properties
             builder.Property(t => t.Name).HasMaxLength(50).IsRequired();
             builder.Property(t => t.Surname).HasMaxLength(100).IsRequired();
-            builder.Property(t => t.CardNumber).HasMaxLength(10).IsRequired();
+            builder.Property(t => t.CardNumber).HasMaxLength(15).IsRequired();
 
             // Relations
 

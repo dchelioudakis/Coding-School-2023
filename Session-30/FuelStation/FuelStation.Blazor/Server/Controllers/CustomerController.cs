@@ -1,12 +1,10 @@
-﻿using FuelStation.EF.Repositories;
-using FuelStation.Model;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Data.Common;
+﻿using CustomerCardGeneration;
 using FuelStation.Blazor.Shared.DTO.Customer;
-using FuelStation.Blazor.Shared.DTO.TransactionLine;
 using FuelStation.Blazor.Shared.DTO.Transaction;
+using FuelStation.EF.Repositories;
+using FuelStation.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Blazor.Server.Controllers {
     [Route("[controller]")]
@@ -83,9 +81,23 @@ namespace FuelStation.Blazor.Server.Controllers {
         // POST /<EmployeeController>
         [HttpPost]
         public async Task<ActionResult> Post(CustomerEditDto customer) {
-            var newCustomer = new Customer(customer.Name, customer.Surname, customer.CardNumber);
-            await Task.Run(() => { _customerRepo.Add(newCustomer); });
-            return Ok();
+            CustomerCardGenerator customerCardGenerator = new();
+
+            var newCustomer = new Customer(customer.Name, customer.Surname) {
+                CardNumber = customerCardGenerator.GenerateCardNumber()
+                //CardNumber = "A123456"
+            };
+            try {
+                await Task.Run(() => { _customerRepo.Add(newCustomer); });
+                return Ok(newCustomer.Id);
+            }
+            catch (DbUpdateException exception) 
+            when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
+                return BadRequest("Please try again");
+            }
+            
+
+            
             //if (_validator.ValidateAddCustomer(_customerRepo.GetAll().ToList(), out _errorMessage)) {
             //    try {
             //        await Task.Run(() => { _customerRepo.Add(newCustomer); });
@@ -110,7 +122,7 @@ namespace FuelStation.Blazor.Server.Controllers {
             }
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
-            dbCustomer.CardNumber = customer.CardNumber;
+            //dbCustomer.CardNumber = customer.CardNumber;
             _customerRepo.Update(customer.Id, dbCustomer);
         }
 

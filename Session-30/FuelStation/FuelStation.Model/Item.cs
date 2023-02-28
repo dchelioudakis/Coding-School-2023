@@ -1,12 +1,8 @@
 ﻿using FuelStation.Model.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Model {
+    [Index(nameof(Code), IsUnique = true)]
     public class Item {
         public int Id { get; set; }
         public string Code { get; set; }

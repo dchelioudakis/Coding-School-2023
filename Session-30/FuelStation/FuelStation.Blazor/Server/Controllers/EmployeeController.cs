@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Blazor.Server.Controllers {
     [Route("[controller]")]
@@ -72,8 +73,15 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Username = employee.Username,
                 Password = employee.Password,
             };
-            await Task.Run(() => { _employeeRepo.Add(newEmployee); });
-            return Ok();
+            try {
+                await Task.Run(() => { _employeeRepo.Add(newEmployee); });
+                return Ok();
+            }
+            catch (DbUpdateException exception)
+            when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
+                return BadRequest("Username already in use");
+            }
+            
             //if (_validator.ValidateAddCustomer(_customerRepo.GetAll().ToList(), out _errorMessage)) {
             //    try {
             //        await Task.Run(() => { _customerRepo.Add(newCustomer); });
@@ -90,11 +98,11 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // PUT /<CustomersController>/5
         [HttpPut]
-        public async Task Put(EmployeeEditDto employee) {
+        public async Task<ActionResult> Put(EmployeeEditDto employee) {
             var dbEmployee = await Task.Run(() => { return _employeeRepo.GetById(employee.Id); });
             if (dbEmployee == null) {
                 // TODO if customer is null
-                return;
+                return BadRequest("Error retrieving customer from DB");
             }
             dbEmployee.Name = employee.Name;
             dbEmployee.Surname = employee.Surname;
@@ -104,7 +112,16 @@ namespace FuelStation.Blazor.Server.Controllers {
             dbEmployee.Type = employee.Type;
             dbEmployee.Username = employee.Username;
             dbEmployee.Password = employee.Password;
-            _employeeRepo.Update(employee.Id, dbEmployee);
+
+            try {
+                await Task.Run(() => { _employeeRepo.Update(employee.Id, dbEmployee); });
+                return Ok();
+            }
+            catch (DbUpdateException exception)
+            when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
+                return BadRequest("Username already in use");
+            }
+            
         }
 
         // DELETE /<CustomersController>/5

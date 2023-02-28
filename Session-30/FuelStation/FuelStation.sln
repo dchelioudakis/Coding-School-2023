@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.EF", "FuelStati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsClient", "WindowsClient\WindowsClient.csproj", "{FE45FAAB-4F9A-49DE-ACBF-478B06D27431}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerializeLib", "SerializeLib\SerializeLib.csproj", "{35765A4A-A160-4BD8-B266-7A6815722CF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCardGeneration", "CustomerCardGenerator\CustomerCardGeneration.csproj", "{D45F1EFB-DE32-47EF-9725-6F215ABB63F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +50,10 @@ Global
 		{FE45FAAB-4F9A-49DE-ACBF-478B06D27431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE45FAAB-4F9A-49DE-ACBF-478B06D27431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE45FAAB-4F9A-49DE-ACBF-478B06D27431}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35765A4A-A160-4BD8-B266-7A6815722CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35765A4A-A160-4BD8-B266-7A6815722CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35765A4A-A160-4BD8-B266-7A6815722CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35765A4A-A160-4BD8-B266-7A6815722CF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D45F1EFB-DE32-47EF-9725-6F215ABB63F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D45F1EFB-DE32-47EF-9725-6F215ABB63F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D45F1EFB-DE32-47EF-9725-6F215ABB63F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D45F1EFB-DE32-47EF-9725-6F215ABB63F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

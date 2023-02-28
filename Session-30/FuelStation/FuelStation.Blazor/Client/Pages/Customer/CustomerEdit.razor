@@ -1,6 +1,8 @@
 ﻿@page "/customerlist/edit/{Id:int?}"
 @using FuelStation.Blazor.Shared.DTO.Customer;
 @using Microsoft.AspNetCore.Authorization;
+@using System.Text.Json;
+@using System.Xml.Serialization;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
@@ -76,7 +78,8 @@
             response = await httpClient.PutAsJsonAsync("Customer", Customer);
         }
         if (response.IsSuccessStatusCode) {
-            navigationManager.NavigateTo("/customerlist");
+            var newCustomerId = Int32.Parse(response.Content.ReadAsStringAsync().Result);
+            navigationManager.NavigateTo($"customerlist/details/{newCustomerId}");
         } else {
             var error = await response.Content.ReadAsStringAsync();
             await jsRuntime.InvokeVoidAsync("alert", error);
