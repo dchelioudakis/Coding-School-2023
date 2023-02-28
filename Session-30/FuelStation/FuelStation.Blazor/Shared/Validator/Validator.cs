@@ -20,13 +20,17 @@ namespace CoffeShop.Web.Blazor.Shared {
         public bool ValidateAddEmployee(EmployeeType type, List<Employee> employees, out String errorMessage) {
             errorMessage = "Succeed ";
             bool ret = true;
-            var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier);
-            var staffs = employees.Where(e => e.Type == EmployeeType.Staff);
+            var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier)
+                .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                .Where(e => e.HireDateStart <= DateTime.Now);
+            var staffs = employees.Where(e => e.Type == EmployeeType.Staff)
+                .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                .Where(e => e.HireDateStart <= DateTime.Now);
             var managers = employees.Where(e => e.Type == EmployeeType.Manager)
                 .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
                 .Where(e => e.HireDateStart <= DateTime.Now);
            
-            if (type == EmployeeType.Manager && managers.Count() == ManagersLimits.Max) {
+            if (type == EmployeeType.Manager && managers.Count() >= ManagersLimits.Max) {
                 ret = false;
                 errorMessage = $"You have already {ManagersLimits.Max} Managers. Max number of managers is {ManagersLimits.Max}";
             }
@@ -36,7 +40,7 @@ namespace CoffeShop.Web.Blazor.Shared {
             }
             else if(type == EmployeeType.Staff && staffs.Count() >= StaffLimits.Max) {
                 ret = false;
-                errorMessage = $"You have already {StaffLimits.Max} Baristas. Max number of Baristas is {StaffLimits.Max}";
+                errorMessage = $"You have already {StaffLimits.Max} Staff. Max number of Staff is {StaffLimits.Max}";
             }
             return ret;
         }
@@ -47,21 +51,25 @@ namespace CoffeShop.Web.Blazor.Shared {
             if (dbEmployee == null) {
                 ret = false;
             } else if (NewType != dbEmployee.Type) {
-                var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier);
-                var staffs = employees.Where(e => e.Type == EmployeeType.Staff);
+                var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier)
+                    .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                    .Where(e => e.HireDateStart <= DateTime.Now);
+                var staffs = employees.Where(e => e.Type == EmployeeType.Staff)
+                    .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                    .Where(e => e.HireDateStart <= DateTime.Now);
                 var managers = employees.Where(e => e.Type == EmployeeType.Manager)
-                .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
-                .Where(e => e.HireDateStart <= DateTime.Now);
+                    .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                    .Where(e => e.HireDateStart <= DateTime.Now);
                 if (NewType == EmployeeType.Manager && managers.Count() >= ManagersLimits.Max) {
                     errorMessage = $"You have already {ManagersLimits.Max} Managers. Max number of managers is {ManagersLimits.Max}";
                     ret = false;
                 }
                 else if(NewType == EmployeeType.Cashier && cashiers.Count() >= CashiersLimits.Max) {
-                    errorMessage = $"You have already {CashiersLimits.Max} cashiers. Max number of cashiers is {CashiersLimits.Max}";
+                    errorMessage = $"You have already {CashiersLimits.Max} Cashiers. Max number of Cashiers is {CashiersLimits.Max}";
                     ret = false;
                 }
                 else if(NewType == EmployeeType.Staff && staffs.Count() >= StaffLimits.Max) {
-                    errorMessage = $"You have already {StaffLimits.Max} Baristas. Max number of Baristas is {StaffLimits.Max}";
+                    errorMessage = $"You have already {StaffLimits.Max} Staff. Max number of Staff is {StaffLimits.Max}";
                     ret = false;
                 }
             }
@@ -71,8 +79,12 @@ namespace CoffeShop.Web.Blazor.Shared {
         public bool ValidateDeleteEmployee(EmployeeType type, List<Employee> employees, out String errorMessage) {
             bool ret = true;
             errorMessage = "Succeed ";
-            var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier);
-            var staffs = employees.Where(e => e.Type == EmployeeType.Staff);
+            var cashiers = employees.Where(e => e.Type == EmployeeType.Cashier)
+                .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                .Where(e => e.HireDateStart <= DateTime.Now);
+            var staffs = employees.Where(e => e.Type == EmployeeType.Staff)
+                .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
+                .Where(e => e.HireDateStart <= DateTime.Now);
             var managers = employees.Where(e => e.Type == EmployeeType.Manager)
                 .Where(e => e.HireDateEnd >= DateTime.Now || e.HireDateEnd == null)
                 .Where(e => e.HireDateStart <= DateTime.Now);
@@ -85,7 +97,7 @@ namespace CoffeShop.Web.Blazor.Shared {
                 ret = false;
             }
             else if(type == EmployeeType.Staff && staffs.Count() <= StaffLimits.Min) {
-                errorMessage = $"You have only {StaffLimits.Min} Barista. Min number of Baristas is {StaffLimits.Min}";
+                errorMessage = $"You have only {StaffLimits.Min} Staff. Min number of Staff is {StaffLimits.Min}";
                 ret = false;
             }
           

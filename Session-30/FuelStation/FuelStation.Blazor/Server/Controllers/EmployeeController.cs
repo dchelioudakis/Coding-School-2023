@@ -1,12 +1,8 @@
-﻿using FuelStation.EF.Repositories;
+﻿using FuelStation.Blazor.Shared.DTO.Employee;
+using FuelStation.Blazor.Shared.Validator;
+using FuelStation.EF.Repositories;
 using FuelStation.Model;
-using FuelStation.Model.Enums;
-using FuelStation.Blazor.Shared.DTO.Employee;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Blazor.Server.Controllers {
@@ -16,13 +12,13 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // Properties
         private readonly IEntityRepo<Employee> _employeeRepo;
-        //private readonly IValidator _validator;
+        private readonly IValidator _validator;
         private string _errorMessage;
 
         // Constructors
-        public EmployeeController(IEntityRepo<Employee> employeeRepo) {
+        public EmployeeController(IEntityRepo<Employee> employeeRepo, IValidator validator) {
             _employeeRepo = employeeRepo;
-            //_validator = validator;
+            _validator = validator;
             _errorMessage = string.Empty;
         }
 
@@ -73,27 +69,19 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Username = employee.Username,
                 Password = employee.Password,
             };
-            try {
-                await Task.Run(() => { _employeeRepo.Add(newEmployee); });
-                return Ok();
+            if (_validator.ValidateAddEmployee(newEmployee.Type, _employeeRepo.GetAll().ToList(), out _errorMessage)) {
+                try {
+                    await Task.Run(() => { _employeeRepo.Add(newEmployee); });
+                    return Ok();
+                }
+                catch (DbUpdateException exception)
+                    when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
+                    return BadRequest("Username already in use");
+                }
             }
-            catch (DbUpdateException exception)
-            when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
-                return BadRequest("Username already in use");
+            else {
+                return BadRequest(_errorMessage);
             }
-            
-            //if (_validator.ValidateAddCustomer(_customerRepo.GetAll().ToList(), out _errorMessage)) {
-            //    try {
-            //        await Task.Run(() => { _customerRepo.Add(newCustomer); });
-            //        return Ok();
-            //    }
-            //    catch (DbException ex) {
-            //        return BadRequest(ex.Message);
-            //    }
-            //}
-            //else {
-            //    return BadRequest(_errorMessage);
-            //}
         }
 
         // PUT /<CustomersController>/5
@@ -101,35 +89,50 @@ namespace FuelStation.Blazor.Server.Controllers {
         public async Task<ActionResult> Put(EmployeeEditDto employee) {
             var dbEmployee = await Task.Run(() => { return _employeeRepo.GetById(employee.Id); });
             if (dbEmployee == null) {
-                // TODO if customer is null
                 return BadRequest("Error retrieving customer from DB");
             }
-            dbEmployee.Name = employee.Name;
-            dbEmployee.Surname = employee.Surname;
-            dbEmployee.HireDateStart = employee.HireDateStart;
-            dbEmployee.HireDateEnd = employee.HireDateEnd;
-            dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
-            dbEmployee.Type = employee.Type;
-            dbEmployee.Username = employee.Username;
-            dbEmployee.Password = employee.Password;
+            else if (_validator.ValidateUpdateEmployee(employee.Type, dbEmployee, _employeeRepo.GetAll().ToList(), out _errorMessage)) {
+                dbEmployee.Name = employee.Name;
+                dbEmployee.Surname = employee.Surname;
+                dbEmployee.HireDateStart = employee.HireDateStart;
+                dbEmployee.HireDateEnd = employee.HireDateEnd;
+                dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
+                dbEmployee.Type = employee.Type;
+                dbEmployee.Username = employee.Username;
+                dbEmployee.Password = employee.Password;
+                try {
+                    await Task.Run(() => { _employeeRepo.Update(employee.Id, dbEmployee); });
+                    return Ok();
+                }
+                catch (DbUpdateException exception)
+                    when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
+                    return BadRequest("Username already in use");
+                }
+            }
+            else {
+                return BadRequest(_errorMessage);
+            }
 
-            try {
-                await Task.Run(() => { _employeeRepo.Update(employee.Id, dbEmployee); });
-                return Ok();
-            }
-            catch (DbUpdateException exception)
-            when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
-                return BadRequest("Username already in use");
-            }
-            
         }
 
         // DELETE /<CustomersController>/5
         [HttpDelete("{id}")]
-        public async Task Delete(int id) {
-            await Task.Run(() => {
-                _employeeRepo.Delete(id);
-            });
+        public async Task<ActionResult> Delete(int id) {
+            var employees = _employeeRepo.GetAll().ToList();
+            if (_validator.ValidateDeleteEmployee(employees.Where(e => e.Id == id).Single().Type, employees, out _errorMessage)) {
+                try {
+                    await Task.Run(() => { _employeeRepo.Delete(id); });
+                }
+                catch (DbUpdateException) {
+                    return BadRequest($"Could not delete this employee because it has transactions");
+                }
+                catch (KeyNotFoundException) {
+                    return BadRequest($"Employee not found");
+                }
+                return Ok();
+            }
+            return BadRequest(_errorMessage);
+            
         }
     }
 }

@@ -1,4 +1,6 @@
+using CoffeShop.Web.Blazor.Shared;
 using FuelStation.Blazor.Server.Authentication;
+using FuelStation.Blazor.Shared.Validator;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +14,7 @@ builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
+builder.Services.AddScoped<IValidator, Validator>();
 
 // Add services to the container.
 
