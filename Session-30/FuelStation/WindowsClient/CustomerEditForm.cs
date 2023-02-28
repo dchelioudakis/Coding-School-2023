@@ -43,6 +43,7 @@ namespace WindowsClient {
 
         private async void btnNewCustomerSave_Click(object sender, EventArgs e) {
             if(_customer.Id == 0) {
+                _customer.CardNumber = "";
                 await _customerCaller.PostAsJsonAsync(sharedClient, _customer);
             }
             else {

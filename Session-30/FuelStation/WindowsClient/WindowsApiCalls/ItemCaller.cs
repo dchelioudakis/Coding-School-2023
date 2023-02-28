@@ -24,7 +24,9 @@ namespace WindowsClient.WindowsApiCalls {
 
         public async Task PostAsJsonAsync(HttpClient httpClient, ItemEditDto item) {
             using HttpResponseMessage response = await httpClient.PostAsJsonAsync("Item", item);
-            response.EnsureSuccessStatusCode();
+            
+            //response.EnsureSuccessStatusCode();
+            
         }
 
         public async Task PutAsJsonAsync(HttpClient httpClient, ItemEditDto item) {

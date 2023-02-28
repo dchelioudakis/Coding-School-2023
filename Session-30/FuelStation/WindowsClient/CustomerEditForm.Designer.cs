@@ -102,6 +102,7 @@
             this.inputCustomerCardNumber.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerEditDtoBindingSource, "CardNumber", true));
             this.inputCustomerCardNumber.Location = new System.Drawing.Point(19, 146);
             this.inputCustomerCardNumber.Name = "inputCustomerCardNumber";
+            this.inputCustomerCardNumber.Properties.ReadOnly = true;
             this.inputCustomerCardNumber.Size = new System.Drawing.Size(173, 20);
             this.inputCustomerCardNumber.TabIndex = 6;
             // 
@@ -113,7 +114,7 @@
             this.labelControl3.TabIndex = 7;
             this.labelControl3.Text = "Card Number";
             // 
-            // EditCustomerForm
+            // CustomerEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -129,7 +130,7 @@
             this.Controls.Add(this.btnNewCustomerSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "EditCustomerForm";
+            this.Name = "CustomerEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Customer";
             this.Load += new System.EventHandler(this.EditCustomerForm_Load);

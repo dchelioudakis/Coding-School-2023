@@ -47,12 +47,12 @@ namespace WindowsClient {
         }
 
         private async void btnItemCreate_Click(object sender, EventArgs e) {
-            await _itemFormsHandler.Create(sharedClient);
+            await _itemFormsHandler.Create(sharedClient, _sessionEmployee);
         }
 
         private async void btnItemEdit_Click(object sender, EventArgs e) {
             int itemId = Int32.Parse(grvItems.GetRowCellValue(grvItems.FocusedRowHandle, "Id").ToString());
-            await _itemFormsHandler.Edit(sharedClient, itemId);
+            await _itemFormsHandler.Edit(sharedClient, itemId, _sessionEmployee);
         }
 
         private async void btnItemDetails_Click(object sender, EventArgs e) {

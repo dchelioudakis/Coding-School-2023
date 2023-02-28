@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuelStation.Blazor.Shared.DTO.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,14 +12,14 @@ namespace WindowsClient.WindowsFormsOperations {
 
         }
 
-        public async Task Create(HttpClient httpClient) {
-            ItemEditForm newItemForm = new ItemEditForm(httpClient, null);
+        public async Task Create(HttpClient httpClient, EmployeeListDto sessionEmployee) {
+            ItemEditForm newItemForm = new ItemEditForm(httpClient, null, sessionEmployee);
             newItemForm.Text = "Create Item";
             newItemForm.ShowDialog();
         }
 
-        public async Task Edit(HttpClient httpClient, int itemId) {
-            ItemEditForm editItemForm = new ItemEditForm(httpClient, itemId);
+        public async Task Edit(HttpClient httpClient, int itemId, EmployeeListDto sessionEmployee) {
+            ItemEditForm editItemForm = new ItemEditForm(httpClient, itemId, sessionEmployee);
             editItemForm.Text = "Edit Item";
             editItemForm.ShowDialog();
         }

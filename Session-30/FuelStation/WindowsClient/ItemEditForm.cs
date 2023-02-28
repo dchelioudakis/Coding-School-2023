@@ -16,10 +16,11 @@ namespace WindowsClient {
         private ParentFormReloader _parentFormReloader = new();
         private EmployeeListDto _sessionEmployee;
 
-        public ItemEditForm(HttpClient sharedClient, int? itemId) {
+        public ItemEditForm(HttpClient sharedClient, int? itemId, EmployeeListDto sessionEmployee) {
             InitializeComponent();
             this.sharedClient = sharedClient;
             _itemId = itemId;
+            _sessionEmployee = sessionEmployee;
         }
 
         private async void EditItemForm_Load(object sender, EventArgs e) {
@@ -39,14 +40,27 @@ namespace WindowsClient {
         }
 
         private async void btnEditItemSave_Click(object sender, EventArgs e) {
-            if (_item.Id == 0) {
-                await _itemCaller.PostAsJsonAsync(sharedClient, _item);
+            try {
+                if (_item.Id == 0) {
+                    await _itemCaller.PostAsJsonAsync(sharedClient, _item);
+                }
+                else {
+                    await _itemCaller.PutAsJsonAsync(sharedClient, _item);
+                }
+                await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
+                
             }
-            else {
-                await _itemCaller.PutAsJsonAsync(sharedClient, _item);
+            catch (Exception ex) {
+                MessageBox.Show("Product Code Already in use");
+
+                throw;
+                
             }
-            await _parentFormReloader.ReloadParentForm(_sessionEmployee.Type);
+
             this.Close();
+
+
+
         }
 
         private void btnEditItemCancel_Click(object sender, EventArgs e) {

@@ -85,11 +85,12 @@
             // inputTransactionEmployeeId
             // 
             this.inputTransactionEmployeeId.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.transactionEditDtoBindingSource, "EmployeeId", true));
-            this.inputTransactionEmployeeId.Location = new System.Drawing.Point(12, 140);
+            this.inputTransactionEmployeeId.Location = new System.Drawing.Point(186, 30);
             this.inputTransactionEmployeeId.Name = "inputTransactionEmployeeId";
             this.inputTransactionEmployeeId.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.inputTransactionEmployeeId.Properties.PopupView = this.gridView1;
+            this.inputTransactionEmployeeId.Properties.ReadOnly = true;
             this.inputTransactionEmployeeId.Size = new System.Drawing.Size(161, 20);
             this.inputTransactionEmployeeId.TabIndex = 1;
             // 
@@ -131,7 +132,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(12, 121);
+            this.labelControl2.Location = new System.Drawing.Point(186, 11);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(46, 13);
             this.labelControl2.TabIndex = 6;
@@ -380,7 +381,7 @@
             // 
             this.btnDeleteTransactionLine.Appearance.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDeleteTransactionLine.Appearance.Options.UseBackColor = true;
-            this.btnDeleteTransactionLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.btnDeleteTransactionLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteTransactionLine.ImageOptions.SvgImage")));
             this.btnDeleteTransactionLine.ImageOptions.SvgImageSize = new System.Drawing.Size(20, 20);
             this.btnDeleteTransactionLine.Location = new System.Drawing.Point(254, 177);
             this.btnDeleteTransactionLine.Name = "btnDeleteTransactionLine";
@@ -483,7 +484,7 @@
             this.inputTransactionTotalDiscount.Size = new System.Drawing.Size(79, 18);
             this.inputTransactionTotalDiscount.TabIndex = 10;
             // 
-            // NewTransactionForm
+            // TransactionCreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -504,7 +505,7 @@
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelTransactionCustomerId);
             this.Controls.Add(this.inputTransactionEmployeeId);
-            this.Name = "NewTransactionForm";
+            this.Name = "TransactionCreateForm";
             this.Text = "New Transaction";
             this.Load += new System.EventHandler(this.NewTransactionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inputTransactionEmployeeId.Properties)).EndInit();

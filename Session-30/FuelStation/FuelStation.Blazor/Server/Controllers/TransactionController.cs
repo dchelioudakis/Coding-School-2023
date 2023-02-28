@@ -90,7 +90,7 @@ namespace FuelStation.Blazor.Server.Controllers {
                 }).ToList()
             };
             
-            if (_validator.ValidateTransaction(newTransaction, _itemRepo.GetAll().ToList(), out _errorMessage)) {
+            //if (_validator.ValidateTransaction(newTransaction, _itemRepo.GetAll().ToList(), out _errorMessage)) {
                 try {
                     await Task.Run(() => { _transactionRepo.Add(newTransaction); });
                     return Ok();
@@ -98,10 +98,10 @@ namespace FuelStation.Blazor.Server.Controllers {
                 catch (DbException ex) {
                     return BadRequest(ex.Message);
                 }
-            }
-            else {
-                return BadRequest(_errorMessage);
-            }
+            //}
+            //else {
+                //return BadRequest(_errorMessage);
+            //}
             
         }
 

@@ -31,6 +31,7 @@ namespace WindowsClient {
             InitializeComponent();
             this.sharedClient = httpClient;
             this._sessionEmployee = sessionEmployee;
+            _transaction.EmployeeId = sessionEmployee.Id;
         }
 
         private async void NewTransactionForm_Load(object sender, EventArgs e) {

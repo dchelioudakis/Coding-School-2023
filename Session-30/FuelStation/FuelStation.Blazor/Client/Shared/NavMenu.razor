@@ -1,7 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using FuelStation.Blazor.Client.Authentication;
+@*@inherits LayoutComponentBase*@
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">FuelStationWebClient</a>
+        <a class="navbar-brand" href="">Fuel Station</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,6 +58,15 @@
                 </div>
             </Authorized>
        </AuthorizeView>
+       
+             <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item px-3">
+                        <a @onclick="Logout" href="javascript:void(0)">Logout</a>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+            
        </CascadingAuthenticationState>
     </nav>
 </div>
@@ -65,5 +79,11 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task Logout() {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/", true);
     }
 }
