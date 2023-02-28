@@ -36,7 +36,7 @@ namespace FuelStation.Blazor.Server.Business {
                         CalculateMonthlyItemsCost(culcYear, culcMonth, transactions) +
                         CalculateOtherExpenses();
 
-                    MonthlyLedger monthlyLedger = new MonthlyLedger(culcYear, culcMonth, monthIncome, monthExpenses);
+                    MonthlyLedger monthlyLedger = new MonthlyLedger(culcYear, culcMonth, Math.Round(monthIncome,2), Math.Round(monthExpenses, 2));
                     monthlyLedgerList.Add(monthlyLedger);
                 }
             }

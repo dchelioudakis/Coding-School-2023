@@ -1,5 +1,6 @@
 ﻿using FuelStation.EF.Configurations;
 using FuelStation.Model;
+using FuelStation.Model.OptionsModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.EF.Context {
@@ -9,6 +10,7 @@ namespace FuelStation.EF.Context {
         public DbSet<Item> Items { get; set; } = null!;
         public DbSet<Transaction> Transactions { get; set; } = null!;
         public DbSet<TransactionLine> TransactionLines { get; set; } = null!;
+        public DbSet<StationSettings> Settings { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
@@ -16,6 +18,7 @@ namespace FuelStation.EF.Context {
             modelBuilder.ApplyConfiguration(new ItemConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionLineConfiguration());
+            modelBuilder.ApplyConfiguration(new StationSettingsConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 

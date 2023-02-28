@@ -35,10 +35,12 @@
                 <label class="form-label">Surname</label>
                 <InputText class="form-control" @bind-Value="@Customer.Surname" />
             </div>
-            <div class="col-md-4">
-                <label class="form-label">Card Number</label>
-                <InputText class="form-control" @bind-Value="@Customer.CardNumber" />
-            </div>
+            @if (Id != null) {
+                <div class="col-md-4">
+                    <label class="form-label">Card Number</label>
+                    <InputText class="form-control" disabled @bind-Value="@Customer.CardNumber" />
+                </div>
+            }
 
         </div>
          <div class="row mt-2">
@@ -58,6 +60,7 @@
     protected override async Task OnInitializedAsync() {
         if (Id == null) {
             Customer = new();
+            Customer.CardNumber = "";
         } else {
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
             if (Customer is null) {

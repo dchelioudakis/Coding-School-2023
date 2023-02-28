@@ -89,22 +89,30 @@ namespace FuelStation.Blazor.Server.Controllers {
             }
             catch (DbUpdateException exception) 
             when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
-                return BadRequest("Please try again");
+                return BadRequest("Duplicated Card Number. Please try again");
             }
         }
 
         // PUT /<EmployeeController>
         [HttpPut]
-        public async Task Put(CustomerEditDto customer) {
+        public async Task<ActionResult> Put(CustomerEditDto customer) {
             var dbCustomer = await Task.Run(() => { return _customerRepo.GetById(customer.Id); });
             if (dbCustomer == null) {
                 // TODO if customer is null
-                return;
+                return BadRequest("Error retrieving customer");
             }
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
-            //dbCustomer.CardNumber = customer.CardNumber;
-            _customerRepo.Update(customer.Id, dbCustomer);
+
+            try {
+                await Task.Run(() => { _customerRepo.Update(customer.Id, dbCustomer); });
+                return Ok(dbCustomer.Id);
+            }
+            catch (DbUpdateException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+            
         }
 
         // DELETE /<EmployeeController>/5
