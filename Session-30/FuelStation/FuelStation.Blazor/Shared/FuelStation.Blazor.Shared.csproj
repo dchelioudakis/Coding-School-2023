@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FuelStation.EF\FuelStation.EF.csproj" />
     <ProjectReference Include="..\..\FuelStation.Model\FuelStation.Model.csproj" />
   </ItemGroup>
 
