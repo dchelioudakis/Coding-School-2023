@@ -1,16 +1,11 @@
 ﻿using FuelStation.EF.Repositories;
 using FuelStation.Model;
-using FuelStation.Model.Enums;
 using FuelStation.Blazor.Shared.DTO.Customer;
-using FuelStation.Blazor.Shared.DTO.Employee;
-using FuelStation.Blazor.Shared.DTO.Item;
 using FuelStation.Blazor.Shared.DTO.Transaction;
 using FuelStation.Blazor.Shared.DTO.TransactionLine;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Common;
+using FuelStation.Blazor.Shared.Validator;
 
 namespace FuelStation.Blazor.Server.Controllers {
     [Route("[controller]")]
@@ -19,13 +14,15 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // Properties
         private readonly IEntityRepo<Transaction> _transactionRepo;
-        //private readonly IValidator _validator;
+        private readonly IEntityRepo<Item> _itemRepo;
+        private readonly IValidator _validator;
         private string _errorMessage;
 
         // Constructors
-        public TransactionController(IEntityRepo<Transaction> transactionRepo) {
+        public TransactionController(IEntityRepo<Transaction> transactionRepo, IEntityRepo<Item> itemRepo, IValidator validator) {
             _transactionRepo = transactionRepo;
-            //_validator = validator;
+            _itemRepo = itemRepo;
+            _validator = validator;
             _errorMessage = string.Empty;
         }
 
@@ -92,20 +89,20 @@ namespace FuelStation.Blazor.Server.Controllers {
                     TotalValue = transactionLine.TotalValue,
                 }).ToList()
             };
-            await Task.Run(() => { _transactionRepo.Add(newTransaction); });
-            return Ok();
-            //if (_validator.ValidateAddCustomer(_customerRepo.GetAll().ToList(), out _errorMessage)) {
-            //    try {
-            //        await Task.Run(() => { _customerRepo.Add(newCustomer); });
-            //        return Ok();
-            //    }
-            //    catch (DbException ex) {
-            //        return BadRequest(ex.Message);
-            //    }
-            //}
-            //else {
-            //    return BadRequest(_errorMessage);
-            //}
+            
+            if (_validator.ValidateTransaction(newTransaction, _itemRepo.GetAll().ToList(), out _errorMessage)) {
+                try {
+                    await Task.Run(() => { _transactionRepo.Add(newTransaction); });
+                    return Ok();
+                }
+                catch (DbException ex) {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else {
+                return BadRequest(_errorMessage);
+            }
+            
         }
 
         // PUT /<CustomersController>/5

@@ -9,14 +9,6 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
             context.Add(entity);
             context.SaveChanges();
-            //try {
-            //    context.SaveChanges();
-            //}
-            //catch (DbUpdateException exception)
-            //when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
-            //    throw;
-            //}
-
         }
 
         public void Delete(int id) {
