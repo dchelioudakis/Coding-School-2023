@@ -1,9 +1,16 @@
-﻿using FuelStation.Model;
+﻿using FuelStation.EF.Repositories;
+using FuelStation.Model;
+using FuelStation.Model.OptionsModel;
 using System;
 using System.Collections.Generic;
 
 namespace FuelStation.Blazor.Server.Business {
     public class MonthlyLedgerCalculator {
+
+        private StationSettings _stationSettings;
+        public MonthlyLedgerCalculator(StationSettings stationSettings) {
+            _stationSettings = stationSettings;
+        }
 
         public List<MonthlyLedger> GetAllMonthlyLedgers(IList<Employee> employees, IList<Transaction> dbTransactions) {
             List<Transaction> transactions = dbTransactions as List<Transaction>;
@@ -99,7 +106,7 @@ namespace FuelStation.Blazor.Server.Business {
             decimal total = 0;
 
             //TODO: settings
-            total += 5000; //Rental
+            total += _stationSettings.RentingCost; //Rental
 
             return total;
         }

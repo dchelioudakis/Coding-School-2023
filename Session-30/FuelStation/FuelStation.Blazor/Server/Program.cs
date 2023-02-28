@@ -3,6 +3,7 @@ using FuelStation.Blazor.Server.Authentication;
 using FuelStation.Blazor.Shared.Validator;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
+using FuelStation.Model.OptionsModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +15,7 @@ builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
+builder.Services.AddScoped<IEntityRepo<StationSettings>, StationSettingsRepo>();
 builder.Services.AddScoped<IValidator, Validator>();
 
 // Add services to the container.
