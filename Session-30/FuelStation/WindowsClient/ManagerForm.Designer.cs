@@ -64,7 +64,6 @@
             this.colTransactionDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionPaymentMethod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransactionTotalValue = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.tabSettings = new DevExpress.XtraBars.Navigation.NavigationPage();
             ((System.ComponentModel.ISupportInitialize)(this.grdCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navManager)).BeginInit();
@@ -160,14 +159,12 @@
             this.navManager.Controls.Add(this.Customers);
             this.navManager.Controls.Add(this.pageItems);
             this.navManager.Controls.Add(this.pageTransactions);
-            this.navManager.Controls.Add(this.tabSettings);
             this.navManager.Location = new System.Drawing.Point(12, 1);
             this.navManager.Name = "navManager";
             this.navManager.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.Customers,
             this.pageItems,
-            this.pageTransactions,
-            this.tabSettings});
+            this.pageTransactions});
             this.navManager.RegularSize = new System.Drawing.Size(1150, 596);
             this.navManager.SelectedPage = this.Customers;
             this.navManager.Size = new System.Drawing.Size(1150, 596);
@@ -233,7 +230,7 @@
             this.pageItems.Controls.Add(this.btnItemCreate);
             this.pageItems.Controls.Add(this.grdItems);
             this.pageItems.Name = "pageItems";
-            this.pageItems.Size = new System.Drawing.Size(1034, 523);
+            this.pageItems.Size = new System.Drawing.Size(1150, 596);
             // 
             // btnItemDelete
             // 
@@ -295,7 +292,7 @@
             this.grdItems.Location = new System.Drawing.Point(3, 45);
             this.grdItems.MainView = this.grvItems;
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(1028, 475);
+            this.grdItems.Size = new System.Drawing.Size(1144, 548);
             this.grdItems.TabIndex = 1;
             this.grdItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvItems});
@@ -363,7 +360,7 @@
             this.pageTransactions.Controls.Add(this.btnTransactionCreate);
             this.pageTransactions.Controls.Add(this.grdTransactions);
             this.pageTransactions.Name = "pageTransactions";
-            this.pageTransactions.Size = new System.Drawing.Size(1034, 523);
+            this.pageTransactions.Size = new System.Drawing.Size(1150, 596);
             // 
             // btnTransactionDelete
             // 
@@ -428,7 +425,7 @@
             this.grdTransactions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repEmployees,
             this.repCustomers});
-            this.grdTransactions.Size = new System.Drawing.Size(1028, 475);
+            this.grdTransactions.Size = new System.Drawing.Size(1144, 548);
             this.grdTransactions.TabIndex = 2;
             this.grdTransactions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvTransactions});
@@ -519,12 +516,6 @@
             this.colTransactionTotalValue.Visible = true;
             this.colTransactionTotalValue.VisibleIndex = 4;
             // 
-            // tabSettings
-            // 
-            this.tabSettings.Caption = "Settings";
-            this.tabSettings.Name = "tabSettings";
-            this.tabSettings.Size = new System.Drawing.Size(1034, 523);
-            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -593,7 +584,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colItemDescription;
         private DevExpress.XtraGrid.Columns.GridColumn colItemPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colItemCost;
-        private DevExpress.XtraBars.Navigation.NavigationPage tabSettings;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerId;
         private DevExpress.XtraGrid.Columns.GridColumn colItemType;
     }
