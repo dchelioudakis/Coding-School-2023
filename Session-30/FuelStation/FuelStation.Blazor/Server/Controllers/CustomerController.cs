@@ -13,14 +13,10 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // Properties
         private readonly IEntityRepo<Customer> _customerRepo;
-        //private readonly IValidator _validator;
-        private string _errorMessage;
 
         // Constructors
         public CustomerController(IEntityRepo<Customer> cutomerRepo) {
             _customerRepo = cutomerRepo;
-            //_validator = validator;
-            _errorMessage = string.Empty;
         }
 
         // GET: /<EmployeeController>
@@ -95,21 +91,6 @@ namespace FuelStation.Blazor.Server.Controllers {
             when (exception?.InnerException?.Message.Contains("Cannot insert duplicate key row in object") ?? false) {
                 return BadRequest("Please try again");
             }
-            
-
-            
-            //if (_validator.ValidateAddCustomer(_customerRepo.GetAll().ToList(), out _errorMessage)) {
-            //    try {
-            //        await Task.Run(() => { _customerRepo.Add(newCustomer); });
-            //        return Ok();
-            //    }
-            //    catch (DbException ex) {
-            //        return BadRequest(ex.Message);
-            //    }
-            //}
-            //else {
-            //    return BadRequest(_errorMessage);
-            //}
         }
 
         // PUT /<EmployeeController>
@@ -128,10 +109,19 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         // DELETE /<EmployeeController>/5
         [HttpDelete("{id}")]
-        public async Task Delete(int id) {
-            await Task.Run(() => {
-                _customerRepo.Delete(id);
-            });
+        public async Task<ActionResult> Delete(int id) {
+            try {
+                await Task.Run(() => { _customerRepo.Delete(id);});
+                return Ok();
+            }
+            catch (DbUpdateException) {
+                return BadRequest($"Could not delete this customer because they have transactions");
+            }
+            catch (KeyNotFoundException) {
+                return BadRequest($"Customer not found");
+            }
+            
+            
         }
     }
 }

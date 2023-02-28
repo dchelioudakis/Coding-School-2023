@@ -80,7 +80,8 @@
         if (response.IsSuccessStatusCode) {
             var newCustomerId = Int32.Parse(response.Content.ReadAsStringAsync().Result);
             navigationManager.NavigateTo($"customerlist/details/{newCustomerId}");
-        } else {
+        } 
+        else {
             var error = await response.Content.ReadAsStringAsync();
             await jsRuntime.InvokeVoidAsync("alert", error);
         }
