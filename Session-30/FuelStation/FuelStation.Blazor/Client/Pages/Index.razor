@@ -14,7 +14,7 @@
 <CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
-            <h1>Hello</h1>
+            <h1>Welcome to Fuel Station Web</h1>
             
         </Authorized>
 
@@ -46,7 +46,7 @@
 @code {
     private LoginRequest loginRequest = new LoginRequest();
     private EmployeeListDto _employee = new();
-    private UserSession _userSession;
+    private UserSession _userSession = new();
 
     private async Task Authenticate() {
         var loginResponse = await httpClient.PostAsJsonAsync<LoginRequest>("/Account/Login", loginRequest);
